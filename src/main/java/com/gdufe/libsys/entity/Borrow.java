@@ -10,64 +10,64 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author jonil
  * @since 2021-11-23
  */
 @Data
-  @EqualsAndHashCode(callSuper = false)
-  @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class Borrow implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-      /**
+    /**
      * 借阅号
      */
-        @TableId(value = "borrow_id", type = IdType.AUTO)
-      private Integer borrowId;
+    @TableId(value = "borrow_id", type = IdType.AUTO)
+    private Integer borrowId;
 
-      /**
+    /**
      * 书Id
      */
-      private Integer bookId;
+    private Integer bookId;
 
-      /**
+    /**
      * 读者Id
      */
-      private String readerId;
+    private String readerId;
 
-      /**
+    /**
      * 借书时间
      */
-      private LocalDateTime borrowTime;
+    private LocalDateTime borrowTime;
 
-      /**
+    /**
      * 还书时间
      */
-      private LocalDateTime returnTime;
+    private LocalDateTime returnTime;
 
-      /**
+    /**
      * 操作员
      */
-      private String operator;
+    private String operator;
 
-      /**
+    /**
      * 0时未存在罚款，大于0时存在罚款
      */
-      private Integer fine;
+    private Integer fine;
 
-      /**
+    /**
      * 0已借未还，1已还，2预约未拿
      */
-      private Integer status;
+    private Integer status;
 
-      /**
+    /**
      * 0无续借，1当前续借状态
      */
-      private Integer renew;
+    private Integer renew;
 
 
 }
