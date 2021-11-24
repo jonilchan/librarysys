@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>CRM-智能办公系统</title>
+    <title>广东财经大学图书管理系统</title>
     <#include "common.ftl">
 </head>
 <body class="layui-layout-body layuimini-all">
@@ -11,7 +11,7 @@
         <div class="layui-logo">
             <a href="">
                 <img src="images/logo.png" alt="logo">
-                <h1>CRM-智能办公</h1>
+                <h1>图书馆</h1>
             </a>
         </div>
         <a>

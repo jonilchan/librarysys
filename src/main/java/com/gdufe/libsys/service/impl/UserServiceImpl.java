@@ -1,6 +1,10 @@
 package com.gdufe.libsys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.mapper.UserMapper;
 import com.gdufe.libsys.service.UserService;
@@ -28,10 +32,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User login(String username, String userPassword) {
-        User user = userMapper.selectById(username);
+        QueryWrapper<User> wrapper = new QueryWrapper();
+        wrapper.ge("user_id", username);
+        User user = userMapper.selectOne(wrapper);
 //        AssertUtil.isTrue(Md5Util.encode(userPassword).equals(user.getUserPassword()), "密码错误！请检查是否输入正确");
 //        AssertUtil.isTrue(userPassword.equals(user.getUserPassword()), "密码错误！请检查是否输入正确");
-        if (userPassword.equals(user.getUserPassword())){
+        if (userPassword.equals(user.getUserPassword())) {
             return user;
         }
         return null;

@@ -8,7 +8,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
     form.on('submit(login)', function (data) {
         data = data.field;
         if ( data.username =="undefined" || data.username =="" || data.username.trim()=="") {
-            layer.msg('用户名不能为空');
+            layer.msg('用户ID不能为空');
             return false;
         }
         if ( data.password =="undefined" || data.password =="" || data.password.trim()=="")  {
@@ -19,7 +19,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
         var index= top.layer.msg("登录中,请稍后...",{icon:16,time:false,shade:0.8});
         $.ajax({
             type:"post",
-            url:ctx + "/user/login",
+            url:ctx+"/user/login",
             data:{
                 userName:data.username,
                 userPassword:data.password

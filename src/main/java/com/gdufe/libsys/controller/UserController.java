@@ -38,6 +38,7 @@ public class UserController extends BaseController{
         User loginResult = userService.login(userName, userPassword);
         //放置结果
         resultInfo.setResult(loginResult);
+        resultInfo.setCode(200);
         //返回操作结果
         return resultInfo;
     }
