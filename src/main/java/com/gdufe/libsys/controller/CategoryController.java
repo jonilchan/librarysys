@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/category")
-public class CategoryController {
+public class CategoryController extends BaseController {
 
 }
 

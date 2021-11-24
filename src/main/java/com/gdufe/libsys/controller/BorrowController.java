@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/borrow")
-public class BorrowController {
+public class BorrowController extends BaseController {
 
 }
 

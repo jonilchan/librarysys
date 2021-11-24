@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/bookInfo")
-public class BookInfoController {
+public class BookInfoController extends BaseController {
 
 }
 
