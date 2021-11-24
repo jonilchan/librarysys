@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class IndexController {
+public class IndexController extends BaseController {
+
     @Resource
     private UserService userService;
 
-    //系统主页
+
     @GetMapping("index")
     public String index(){
         return "index";
