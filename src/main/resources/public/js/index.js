@@ -19,7 +19,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
         var index= top.layer.msg("登录中,请稍后...",{icon:16,time:false,shade:0.8});
         $.ajax({
             type:"post",
-            url:ctx+"/user/login",
+            url:ctx + "/user/login",
             data:{
                 userName:data.username,
                 userPassword:data.password

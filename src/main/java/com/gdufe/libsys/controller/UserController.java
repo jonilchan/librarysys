@@ -30,12 +30,12 @@ public class UserController extends BaseController{
     //用户登录
     @PostMapping("/login")
     @ResponseBody
-    public ResultInfo login(String username,String userPassword){
+    public ResultInfo login(String userName,String userPassword){
         //用于放置结果信息
         ResultInfo resultInfo = new ResultInfo();
 
         //获取结果
-        User loginResult = userService.login(username, userPassword);
+        User loginResult = userService.login(userName, userPassword);
         //放置结果
         resultInfo.setResult(loginResult);
         //返回操作结果

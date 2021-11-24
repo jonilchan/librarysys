@@ -11,8 +11,8 @@ public class BaseController {
 
 
     @ModelAttribute
-    public void preHandler(HttpServletRequest request, Model model){
-        request.setAttribute("ctx", request.getContextPath() + "public/");
+    public void preHandler(HttpServletRequest request){
+        request.setAttribute("ctx", request.getContextPath());
     }
 
 
