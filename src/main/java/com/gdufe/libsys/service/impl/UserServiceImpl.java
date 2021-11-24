@@ -27,8 +27,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Override
-    public User login(String userID, String userPassword) {
-        User user = userMapper.selectById(userID);
+    public User login(String username, String userPassword) {
+        User user = userMapper.selectById(username);
 //        AssertUtil.isTrue(Md5Util.encode(userPassword).equals(user.getUserPassword()), "密码错误！请检查是否输入正确");
 //        AssertUtil.isTrue(userPassword.equals(user.getUserPassword()), "密码错误！请检查是否输入正确");
         if (userPassword.equals(user.getUserPassword())){
