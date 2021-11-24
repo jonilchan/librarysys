@@ -15,10 +15,4 @@ public class Md5Util {
 			return null;
 		}
 	}
-	
-	
-	public static void main(String[] args) {
-		System.out.println(encode("123456"));
-	}
-
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>后台管理-登陆</title>
+    <title>广东财经大学图书管理系统</title>
     <#include "common.ftl">
     <link rel="stylesheet" href="${ctx}/css/index.css" media="all">
     <style>
@@ -28,11 +28,11 @@
         <div class="layui-form login-form">
             <form class="layui-form" action="">
                 <div class="layui-form-item logo-title">
-                    <h1>CRM后端登录</h1>
+                    <h1>广东财经大学图书管理系统</h1>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
-                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" >
+                    <input type="text" name="username" lay-verify="required|account" placeholder="用户ID" autocomplete="off" class="layui-input" >
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" for="password"></label>
