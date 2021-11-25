@@ -1,6 +1,5 @@
 package com.gdufe.libsys.utils;
 
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Base64;
 
@@ -13,7 +12,7 @@ public class UserIDBase64 {
      * @return
      */
 	public static Integer decoderUserID(String encodedUserID)  {
-		if (StringUtils.isBlank(encodedUserID)) {
+		if (encodedUserID.equals("") || encodedUserID == null) {
 			return null;
 		}
 		try {
@@ -44,10 +43,5 @@ public class UserIDBase64 {
 			ordedBytes[i] = codeBytes[codeBytes.length-i-1];
 		}
 		return new String(ordedBytes).replaceAll("=", "#");
-	}
-
-	public static void main(String[] args) {
-		System.out.println(encoderUserID(20));
-		System.out.println(decoderUserID("#AjMzgjM##QN1AjN4gTOzgjM3UTM"));
 	}
 }

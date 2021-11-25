@@ -20,8 +20,4 @@ public class PhoneUtil {
         }
         return b;
     }
-
-    public static void main(String[] args) {
-        System.out.println(isMobile("19699999999"));
-    }
 }

@@ -14,12 +14,12 @@ public class LoginUserUtil {
      * @param request
      * @return
      */
-//    public static int releaseUserIdFromCookie(HttpServletRequest request) {
-//        String userIdString = CookieUtil.getCookieValue(request, "userId");
-//        if (StringUtils.isBlank(userIdString)) {
-//            return 0;
-//        }
-//        Integer userId = UserIDBase64.decoderUserID(userIdString);
-//        return userId;
-//    }
+    public static int releaseUserIdFromCookie(HttpServletRequest request) {
+        String userIdString = CookieUtil.getCookieValue(request, "userId");
+        if (userIdString.equals("") || userIdString == null) {
+            return 0;
+        }
+        Integer userId = UserIDBase64.decoderUserID(userIdString);
+        return userId;
+    }
 }

@@ -2,6 +2,7 @@ package com.gdufe.libsys.service;
 
 import com.gdufe.libsys.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gdufe.libsys.utils.ResultInfo;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
     User login(String username, String userPassword);
+    void updateUserPassword(String userId,String userOldPassword,String newPassword,String confirmPassword);
 }

@@ -1,5 +1,6 @@
 package com.gdufe.libsys.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.LoginUserUtil;
@@ -33,6 +34,9 @@ public class IndexController extends BaseController {
     @GetMapping(value = {"/","main"})
     public String admin(HttpServletRequest request) {
 
+//        Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
+//        User user = userService.selectByUserID(userId);
+//        request.setAttribute("user", user);
         return "main";
     }
 }
