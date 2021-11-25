@@ -33,7 +33,7 @@ public class UserController extends BaseController{
     //用户登录
     @PostMapping("/login")
     @ResponseBody
-    public ResultInfo login(String userName,String userPassword){
+    public ResultInfo login(HttpServletRequest request, String userName,String userPassword){
         //用于放置结果信息
         ResultInfo resultInfo = new ResultInfo();
         //获取结果
@@ -41,6 +41,7 @@ public class UserController extends BaseController{
         //放置结果
         resultInfo.setResult(loginResult);
         resultInfo.setCode(200);
+        request.setAttribute("userId", userName);
         //返回操作结果
         return resultInfo;
     }
@@ -54,7 +55,7 @@ public class UserController extends BaseController{
 
         //更新密码操作
 //        userService.updateUserPassword(LoginUserUtil.releaseUserIdFromCookie(request), oldPassword, newPassword, confirmPassword);
-        userService.updateUserPassword("1", oldPassword, newPassword, confirmPassword);
+        userService.updateUserPassword(request.getAttribute("userId").toString(), oldPassword, newPassword, confirmPassword);
 
         //返回操作结果
         return resultInfo;

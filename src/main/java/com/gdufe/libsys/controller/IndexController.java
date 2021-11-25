@@ -33,10 +33,10 @@ public class IndexController extends BaseController {
     //后台管理页
     @GetMapping(value = {"/","main"})
     public String admin(HttpServletRequest request) {
-
 //        Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
-//        User user = userService.selectByUserID(userId);
-//        request.setAttribute("user", user);
+        User user = userService.getById(userId);
+        request.setAttribute("user", user);
+        request.setAttribute("userId", userId);
         return "main";
     }
 }
