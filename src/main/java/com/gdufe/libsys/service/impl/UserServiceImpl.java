@@ -33,19 +33,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     //用户登录
     @Override
-    public User login(String username, String userPassword) {
+    public ResultInfo login(String userId, String userPassword) {
 
+        ResultInfo resultInfo = new ResultInfo();
         //数据库查询用户信息
-        User user = userMapper.selectById(username);
-
-        //判断用户名、密码是否为空
-        AssertUtil.isTrue((username.equals("") || username == null), "用户名为空！");
-        AssertUtil.isTrue((userPassword.equals("") || userPassword == null), "密码为空！");
-
+        User user = userMapper.selectById(userId);
+        if (user == null){
+            resultInfo.setCode(201);
+            resultInfo.setMsg("不存在该用户");
+            return resultInfo;
+        }
         //检查密码是否错误
-        AssertUtil.isTrue(Md5Util.encode(userPassword).equals(user.getUserPassword()), "密码错误！请检查是否输入正确");
-
-        return user;
+        else if (!Md5Util.encode(userPassword).equals(user.getUserPassword())){
+            resultInfo.setCode(202);
+            resultInfo.setMsg("密码错误");
+            return resultInfo;
+        }
+        resultInfo.setCode(200);
+        resultInfo.setResult(user);
+        return resultInfo;
     }
 
     //修改用户密码
@@ -70,5 +76,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         AssertUtil.isTrue(!(user.getUserPassword().equals(Md5Util.encode(userOldPassword))), "旧密码错误！");
         //进行更新密码操作
         user.setUserPassword(Md5Util.encode(newPassword));
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        userMapper.update(user, wrapper);
     }
 }

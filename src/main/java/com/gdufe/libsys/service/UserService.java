@@ -13,6 +13,6 @@ import com.gdufe.libsys.utils.ResultInfo;
  * @since 2021-11-23
  */
 public interface UserService extends IService<User> {
-    User login(String username, String userPassword);
+    ResultInfo login(String username, String userPassword);
     void updateUserPassword(String userId,String userOldPassword,String newPassword,String confirmPassword);
 }

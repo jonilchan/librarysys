@@ -12,7 +12,7 @@ layui.use(['element', 'layer', 'layuimini','jquery','jquery_cookie'], function (
             $.removeCookie("userId",{path:"/"})
             $.removeCookie("userName",{path:"/"})
             $.removeCookie("trueName",{path:"/"})
-            window.parent.location.href = ctx + "/";
+            window.parent.location.href = ctx + "/index";
             layer.close(index);
         });
 

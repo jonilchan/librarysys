@@ -22,7 +22,7 @@
                 <a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
             </li>
             <li class="layui-nav-item layuimini-setting">
-                <a href="javascript:;">${(user.userName)!""}</a>
+                <a href="javascript:;">${(user.userName)!"未登录"}</a>
                 <dl class="layui-nav-child">
                     <dd>
                         <a href="javascript:;" data-iframe-tab="${ctx}/user/toPasswordPage" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
