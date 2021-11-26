@@ -12,7 +12,7 @@
 <div class="stars">
     <div class="central-body">
         <img class="image-404" src="/images/404/404.svg" width="300px">
-        <a href="/" class="btn-go-home">返回主页</a>
+        <a href="/index" class="btn-go-home">返回主页</a>
     </div>
     <div class="objects">
         <img class="object_rocket" src="/images/404/rocket.svg" width="40px">
