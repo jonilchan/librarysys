@@ -1,4 +1,4 @@
-package com.gdufe.libsys.controller;
+package com.gdufe.libsys.base;
 
 
 import com.gdufe.libsys.utils.ResultInfo;

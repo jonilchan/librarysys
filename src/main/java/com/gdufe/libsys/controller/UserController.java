@@ -1,5 +1,6 @@
 package com.gdufe.libsys.controller;
 
+import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.ResultInfo;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 
     @Resource
     private UserService userService;

@@ -1,5 +1,6 @@
 package com.gdufe.libsys.controller;
 
+import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.service.UserService;
 import org.springframework.stereotype.Controller;

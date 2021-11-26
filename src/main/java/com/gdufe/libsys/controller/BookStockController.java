@@ -1,6 +1,7 @@
 package com.gdufe.libsys.controller;
 
 
+import com.gdufe.libsys.base.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
