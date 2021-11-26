@@ -3,6 +3,7 @@ package com.gdufe.libsys.controller;
 import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.service.UserService;
+import com.gdufe.libsys.utils.LoginUserUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -31,6 +32,7 @@ public class IndexController extends BaseController {
     //后台管理页
     @GetMapping(value = {"/","main"})
     public String admin(HttpServletRequest request) {
+//        Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
         String userId = request.getSession().getAttribute("userId").toString();
         User user = userService.getById(userId);
         request.setAttribute("user", user);
