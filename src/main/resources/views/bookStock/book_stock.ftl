@@ -10,9 +10,10 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="isbn"
-                           class="layui-input
-					searchVal" placeholder="isbn"/>
+<#--                    <input type="text" name="isbn"-->
+<#--                           class="layui-input-->
+<#--					searchVal" placeholder="isbn"/>-->
+                    <p>ISBN：${(isbn)!"获取错误"}&nbsp;</p>
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" name="bookName" class="layui-input
@@ -47,7 +48,7 @@
         <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/bookStock/user.js"></script>
+<script type="text/javascript" src="${ctx}/js/bookStock/bookStock.js"></script>
 
 </body>
 </html>

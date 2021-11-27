@@ -51,7 +51,7 @@
         <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/book/user.js"></script>
+<script type="text/javascript" src="${ctx}/js/book/bookInfo.js"></script>
 
 </body>
 </html>

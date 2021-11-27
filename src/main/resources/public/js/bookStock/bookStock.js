@@ -16,7 +16,7 @@ layui.use(['table', 'layer', "form"], function () {
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
-            {field: "isbn", title: '编号', fixed: "true", width: 150},
+            // {field: "isbn", title: 'isbn', fixed: "true", width: 150},
             {field: 'status', title: '借阅状态', minWidth: 50, align: "center"},
             {field: 'bookLocation', title: '馆藏地址', minWidth: 50, align: "center"},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}

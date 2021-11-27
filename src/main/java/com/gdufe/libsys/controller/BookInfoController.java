@@ -1,13 +1,10 @@
 package com.gdufe.libsys.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.base.BaseController;
-import com.gdufe.libsys.entity.BookStock;
 import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.service.BookInfoService;
 import com.gdufe.libsys.service.BookStockService;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -47,7 +44,7 @@ public class BookInfoController extends BaseController {
     //用户页
     @GetMapping("/index")
     public String index(){
-        return "book/user";
+        return "book/book_info";
     }
 
 

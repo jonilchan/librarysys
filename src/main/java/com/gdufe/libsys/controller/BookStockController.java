@@ -1,12 +1,9 @@
 package com.gdufe.libsys.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.base.BaseController;
-import com.gdufe.libsys.entity.BookStock;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.service.BookStockService;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,7 +37,7 @@ public class BookStockController extends BaseController {
         System.out.println("=============="+isbn);
         request.setAttribute("isbn",isbn);
         this.isbn = isbn;
-        return "bookStock/user";
+        return "bookStock/book_stock";
 //        return "bookStock/user";
     }
 
