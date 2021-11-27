@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>用户管理</title>
+    <title>图书归还</title>
     <#include "../common.ftl">
 </head>
 <body class="childrenBody">
@@ -31,23 +31,15 @@
 
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
-            <a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">
-                <i class="layui-icon">&#xe608;</i>
-                添加用户
-            </a>
-            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">
-                <i class="layui-icon">&#xe608;</i>
-                删除用户
-            </a>
         </div>
     </script>
     <!--操作-->
     <script id="userListBar" type="text/html">
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-xs" id="edit" lay-event="giveback">归还</a>
+        <a class="layui-btn layui-btn-xs" id="edit" lay-event="renew">续借</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/book/user.js"></script>
+<script type="text/javascript" src="${ctx}/js/borrow/giveback.js"></script>
 
 </body>
 </html>

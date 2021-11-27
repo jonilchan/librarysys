@@ -1,6 +1,7 @@
 package com.gdufe.libsys.controller;
 
 import com.gdufe.libsys.base.BaseController;
+import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.ResultInfo;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,10 +48,18 @@ public class UserController extends BaseController {
     @ResponseBody
     public ResultInfo updateUserInfo(HttpServletRequest request, String oldPassword, String newPassword, String confirmPassword){
         //用于放置结果信息
-        ResultInfo resultInfo = new ResultInfo();
+        ResultInfo resultInfo = new ResultInfo(200);
         //更新密码操作
         userService.updateUserPassword(request.getSession().getAttribute("userId").toString(), oldPassword, newPassword, confirmPassword);
         //返回操作结果
+        return resultInfo;
+    }
+
+    @RequestMapping("/updateInfo")
+    @ResponseBody
+    public ResultInfo updateInfo(HttpServletRequest request, String username, String phone){
+        ResultInfo resultInfo = new ResultInfo(200);
+        userService.updateInfo(request.getSession().getAttribute("userId").toString(), username, phone);
         return resultInfo;
     }
 
@@ -59,5 +68,15 @@ public class UserController extends BaseController {
     public String toPasswordPage(){
         return "user/password";
     }
+
+    //更新用户信息
+    @RequestMapping("/toInfoPage")
+    public String toInfoPage(HttpServletRequest request){
+        User user = userService.getById(request.getSession().getAttribute("userId").toString());
+        request.getSession().setAttribute("user", user);
+        return "user/Info";
+    }
+
+    @RequestMapping("/toManagePage")
 }
 

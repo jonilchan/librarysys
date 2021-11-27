@@ -39,7 +39,6 @@ public class IndexController extends BaseController {
     //后台管理页
     @GetMapping(value = {"/","main"})
     public String admin(HttpServletRequest request) {
-//        Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
         String userId = request.getSession().getAttribute("userId").toString();
         User user = userService.getById(userId);
         request.setAttribute("user", user);

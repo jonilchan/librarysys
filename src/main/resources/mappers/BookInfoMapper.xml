@@ -162,7 +162,7 @@
     where isbn = #{isbn,jdbcType=VARCHAR}
   </update>
 
-  <!--     通过传入参数查询用户 -->
+  <!-- 通过传入参数查询图书列表 -->
   <select id="selectByParams" parameterType="com.gdufe.libsys.entity.BookInfo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>

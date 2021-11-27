@@ -15,4 +15,5 @@ import com.gdufe.libsys.utils.ResultInfo;
 public interface UserService extends IService<User> {
     ResultInfo login(String username, String userPassword);
     void updateUserPassword(String userId,String userOldPassword,String newPassword,String confirmPassword);
+    void updateInfo(String userId, String username, String phone);
 }

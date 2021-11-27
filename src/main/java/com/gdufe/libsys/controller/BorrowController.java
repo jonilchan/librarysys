@@ -44,10 +44,18 @@ public class BorrowController extends BaseController {
         return new ResultInfo(200);
     }
 
+    @RequestMapping("/list")
+    public
+
     //借书、预约页
-    @RequestMapping("index")
+    @RequestMapping("/index")
     public String borrowIndex(){
         return "/borrow/borrow";
+    }
+
+    @RequestMapping("giveback")
+    public String giveback(){
+        return "/borrow/giveback";
     }
 }
 

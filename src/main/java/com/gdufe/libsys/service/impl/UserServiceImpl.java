@@ -71,4 +71,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         wrapper.eq("user_id", userId);
         userMapper.update(user, wrapper);
     }
+
+    @Override
+    public void updateInfo(String userId, String username, String phone) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        User user = userMapper.selectById(userId);
+        user.setUserName(username);
+        user.setPhone(phone);
+        userMapper.updateById(user);
+    }
 }
