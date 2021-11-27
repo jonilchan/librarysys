@@ -12,11 +12,11 @@
                 <div class="layui-input-inline">
                     <input type="text" name="isbn"
                            class="layui-input
-					searchVal" placeholder="ISBN"/>
+					searchVal" placeholder="isbn"/>
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" name="bookName" class="layui-input
-					searchVal" placeholder="书名"/>
+					searchVal" placeholder="bookId"/>
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" name="author" class="layui-input
@@ -39,10 +39,6 @@
                 <i class="layui-icon">&#xe608;</i>
                 图书出库
             </a>
-            <a class="layui-btn layui-btn-normal stock_btn" lay-event="stockInfo">
-                <i class="layui-icon">&#xe608;</i>
-                库存详情
-            </a>
         </div>
     </script>
     <!--操作-->
@@ -51,7 +47,7 @@
         <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/book/user.js"></script>
+<script type="text/javascript" src="${ctx}/js/bookStock/user.js"></script>
 
 </body>
 </html>

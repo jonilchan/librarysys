@@ -2,10 +2,10 @@ layui.use(['table', 'layer', "form"], function () {
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         table = layui.table;
-    //图书列表展示
+
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/book/list',
+        url: ctx + '/bookStock/list',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -15,39 +15,10 @@ layui.use(['table', 'layer', "form"], function () {
         id: "userListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
-            {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
-            {field: 'categoryId', title: '类别', minWidth: 50, align: "center", templet : function(data) {// 替换数据
-                    if(data.categoryId==0){
-                        return "科幻";
-                    }else if(data.categoryId==1){
-                        return "小说";
-                    }else if(data.categoryId==2){
-                        return "散文";
-                    }
-                }
-            },
-            {field: 'author', title: '作者', minWidth: 100, align: 'center'},
-            {field: 'publisher', title: '出版社', minWidth: 100, align: 'center'},
-            {field: 'totalStock', title: '总库存', align: 'center'},
-            {field: 'bookLocation', title: '馆藏地址', align: 'center', templet : function(data) {// 替换数据
-                    if(data.bookLocation==0){
-                        return "三水";
-                    }else if(data.bookLocation==1){
-                        return "广州";
-                    }else if(data.bookLocation==2){
-                        return "山水、广州";
-                    }
-                }},
-            {field: 'presentStock', title: '当前库存', align: 'center'},
-            {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
-                    if(data.status==0){
-                        return "正常";
-                    }else if(data.status==1){
-                        return "暂停借阅";
-                    }
-                }},
-            {field: 'enterTime', title: '入库时间', align: 'center', width: 120},
+            {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
+            {field: "isbn", title: '编号', fixed: "true", width: 150},
+            {field: 'status', title: '借阅状态', minWidth: 50, align: "center"},
+            {field: 'bookLocation', title: '馆藏地址', minWidth: 50, align: "center"},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
@@ -144,27 +115,6 @@ layui.use(['table', 'layer', "form"], function () {
         }
     });
 
-    //弹出框
-    function openAddOrUpdateBookStock(data) {
-        // console.log(data[0].id)
-        if (data.length == 0) {
-            layer.msg("请选择需要查看的图书!");
-            return;
-        }
-        if (data.length > 1) {
-            layer.msg("不支持批量查看!");
-            return;
-        }
-        var title = "图书库存记录";
-        // alert(data[0].isbn)
-        layui.layer.open({
-            title: title,
-            type: 2,
-            area: ["800px", "600px"],
-            maxmin: true,
-            content: ctx + "/bookStock/info?isbn=" + data[0].isbn
-        })
-    }
 
     //弹出框
     function openAddOrUpdateUserDialog(id) {
@@ -182,4 +132,7 @@ layui.use(['table', 'layer', "form"], function () {
             content: url
         })
     }
+
+
+
 });
