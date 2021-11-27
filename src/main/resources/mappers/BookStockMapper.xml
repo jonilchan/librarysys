@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdufe.libsys.mapper.BookStockMapper">
+  <resultMap id="BaseResultMap" type="com.gdufe.libsys.entity.BookStock">
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="book_location" jdbcType="INTEGER" property="bookLocation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    book_id, isbn, status, book_location
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_stock
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book_stock
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdufe.libsys.entity.BookStock">
+    insert into book_stock (book_id, isbn, status, 
+      book_location)
+    values (#{bookId,jdbcType=INTEGER}, #{isbn,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{bookLocation,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdufe.libsys.entity.BookStock">
+    insert into book_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        book_id,
+      </if>
+      <if test="isbn != null">
+        isbn,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="bookLocation != null">
+        book_location,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="isbn != null">
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bookLocation != null">
+        #{bookLocation,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdufe.libsys.entity.BookStock">
+    update book_stock
+    <set>
+      <if test="isbn != null">
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bookLocation != null">
+        book_location = #{bookLocation,jdbcType=INTEGER},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdufe.libsys.entity.BookStock">
+    update book_stock
+    set isbn = #{isbn,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      book_location = #{bookLocation,jdbcType=INTEGER}
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectAll" parameterType="com.gdufe.libsys.entity.BookStock" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from book_stock
+      <where>
+
+        <if test="null !=isbn and isbn !=''">
+          and isbn like concat('%',#{isbn},'%')
+        </if>
+
+      </where>
+    </select>
+
+<!--  <select id="selectByParams" parameterType="com.gdufe.libsys.entity.BookInfo" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List"/>-->
+<!--    from book_stock-->
+<!--    <where>-->
+
+<!--      <if test="null !=isbn and isbn !=''">-->
+<!--        and isbn like concat('%',#{isbn},'%')-->
+<!--      </if>-->
+<!--      <if test="null !=bookName and bookName !=''">-->
+<!--        and book_name like concat('%',#{bookName},'%')-->
+<!--      </if>-->
+<!--      <if test="null !=author and author !=''">-->
+<!--        and author like concat('%',#{author},'%')-->
+<!--      </if>-->
+
+<!--    </where>-->
+<!--  </select>-->
+</mapper>

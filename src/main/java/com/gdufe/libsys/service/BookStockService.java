@@ -2,6 +2,9 @@ package com.gdufe.libsys.service;
 
 import com.gdufe.libsys.entity.BookStock;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gdufe.libsys.query.BookStockQuery;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BookStockService extends IService<BookStock> {
 
+    public Map<String, Object> selectAll(BookStockQuery bookStockQuery);
 }
