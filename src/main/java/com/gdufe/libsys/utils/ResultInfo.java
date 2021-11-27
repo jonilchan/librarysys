@@ -6,6 +6,13 @@ public class ResultInfo {
 
     private Object result;
 
+    public ResultInfo() {
+    }
+
+    public ResultInfo(Integer code) {
+        this.code = code;
+    }
+
     public Object getResult() {
         return result;
     }
