@@ -12,7 +12,7 @@
                 <div class="layui-input-inline">
                     <input type="text" name="isbn"
                            class="layui-input
-					searchVal" placeholder="isbn"/>
+					searchVal" placeholder="ISBN"/>
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" name="bookName" class="layui-input

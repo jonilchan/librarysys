@@ -28,7 +28,10 @@
                         <a href="javascript:;" data-iframe-tab="${ctx}/user/toPasswordPage" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
                     </dd>
                     <dd>
-                        <a href="javascript:" class="login-out">退出登录</a>
+                        <a href="javascript:;" data-iframe-tab="${ctx}/user/toInfoPage" data-title="修改信息" data-icon="fa fa-gears">修改信息</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" data-iframe-tab="${ctx}/index" data-title="登录"  data-icon="fa fa-gears" class="login-out">退出登录</a>
                     </dd>
                 </dl>
             </li>

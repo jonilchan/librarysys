@@ -25,7 +25,14 @@ public class IndexController extends BaseController {
 
     //系统欢迎页
     @GetMapping("welcome")
-    public String welcome(){
+    public String welcome(HttpServletRequest request){
+        String userId = request.getSession().getAttribute("userId").toString();
+        User user = userService.getById(userId);
+        request.setAttribute("user", user);
+        String[] identity = {"学生", "老师", "图书管理员", "系统管理员"};
+        String[] status = {"正常", "挂失", "注销", "暂停借阅"};
+        request.setAttribute("identity", identity[user.getIdentity()]);
+        request.setAttribute("status", status[user.getStatus()]);
         return "welcome";
     }
 

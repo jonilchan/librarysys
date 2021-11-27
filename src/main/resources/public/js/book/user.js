@@ -2,7 +2,7 @@ layui.use(['table', 'layer', "form"], function () {
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         table = layui.table;
-    //用户列表展示
+    //图书列表展示
     var tableIns = table.render({
         elem: '#userList',
         url: ctx + '/book/list',
@@ -15,17 +15,39 @@ layui.use(['table', 'layer', "form"], function () {
         id: "userListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: "isbn", title: '编号', fixed: "true", width: 150},
+            {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
             {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
-            {field: 'categoryId', title: '类别', minWidth: 50, align: "center"},
+            {field: 'categoryId', title: '类别', minWidth: 50, align: "center", templet : function(data) {// 替换数据
+                    if(data.categoryId==0){
+                        return "科幻";
+                    }else if(data.categoryId==1){
+                        return "小说";
+                    }else if(data.categoryId==2){
+                        return "散文";
+                    }
+                }
+            },
             {field: 'author', title: '作者', minWidth: 100, align: 'center'},
             {field: 'publisher', title: '出版社', minWidth: 100, align: 'center'},
             {field: 'totalStock', title: '总库存', align: 'center'},
-            {field: 'bookLocation', title: '馆藏地址', align: 'center'},
+            {field: 'bookLocation', title: '馆藏地址', align: 'center', templet : function(data) {// 替换数据
+                    if(data.bookLocation==0){
+                        return "三水";
+                    }else if(data.bookLocation==1){
+                        return "广州";
+                    }else if(data.bookLocation==2){
+                        return "山水、广州";
+                    }
+                }},
             {field: 'presentStock', title: '当前库存', align: 'center'},
-            {field: 'status', title: '状态', align: 'center'},
+            {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
+                    if(data.status==0){
+                        return "正常";
+                    }else if(data.status==1){
+                        return "暂停借阅";
+                    }
+                }},
             {field: 'enterTime', title: '入库时间', align: 'center', width: 120},
-
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
@@ -135,6 +157,4 @@ layui.use(['table', 'layer', "form"], function () {
             content: url
         })
     }
-
-
 });

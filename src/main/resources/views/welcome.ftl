@@ -11,22 +11,15 @@
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md12">
             <blockquote class="layui-elem-quote main_btn">
-                <p>此CRM客户关系管理系统采用： </p>
-                <p>0.springboot</p>
-                <p>1.前端模板 layui  <a class="layui-btn layui-btn-xs layui-btn-danger" target="_blank" href="http://www.layui.com/doc">layui文档</a></p>
-                <p>2.持久层 mybatis-plus  <a class="layui-btn layui-btn-xs layui-btn-danger" target="_blank" href="https://baomidou.com/guide/">mybatis-plus文档</a></p>
-                <p>3.模板引擎 freemark  <a class="layui-btn layui-btn-xs layui-btn-danger" target="_blank" href="http://freemarker.foofun.cn/">freemark文档</a></p>
-                <p>4.生成目录树插件 Z-tree  <a class="layui-btn layui-btn-xs layui-btn-danger" target="_blank" href="http://www.treejs.cn/v3/faq.php#_206">Z-tree文档</a></p>
-                <p>5.数据连接池 Druid  <a class="layui-btn layui-btn-xs layui-btn-danger" target="_blank" href="https://github.com/alibaba/druid/">Druid文档</a></p>
-                <p>6.接口测试工具 swagger2  <a class="layui-btn layui-btn-xs layui-btn-danger" target="_blank" href="https://swagger.io/">swagger文档</a></p>
-                <p>7.图标展示工具 echars  <a class="layui-btn layui-btn-xs layui-btn-danger" target="_blank" href="https://swagger.io/">echars文档</a></p>
-                <p>8.分页工具 PageHelper</p>
-                <p>9.插件（注解生成get set方法）Lombok</p>
-
-
-                <p>github    <a class="layui-btn layui-btn-xs layui-btn-normal" target="_blank" href="https://github.com/ChangeWeDer/crm">github地址</a></p>
-                
-                <p>gitee     <a class="layui-btn layui-btn-xs layui-btn-normal" target="_blank" href="https://gitee.com/changeWeder/crm">gitee地址</a></p>
+                <img src="/images/GdufeLibraryLogo.png">
+                <p></p>
+                <p></p>
+                <p></p>
+                <p>姓名：${(user.userName)!"获取错误"}</p>
+                <p>电话：${(user.phone)!"获取错误"}</p>
+                <p>身份：${(identity)!"获取错误"}</p>
+                <p>状态：${(status)!"获取错误"}</p>
+                <p>罚款：${(null)!"获取错误"}</p>
             </blockquote>
         </div>
     </div>
