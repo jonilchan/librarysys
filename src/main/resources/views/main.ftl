@@ -47,16 +47,15 @@
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-3"
                            data-tab="customer/index" target="_self"><i class="fa fa-exchange"></i><span
-                                    class="layui-left-nav"> 客户信息管理</span></a>
+                                    class="layui-left-nav">客户信息管理</span></a>
 
                     </li>
 
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="user/index" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">登录用户管理</span></a>
-
+                           data-tab="user/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                                    class="layui-left-nav">用户管理</span></a>
                     </li>
 
                     <li class="layui-nav-item">

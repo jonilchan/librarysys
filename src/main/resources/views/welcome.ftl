@@ -12,9 +12,7 @@
         <div class="layui-col-md12">
             <blockquote class="layui-elem-quote main_btn">
                 <img src="/images/GdufeLibraryLogo.png">
-                <p></p>
-                <p></p>
-                <p></p>
+                <br/><br/><br/>
                 <p>姓名：${(user.userName)!"获取错误"}</p>
                 <p>电话：${(user.phone)!"获取错误"}</p>
                 <p>身份：${(identity)!"获取错误"}</p>
