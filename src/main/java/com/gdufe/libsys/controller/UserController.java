@@ -2,6 +2,7 @@ package com.gdufe.libsys.controller;
 
 import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.entity.User;
+import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.ResultInfo;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * <p>
@@ -69,6 +71,26 @@ public class UserController extends BaseController {
         return "user/password";
     }
 
+    //查询用户列表
+    @GetMapping("/list")
+    @ResponseBody
+    public Map<String,Object> queryBookInfosByParams(UserQuery userQuery){
+        return userService.queryUsersByParams(userQuery);
+    }
+
+    @RequestMapping("/addUser")
+    @ResponseBody
+    ResultInfo addUser(String userId, String userName, String userPassword, String phone, Integer identity){
+        userService.addUser(userId, userName, userPassword, phone, identity);
+        return new ResultInfo(200);
+    }
+
+    @RequestMapping("/updateUser")
+    ResultInfo updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status){
+        userService.updateUser(userId, userName, userPassword, phone, identity, status);
+        return new ResultInfo(200);
+    }
+
     //更新用户信息
     @RequestMapping("/toInfoPage")
     public String toInfoPage(HttpServletRequest request){
@@ -77,6 +99,21 @@ public class UserController extends BaseController {
         return "user/Info";
     }
 
-//    @RequestMapping("/toManagePage")
+    @RequestMapping("/toManagePage")
+    public String toManagePage(){
+        return "user/manage";
+    }
+
+    @RequestMapping("/toAddUserPage")
+    public String toAddUserPage(){
+        return "user/add_user";
+    }
+
+    @RequestMapping("/toUpdateUserPage")
+    public String toUpdateUserPage(HttpServletRequest request, String userId){
+        User user = userService.getById(userId);
+        request.setAttribute("user", user);
+        return "user/update_user";
+    }
 }
 

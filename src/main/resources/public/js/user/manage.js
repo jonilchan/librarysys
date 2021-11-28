@@ -5,7 +5,7 @@ layui.use(['table', 'layer', "form"], function () {
     //图书列表展示
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/book/list',
+        url: ctx + '/user/list',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -15,39 +15,32 @@ layui.use(['table', 'layer', "form"], function () {
         id: "userListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
-            {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
-            {field: 'categoryId', title: '类别', minWidth: 50, align: "center", templet : function(data) {// 替换数据
-                    if(data.categoryId==0){
-                        return "科幻";
-                    }else if(data.categoryId==1){
-                        return "小说";
-                    }else if(data.categoryId==2){
-                        return "散文";
-                    }
-                }
-            },
-            {field: 'author', title: '作者', minWidth: 100, align: 'center'},
-            {field: 'publisher', title: '出版社', minWidth: 100, align: 'center'},
-            {field: 'totalStock', title: '总库存', align: 'center'},
-            {field: 'bookLocation', title: '馆藏地址', align: 'center', templet : function(data) {// 替换数据
-                    if(data.bookLocation==0){
-                        return "三水";
-                    }else if(data.bookLocation==1){
-                        return "广州";
-                    }else if(data.bookLocation==2){
-                        return "三水、广州";
+            {field: "userId", title: '用户ID', fixed: "true", width: 150},
+            {field: 'userName', title: '用户名', minWidth: 50, align: "center"},
+            {field: 'phone', title: '电话', minWidth: 100, align: 'center'},
+            {field: 'identity', title: '身份', minWidth: 100, align: 'center', templet : function(data) {// 替换数据
+                    if(data.identity==0){
+                        return "学生";
+                    }else if(data.identity==1){
+                        return "老师";
+                    }else if(data.identity==2){
+                        return "图书管理员";
+                    }else if(data.identity==3){
+                        return "系统管理员";
                     }
                 }},
-            {field: 'presentStock', title: '当前库存', align: 'center'},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
                         return "正常";
                     }else if(data.status==1){
+                        return "挂失";
+                    }else if(data.status==2){
+                        return "注销";
+                    }else if(data.status==3){
                         return "暂停借阅";
                     }
                 }},
-            {field: 'enterTime', title: '入库时间', align: 'center', width: 120},
+            {field: 'createTime', title: '创建时间', align: 'center'},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
@@ -60,9 +53,8 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                isbn: $("input[name='isbn']").val(),// isbn
-                bookName: $("input[name='bookName']").val(),//书名
-                author: $("input[name='author']").val()    //作者
+                userId: $("input[name='userId']").val(),// 用户ID
+                userName: $("input[name='userName']").val(),// 用户名
             }
         })
     });
@@ -74,9 +66,13 @@ layui.use(['table', 'layer', "form"], function () {
             case "add":
                 openAddOrUpdateUserDialog();
                 break;
+            case "stockInfo":
+                openAddOrUpdateBookStock(table.checkStatus(obj.config.id).data);
+                break;
             case "del":
                 delUser(table.checkStatus(obj.config.id).data);
                 break;
+
         }
     });
 
@@ -124,40 +120,31 @@ layui.use(['table', 'layer', "form"], function () {
     // 编辑 删除选项
     table.on('tool(users)', function (obj) {
         var layEvent = obj.event;
-        if (layEvent === "borrow") {
-            layer.confirm("确认借阅当前书籍?", {icon: 3, title: "书籍借阅"}, function (index) {
-                $.get(ctx + "/borrow/borrow?isbn=" + obj.data.isbn, {ids: obj.data.id}, function (data) {
-                    if (data.code == 200) {
-                        layer.msg("书籍借阅申请成功");
-                        tableIns.reload();
-                    } else {
-                        layer.msg(data.msg);
-                    }
-                })
-            })
-        } else if (layEvent === "book") {
-            layer.confirm("确认预约当前书籍?", {icon: 3, title: "书籍预约"}, function (index) {
-                $.get(ctx + "/borrow/book?isbn=" + obj.data.isbn, {ids: obj.data.id}, function (data) {
-                    if (data.code == 200) {
-                        layer.msg("书籍预约申请成功");
-                        tableIns.reload();
-                    } else {
-                        layer.msg(data.msg);
-                    }
-                })
-            })
+        if (layEvent === "edit") {
+            UpdateUserDialog(obj.data.userId);
+        } else if (layEvent === "status") {
+            UpdateUserStatusDialog(obj.data.userId)
+
         }
     });
 
-
-    //弹出框
+    //添加用户弹出框
     function openAddOrUpdateUserDialog(id) {
         var title = "用户管理-用户添加";
-        var url = ctx + "/user/addOrUpdateUserPage";
-        if (id) {
-            title = "用户管理-用户更新";
-            url = url + "?id=" + id;
-        }
+        var url = ctx + "/user/toAddUserPage";
+        layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["700px", "500px"],
+            maxmin: true,
+            content: url
+        })
+    }
+
+    //更新用户信息弹出框
+    function UpdateUserDialog(id) {
+        var title = "用户管理-更改信息";
+        var url = ctx + "/user/toUpdateUserPage?userId=" + id;
         layui.layer.open({
             title: title,
             type: 2,

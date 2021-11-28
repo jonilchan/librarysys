@@ -32,16 +32,14 @@ public class BookInfoController extends BaseController {
     @Resource
     private BookStockService bookStockService;
 
-    //查询用户
+    //查询图书列表
     @GetMapping("/list")
     @ResponseBody
     public Map<String,Object> queryBookInfosByParams(BookInfoQuery bookInfoQuery){
-//        return  boo
-//        return  userService.queryUsersByParams(userQuery);
         return bookInfoService.queryBookInfosByParams(bookInfoQuery);
     }
 
-    //用户页
+    //图书页
     @GetMapping("/index")
     public String index(){
         return "book/book_info";

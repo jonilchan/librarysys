@@ -31,11 +31,11 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
 
     //查询图书列表
     public Map<String, Object> queryBookInfosByParams(BookInfoQuery bookInfoQuery) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(bookInfoQuery.getPage(),bookInfoQuery.getLimit());
         PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfoMapper.selectByParams(bookInfoQuery));
-        map.put("code", 200);
-        map.put("msg", "查询成功");
+        map.put("code", 0);
+        map.put("msg", "");
         map.put("count", pageInfo.getTotal());
         map.put("data", pageInfo.getList());
         return map;

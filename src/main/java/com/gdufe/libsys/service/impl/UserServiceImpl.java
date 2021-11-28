@@ -1,21 +1,23 @@
 package com.gdufe.libsys.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.mapper.UserMapper;
+import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.utils.AssertUtil;
 import com.gdufe.libsys.utils.Md5Util;
 //import org.apache.commons.lang.StringUtils;
 import com.gdufe.libsys.utils.ResultInfo;
-import org.apache.commons.lang3.StringUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -80,5 +82,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setUserName(username);
         user.setPhone(phone);
         userMapper.updateById(user);
+    }
+
+    @Override
+    public void addUser(String userId, String userName, String userPassword, String phone, Integer identity) {
+        //生成用户对象并补全信息
+        User user = new User();
+        user.setUserId(userId);
+        user.setUserName(userName);
+        user.setUserPassword(Md5Util.encode(userPassword));
+        user.setPhone(phone);
+        user.setIdentity(identity);
+        user.setCreateTime(LocalDateTime.now());
+        AssertUtil.isTrue(userMapper.insert(user) < 1, 201, "添加用户失败");
+    }
+
+    @Override
+    public void updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status) {
+        User user = userMapper.selectById(userId);
+        user.setUserName(userName);
+        user.setUserPassword(Md5Util.encode(userPassword));
+        user.setPhone(phone);
+        user.setIdentity(identity);
+        user.setStatus(status);
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.updateById(user);
+    }
+
+
+    @Override
+    public Map<String, Object> queryUsersByParams(UserQuery userQuery) {
+        Map<String, Object> map = new HashMap<>();
+        PageHelper.startPage(userQuery.getPage(),userQuery.getLimit());
+        PageInfo<User> pageInfo = new PageInfo<>(userMapper.selectByParams(userQuery));
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", pageInfo.getTotal());
+        map.put("data", pageInfo.getList());
+        return map;
     }
 }
