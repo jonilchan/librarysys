@@ -30,18 +30,16 @@ public class BookStockController extends BaseController {
     @Resource
     private BookStockService bookStockService;
 
+
     @GetMapping("/info")
     public String bookStockInfo(String isbn, HttpServletRequest request){
-//        model.addAttribute("customerContact",bookStockService.getOne(new QueryWrapper<BookStock>().eq("cus_id",cid)));
-//        model.addAttribute("cusId",cid);
-        System.out.println("=============="+isbn);
         request.setAttribute("isbn",isbn);
         this.isbn = isbn;
         return "bookStock/book_stock";
 //        return "bookStock/user";
     }
 
-    //查询所有交往记录
+    //查询该isbn下的图书库存
     @GetMapping("list")
     @ResponseBody
     public Map<String, Object> queryBookStocksByParams(BookStockQuery bookStockQuery) {

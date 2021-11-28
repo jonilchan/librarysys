@@ -5,6 +5,8 @@ import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.service.BookInfoService;
 import com.gdufe.libsys.service.BookStockService;
+import com.gdufe.libsys.utils.ResultInfo;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -44,6 +47,36 @@ public class BookInfoController extends BaseController {
     public String index(){
         return "book/book_info";
     }
+
+//    @GetMapping("/toAddBook")
+//    public String toAddUserPage(){
+//        return "book/add_book";
+//    }
+
+    //增加图书
+    @GetMapping("toAddBook")
+    public String toAddBookPage(String isbn, Model model){
+//        model.addAttribute("bookinfo",bookInfoService.selectByIsbn(isbn));
+        //System.out.println(customerService.getById(id));
+        return "book/add_book";
+    }
+
+    @RequestMapping("/addBook")
+    @ResponseBody
+    ResultInfo addBook(String isbn, String bookName, String author, String publisher,Integer category){
+        bookInfoService.addBookInfo(isbn,bookName,author,publisher,category);
+        return new ResultInfo(200);
+    }
+
+
+//    @RequestMapping("/addOrUpdate")
+//    @ResponseBody
+//    ResultInfo addUser(String userId, String userName, String userPassword, String phone, Integer identity){
+//        userService.addUser(userId, userName, userPassword, phone, identity);
+//        return new ResultInfo(200);
+//    }
+
+
 
 
 

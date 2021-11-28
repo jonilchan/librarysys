@@ -36,7 +36,7 @@ layui.use(['table', 'layer', "form"], function () {
                     }else if(data.bookLocation==1){
                         return "广州";
                     }else if(data.bookLocation==2){
-                        return "山水、广州";
+                        return "三水、广州";
                     }
                 }},
             {field: 'presentStock', title: '当前库存', align: 'center'},
@@ -168,10 +168,10 @@ layui.use(['table', 'layer', "form"], function () {
 
     //弹出框
     function openAddOrUpdateUserDialog(id) {
-        var title = "用户管理-用户添加";
-        var url = ctx + "/user/addOrUpdateUserPage";
+        var title = "图书入库";
+        var url = ctx + "/book/toAddBook";
         if (id) {
-            title = "用户管理-用户更新";
+            title = "图书入库";
             url = url + "?id=" + id;
         }
         layui.layer.open({

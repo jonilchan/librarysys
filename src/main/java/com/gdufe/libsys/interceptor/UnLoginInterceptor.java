@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 /*
     登录状态拦截器
  */
-public class UnLoginInterceptor extends HandlerInterceptorAdapter {
+//public class UnLoginInterceptor extends HandlerInterceptorAdapter {
 
 //    @Autowired
 //    UserService userService;
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         /*
         从cookie中获取id，如果id存在并且数据库有记录，就放行
          */
@@ -25,6 +25,6 @@ public class UnLoginInterceptor extends HandlerInterceptorAdapter {
 //        }
 //
 //        return super.preHandle(request, response, handler);
-        return true;
-    }
-}
+//        return true;
+//    }
+//}
