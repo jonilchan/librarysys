@@ -34,10 +34,10 @@
       <if test="null != operator and operator !=''">
         and operator = #{operator}
       </if>
-      <if test="0 == fine">
+      <if test="'0' == fine">
         and fine = 0
       </if>
-      <if test="1 == fine">
+      <if test="'1' == fine">
         and fine >= 0
       </if>
     </where>
