@@ -9,4 +9,6 @@ public class UserQuery extends BaseQuery {
     private String userId;
     //用户姓名
     private String userName;
+    //用户状态
+    private String status;
 }

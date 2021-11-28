@@ -16,146 +16,30 @@
     borrow_id, book_id, reader_id, borrow_time, return_time, operator, fine, status, 
     renew
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from borrow
-    where borrow_id = #{borrowId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from borrow
-    where borrow_id = #{borrowId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.gdufe.libsys.entity.Borrow">
-    insert into borrow (borrow_id, book_id, reader_id, 
-      borrow_time, return_time, operator, 
-      fine, status, renew
-      )
-    values (#{borrowId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{readerId,jdbcType=VARCHAR}, 
-      #{borrowTime,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, 
-      #{fine,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{renew,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.gdufe.libsys.entity.Borrow">
-    insert into borrow
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="borrowId != null">
-        borrow_id,
-      </if>
-      <if test="bookId != null">
-        book_id,
-      </if>
-      <if test="readerId != null">
-        reader_id,
-      </if>
-      <if test="borrowTime != null">
-        borrow_time,
-      </if>
-      <if test="returnTime != null">
-        return_time,
-      </if>
-      <if test="operator != null">
-        operator,
-      </if>
-      <if test="fine != null">
-        fine,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="renew != null">
-        renew,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="borrowId != null">
-        #{borrowId,jdbcType=INTEGER},
-      </if>
-      <if test="bookId != null">
-        #{bookId,jdbcType=INTEGER},
-      </if>
-      <if test="readerId != null">
-        #{readerId,jdbcType=VARCHAR},
-      </if>
-      <if test="borrowTime != null">
-        #{borrowTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="returnTime != null">
-        #{returnTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="operator != null">
-        #{operator,jdbcType=VARCHAR},
-      </if>
-      <if test="fine != null">
-        #{fine,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="renew != null">
-        #{renew,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gdufe.libsys.entity.Borrow">
-    update borrow
-    <set>
-      <if test="bookId != null">
-        book_id = #{bookId,jdbcType=INTEGER},
-      </if>
-      <if test="readerId != null">
-        reader_id = #{readerId,jdbcType=VARCHAR},
-      </if>
-      <if test="borrowTime != null">
-        borrow_time = #{borrowTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="returnTime != null">
-        return_time = #{returnTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="operator != null">
-        operator = #{operator,jdbcType=VARCHAR},
-      </if>
-      <if test="fine != null">
-        fine = #{fine,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="renew != null">
-        renew = #{renew,jdbcType=INTEGER},
-      </if>
-    </set>
-    where borrow_id = #{borrowId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gdufe.libsys.entity.Borrow">
-    update borrow
-    set book_id = #{bookId,jdbcType=INTEGER},
-      reader_id = #{readerId,jdbcType=VARCHAR},
-      borrow_time = #{borrowTime,jdbcType=TIMESTAMP},
-      return_time = #{returnTime,jdbcType=TIMESTAMP},
-      operator = #{operator,jdbcType=VARCHAR},
-      fine = #{fine,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      renew = #{renew,jdbcType=INTEGER}
-    where borrow_id = #{borrowId,jdbcType=INTEGER}
-  </update>
-
   <!-- 通过传入参数查询已借书籍 -->
   <select id="selectByParams" parameterType="com.gdufe.libsys.entity.Borrow" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from book_info
+    from borrow
     <where>
-      <if test="null !=isbn and isbn !=''">
-        and isbn like concat('%',#{isbn},'%')
+      <if test="null != bookId and bookId != ''">
+        and book_id like concat('%',#{bookId},'%')
       </if>
-      <if test="null !=bookName and bookName !=''">
-        and book_name like concat('%',#{bookName},'%')
+      <if test="null != readerId and readerId != ''">
+        and reader_id like concat('%',#{readerId},'%')
       </if>
-      <if test="null !=author and author !=''">
-        and author like concat('%',#{author},'%')
+      <if test="null != status and status != ''">
+        and status = #{status}
       </if>
-        and reader_id=#{readerId}
+      <if test="null != operator and operator !=''">
+        and operator = #{operator}
+      </if>
+      <if test="0 == fine">
+        and fine = 0
+      </if>
+      <if test="1 == fine">
+        and fine >= 0
+      </if>
     </where>
   </select>
 </mapper>

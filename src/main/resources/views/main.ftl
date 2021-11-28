@@ -58,6 +58,7 @@
                                     class="layui-left-nav">用户管理</span></a>
                     </li>
 
+
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="book/index" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
@@ -72,8 +73,8 @@
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/return" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">图书归还</span></a>
+                           data-tab="borrow/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                                    class="layui-left-nav">借阅管理</span></a>
                     </li>
 
                     </li>

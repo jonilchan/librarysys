@@ -5,7 +5,6 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
-    <input name="id" type="hidden" value="${(customer.id)!}"/>
 
     <div class="layui-form-item layui-row">
         <div class="layui-col-xs6">
@@ -23,7 +22,6 @@
             </div>
         </div>
     </div>
-
     <div class="layui-form-item layui-row">
 
         <div class="layui-col-xs6">
@@ -36,12 +34,13 @@
         <div class="layui-col-xs6">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <select name="status"  id="level">
+                <select name="status">
                     <option value="${(user.status)!}" >请选择</option>
                     <option value="0" <#if user.status==0>selected="selected"</#if>>正常</option>
                     <option value="1" <#if user.status==1>selected="selected"</#if>>挂失</option>
                     <option value="2" <#if user.status==2>selected="selected"</#if>>注销</option>
                     <option value="3" <#if user.status==3>selected="selected"</#if>>暂停借阅</option>
+                    <option value="4" <#if user.status==3>selected="selected"</#if>>挂失申请中</option>
                 </select>
             </div>
         </div>
@@ -67,7 +66,6 @@
             <button class="layui-btn layui-btn-lg" lay-submit=""
                     lay-filter="addOrUpdateUser">确认
             </button>
-<#--            <button class="layui-btn layui-btn-lg layui-btn-normal">取消</button>-->
         </div>
     </div>
 </form>

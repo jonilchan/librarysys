@@ -21,4 +21,5 @@ public interface UserMapper extends BaseMapper<User> {
 
     //多条件查询
     List<User> selectByParams(BaseQuery baseQuery) throws DataAccessException;
+
 }

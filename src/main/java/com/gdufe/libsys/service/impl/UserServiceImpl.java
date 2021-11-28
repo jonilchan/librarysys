@@ -108,7 +108,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.updateById(user);
     }
 
-
     @Override
     public Map<String, Object> queryUsersByParams(UserQuery userQuery) {
         Map<String, Object> map = new HashMap<>();

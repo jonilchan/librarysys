@@ -2,6 +2,8 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
+import com.gdufe.libsys.query.BorrowQuery;
+import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.BorrowService;
 import com.gdufe.libsys.utils.ResultInfo;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,8 +47,11 @@ public class BorrowController extends BaseController {
         return new ResultInfo(200);
     }
 
-//    @RequestMapping("/list")
-//    public
+    @RequestMapping("/list")
+    @ResponseBody
+    public Map<String,Object> queryBorrowByParams(BorrowQuery borrowQuery){
+        return borrowService.queryBorrowsByParams(borrowQuery);
+    }
 
     //借书、预约页
     @RequestMapping("/index")
@@ -53,9 +59,14 @@ public class BorrowController extends BaseController {
         return "/borrow/borrow";
     }
 
-    @RequestMapping("giveback")
+    @RequestMapping("/giveback")
     public String giveback(){
         return "/borrow/giveback";
+    }
+
+    @RequestMapping("/toManagePage")
+    public String toManagePage(){
+        return "/borrow/borrow_list";
     }
 }
 

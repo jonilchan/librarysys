@@ -2,10 +2,10 @@ layui.use(['table', 'layer', "form"], function () {
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         table = layui.table;
-    //用户列表展示
+    //借阅列表展示
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/user/list',
+        url: ctx + '/borrow/list',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -15,34 +15,29 @@ layui.use(['table', 'layer', "form"], function () {
         id: "userListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: "userId", title: '用户ID', fixed: "true", width: 150},
-            {field: 'userName', title: '用户名', minWidth: 50, align: "center"},
-            {field: 'phone', title: '电话', minWidth: 100, align: 'center'},
-            {field: 'identity', title: '身份', minWidth: 100, align: 'center', templet : function(data) {// 替换数据
-                    if(data.identity==0){
-                        return "学生";
-                    }else if(data.identity==1){
-                        return "老师";
-                    }else if(data.identity==2){
-                        return "图书管理员";
-                    }else if(data.identity==3){
-                        return "系统管理员";
-                    }
-                }},
+            {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
+            {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
+            {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
+            {field: 'borrowTime', title: '借阅时间', minWidth: 100, align: 'center'},
+            {field: 'returnTime', title: '归还时间', minWidth: 100, align: 'center'},
+            {field: 'operator', title: '操作员', align: 'center'},
+            {field: 'fine', title: '罚款', align: 'center'},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
-                        return "正常";
+                        return "已借未还";
                     }else if(data.status==1){
-                        return "挂失";
+                        return "已还";
                     }else if(data.status==2){
-                        return "注销";
-                    }else if(data.status==3){
-                        return "暂停借阅";
-                    }else if(data.status==4){
-                        return "挂失申请中";
+                        return "预约未拿";
                     }
                 }},
-            {field: 'createTime', title: '创建时间', align: 'center'},
+            {field: 'renew', title: '是否续借', align: 'center', templet : function(data) {// 替换数据
+                    if(data.renew==0){
+                        return "未续借";
+                    }else if(data.renew==1){
+                        return "已续借";
+                    }
+                }},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
@@ -55,9 +50,11 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                userId: $("input[name='userId']").val(),// 用户ID
-                userName: $("input[name='userName']").val(),// 用户名
-                status: $("select[name='status']").val(),//用户状态
+                bookId: $("input[name='bookId']").val(),// isbn
+                readerId: $("input[name='readerId']").val(),//书名
+                status: $("input[name='status']").val() , //状态
+                operator: $("input[name='operator']").val(),//操作员
+                fine: $("select[name='fine']").val(), //罚款
             }
         })
     });
@@ -69,13 +66,9 @@ layui.use(['table', 'layer', "form"], function () {
             case "add":
                 openAddOrUpdateUserDialog();
                 break;
-            case "stockInfo":
-                openAddOrUpdateBookStock(table.checkStatus(obj.config.id).data);
-                break;
             case "del":
                 delUser(table.checkStatus(obj.config.id).data);
                 break;
-
         }
     });
 
@@ -123,31 +116,40 @@ layui.use(['table', 'layer', "form"], function () {
     // 编辑 删除选项
     table.on('tool(users)', function (obj) {
         var layEvent = obj.event;
-        if (layEvent === "edit") {
-            UpdateUserDialog(obj.data.userId);
-        } else if (layEvent === "status") {
-            UpdateUserStatusDialog(obj.data.userId)
-
+        if (layEvent === "borrow") {
+            layer.confirm("确认借阅当前书籍?", {icon: 3, title: "书籍借阅"}, function (index) {
+                $.get(ctx + "/borrow/borrow?isbn=" + obj.data.isbn, {ids: obj.data.id}, function (data) {
+                    if (data.code == 200) {
+                        layer.msg("书籍借阅申请成功");
+                        tableIns.reload();
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                })
+            })
+        } else if (layEvent === "book") {
+            layer.confirm("确认预约当前书籍?", {icon: 3, title: "书籍预约"}, function (index) {
+                $.get(ctx + "/borrow/book?isbn=" + obj.data.isbn, {ids: obj.data.id}, function (data) {
+                    if (data.code == 200) {
+                        layer.msg("书籍预约申请成功");
+                        tableIns.reload();
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                })
+            })
         }
     });
 
-    //添加用户弹出框
+
+    //弹出框
     function openAddOrUpdateUserDialog(id) {
         var title = "用户管理-用户添加";
-        var url = ctx + "/user/toAddUserPage";
-        layui.layer.open({
-            title: title,
-            type: 2,
-            area: ["700px", "500px"],
-            maxmin: true,
-            content: url
-        })
-    }
-
-    //更新用户信息弹出框
-    function UpdateUserDialog(id) {
-        var title = "用户管理-更改信息";
-        var url = ctx + "/user/toUpdateUserPage?userId=" + id;
+        var url = ctx + "/user/addOrUpdateUserPage";
+        if (id) {
+            title = "用户管理-用户更新";
+            url = url + "?id=" + id;
+        }
         layui.layer.open({
             title: title,
             type: 2,

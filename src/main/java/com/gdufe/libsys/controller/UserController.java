@@ -116,5 +116,6 @@ public class UserController extends BaseController {
         request.setAttribute("user", user);
         return "user/update_user";
     }
+
 }
 

@@ -3,6 +3,7 @@ package com.gdufe.libsys.service;
 import com.gdufe.libsys.entity.Borrow;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gdufe.libsys.query.BorrowQuery;
+import com.gdufe.libsys.query.UserQuery;
 
 import java.util.Map;
 
@@ -19,5 +20,5 @@ public interface BorrowService extends IService<Borrow> {
 
     void book(String userId, String isbn);
 
-
+    Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery);
 }

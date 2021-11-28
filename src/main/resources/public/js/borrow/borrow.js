@@ -53,21 +53,6 @@ layui.use(['table', 'layer', "form"], function () {
     });
 
 
-    // 多条件搜索
-    $(".search_btn").on("click", function () {
-        table.reload("userListTable", {
-            page: {
-                curr: 1
-            },
-            where: {
-                isbn: $("input[name='isbn']").val(),// isbn
-                bookName: $("input[name='bookName']").val(),//书名
-                author: $("input[name='author']").val()    //作者
-            }
-        })
-    });
-
-
     // 头工具栏事件
     table.on('toolbar(users)', function (obj) {
         switch (obj.event) {
