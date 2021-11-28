@@ -36,7 +36,7 @@
         <div class="layui-col-xs6">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <select name="identity"  id="level">
+                <select name="status"  id="level">
                     <option value="${(user.status)!}" >请选择</option>
                     <option value="0" <#if user.status==0>selected="selected"</#if>>正常</option>
                     <option value="1" <#if user.status==1>selected="selected"</#if>>挂失</option>

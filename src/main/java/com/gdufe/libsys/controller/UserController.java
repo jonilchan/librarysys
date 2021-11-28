@@ -86,6 +86,7 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/updateUser")
+    @ResponseBody
     ResultInfo updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status){
         userService.updateUser(userId, userName, userPassword, phone, identity, status);
         return new ResultInfo(200);

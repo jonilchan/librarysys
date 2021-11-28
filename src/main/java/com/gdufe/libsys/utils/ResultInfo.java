@@ -13,6 +13,11 @@ public class ResultInfo {
         this.code = code;
     }
 
+    public ResultInfo(Integer code, Object result) {
+        this.code = code;
+        this.result = result;
+    }
+
     public Object getResult() {
         return result;
     }

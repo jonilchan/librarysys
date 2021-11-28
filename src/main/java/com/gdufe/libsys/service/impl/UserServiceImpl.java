@@ -101,7 +101,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status) {
         User user = userMapper.selectById(userId);
         user.setUserName(userName);
-        user.setUserPassword(Md5Util.encode(userPassword));
         user.setPhone(phone);
         user.setIdentity(identity);
         user.setStatus(status);

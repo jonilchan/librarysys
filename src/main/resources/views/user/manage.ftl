@@ -44,7 +44,6 @@
     <!--操作-->
     <script id="userListBar" type="text/html">
         <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑信息</a>
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="status">编辑状态</a>
 <#--        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>-->
     </script>
 </form>
