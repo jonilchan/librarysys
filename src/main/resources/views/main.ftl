@@ -44,13 +44,6 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll layui-left-menu">
                 <ul class="layui-nav layui-nav-tree layui-left-nav-tree layui-this" id="currency">
-                    <li class="layui-nav-item">
-                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-3"
-                           data-tab="customer/index" target="_self"><i class="fa fa-exchange"></i><span
-                                    class="layui-left-nav">客户信息管理</span></a>
-
-                    </li>
-
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"

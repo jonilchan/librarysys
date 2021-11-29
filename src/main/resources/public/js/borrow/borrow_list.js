@@ -116,28 +116,23 @@ layui.use(['table', 'layer', "form"], function () {
     // 编辑 删除选项
     table.on('tool(users)', function (obj) {
         var layEvent = obj.event;
-        if (layEvent === "borrow") {
-            layer.confirm("确认借阅当前书籍?", {icon: 3, title: "书籍借阅"}, function (index) {
-                $.get(ctx + "/borrow/borrow?isbn=" + obj.data.isbn, {ids: obj.data.id}, function (data) {
+        if (layEvent === "giveback") {
+            layer.confirm("确认归还当前书籍?", {icon: 3, title: "书籍归还"}, function (index) {
+                $.get(ctx + "/borrow/giveback", {borrowId: obj.data.borrowId}, function (data) {
                     if (data.code == 200) {
-                        layer.msg("书籍借阅申请成功");
-                        tableIns.reload();
+                        layer.msg("书籍归还申请成功");
+                        tableIns.reload() ;
                     } else {
                         layer.msg(data.msg);
                     }
                 })
             })
-        } else if (layEvent === "book") {
-            layer.confirm("确认预约当前书籍?", {icon: 3, title: "书籍预约"}, function (index) {
-                $.get(ctx + "/borrow/book?isbn=" + obj.data.isbn, {ids: obj.data.id}, function (data) {
-                    if (data.code == 200) {
-                        layer.msg("书籍预约申请成功");
+        } else if (layEvent === "urgereturn") {
+            layer.confirm("确认催还当前订单?", {icon: 3, title: "书籍催还"}, function (index) {
+                        layer.msg("书籍催还成功");
                         tableIns.reload();
-                    } else {
-                        layer.msg(data.msg);
-                    }
-                })
-            })
+                }
+            )
         }
     });
 

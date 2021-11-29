@@ -32,7 +32,6 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
     public Map<String, Object> selectAll(BookStockQuery bookStockQuery) {
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(bookStockQuery.getPage(), bookStockQuery.getLimit());
-//         QueryWrapper<BookStock> wrapper = new QueryWrapper<>();
         PageInfo<BookStock> pageInfo = new PageInfo<BookStock>(bookStockMapper.selectAll(bookStockQuery));
         map.put("code", 0);
         map.put("msg", "");

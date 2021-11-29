@@ -60,8 +60,10 @@ public class BorrowController extends BaseController {
     }
 
     @RequestMapping("/giveback")
-    public String giveback(){
-        return "/borrow/giveback";
+    @ResponseBody
+    public ResultInfo giveback(Integer borrowId){
+        borrowService.giveback(borrowId);
+        return new ResultInfo(200);
     }
 
     @RequestMapping("/toManagePage")

@@ -20,5 +20,7 @@ public interface BorrowService extends IService<Borrow> {
 
     void book(String userId, String isbn);
 
+    void giveback(Integer borrowId);
+
     Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery);
 }

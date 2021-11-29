@@ -18,6 +18,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,8 +82,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         Integer identity = user.getIdentity();
         AssertUtil.isTrue(size == 5 && identity == 0, "借阅数量达到上线");
         AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上线");
-        AssertUtil.isTrue(size == 20 && identity == 2, "借阅数量达到上线");
-        AssertUtil.isTrue(size == 20 && identity == 3, "借阅数量达到上线");
         //填充borrow数据，生成订单
         BookStock bookStock = bookStocks.get(0);
         Borrow borrow = new Borrow();
@@ -93,6 +92,18 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         //更新被借书的状态
         bookStock.setStatus(1);
         bookStockMapper.updateById(bookStock);
+    }
+
+    @Override
+    public void giveback(Integer borrowId) {
+        Borrow borrow = borrowMapper.selectById(borrowId);
+        borrow.setReturnTime(LocalDateTime.now());
+        AssertUtil.isTrue(borrow.getStatus() == 1, "当前书籍已归还");
+        borrow.setStatus(1);
+        BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
+        bookStock.setStatus(0);
+        bookStockMapper.updateById(bookStock);
+        borrowMapper.updateById(borrow);
     }
 
     //查询图书列表
