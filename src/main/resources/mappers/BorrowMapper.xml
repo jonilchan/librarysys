@@ -42,4 +42,46 @@
       </if>
     </where>
   </select>
+
+  <select id="selectByThreeMonths" parameterType="com.gdufe.libsys.entity.Borrow" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from borrow
+    where borrow_time>DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+    <!--    <where>-->
+<!--      <if test="null != bookId and bookId != ''">-->
+<!--        and book_id like concat('%',#{bookId},'%')-->
+<!--      </if>-->
+<!--      <if test="null != readerId and readerId != ''">-->
+<!--        and reader_id like concat('%',#{readerId},'%')-->
+<!--      </if>-->
+<!--      <if test="null != status and status != ''">-->
+<!--        and status = #{status}-->
+<!--      </if>-->
+<!--      <if test="null != operator and operator !=''">-->
+<!--        and operator = #{operator}-->
+<!--      </if>-->
+<!--      <if test="'0' == fine">-->
+<!--        and fine = 0-->
+<!--      </if>-->
+<!--      <if test="'1' == fine">-->
+<!--        and fine >= 0-->
+<!--      </if>-->
+<!--    </where>-->
+  </select>
+
+  <!-- 通过传入参数查询已借书籍 -->
+  <select id="selectByUserId" parameterType="com.gdufe.libsys.entity.Borrow" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from borrow
+    <where>
+      <if test="null != userId and userId != ''">
+        and reader_id like concat('%',#{userId},'%')
+      </if>
+    </where>
+  </select>
+
+
+
 </mapper>

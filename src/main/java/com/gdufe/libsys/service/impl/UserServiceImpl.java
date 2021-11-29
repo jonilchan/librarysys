@@ -1,7 +1,9 @@
 package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.User;
+import com.gdufe.libsys.mapper.BorrowMapper;
 import com.gdufe.libsys.mapper.UserMapper;
 import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
@@ -12,12 +14,17 @@ import com.gdufe.libsys.utils.Md5Util;
 import com.gdufe.libsys.utils.ResultInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -32,6 +39,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private UserMapper userMapper;
+
+    @Autowired
+    private BorrowMapper borrowMapper;
 
     //用户登录
     @Override
@@ -118,5 +128,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         map.put("count", pageInfo.getTotal());
         map.put("data", pageInfo.getList());
         return map;
+    }
+
+    @Override
+    public double fineOfUser(String userId) {
+        List<Borrow> borrows = borrowMapper.selectByUserId(userId);
+        //查询借阅日期大于30的
+        int totalFineDay=  0;
+        for (Borrow borrow : borrows) {
+            LocalDateTime borrowTime = borrow.getBorrowTime();
+            Date borrowT = Date.from(borrowTime.atZone(ZoneId.systemDefault()).toInstant());
+            Date currentT = new Date();
+            long c = currentT.getTime();
+            long b = borrowT.getTime();
+            long millis = c - b;
+            int borrowDay = (int)TimeUnit.MILLISECONDS.toDays(millis)-30;
+            if(borrowDay > 0){
+                totalFineDay+=borrowDay;
+            }
+        }
+        double fineMoney = totalFineDay * 0.1;
+        return fineMoney;
     }
 }

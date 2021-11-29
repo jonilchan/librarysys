@@ -3,18 +3,23 @@ package com.gdufe.libsys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.entity.BookInfo;
 import com.gdufe.libsys.entity.BookStock;
+import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.mapper.BookInfoMapper;
 import com.gdufe.libsys.mapper.BookStockMapper;
+import com.gdufe.libsys.mapper.BorrowMapper;
 import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.service.BookInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.utils.AssertUtil;
 import com.gdufe.libsys.vo.BookInfoVo;
+import com.gdufe.libsys.vo.BookRankVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.awt.print.Book;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +37,9 @@ import java.util.Map;
  */
 @Service
 public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> implements BookInfoService {
+
+    @Resource
+    private BorrowMapper borrowMapper;
 
     @Autowired
     BookInfoMapper bookInfoMapper;
@@ -71,6 +79,42 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
             }
         }
 
+        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfos);
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", pageInfo.getTotal());
+        map.put("data", pageInfo.getList());
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery) {
+        Map<String, Object> map = new HashMap<>();
+        //拿到前三个月的借阅记录
+        List<Borrow> borrows = borrowMapper.selectByThreeMonths();
+        List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
+        QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper();
+        List<BookStock> bookStocks = bookStockMapper.selectList(bookStockWrapper);
+        ArrayList<BookRankVo> bookRankVos = new ArrayList<>();
+//        for (Borrow borrow : borrows) {
+//            for (BookStock bookStock : bookStocks) {
+//                if(borrow.getBookId() == bookStock.getBookId()){
+//                    for (BookInfo bookInfo : bookInfos) {
+//                        if(bookStock.getIsbn().equals(bookInfo.getIsbn())){
+//                            BookRankVo bookRankVo = new BookRankVo();
+//                            BeanUtils.copyProperties(bookRankVo);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        /**
+         * 根据新表的isbn找到bookinfo对应的isbn数据
+         *  BookRankVo bookRankVo = new BookRankVo();
+         *  BeanUtils.copyProperties(bookRankVo);
+         *  bookRankVo要set->三个月的借阅次数 borrowStockRatio
+         *  再set borrowStockRatio = borrowStockRatio/total_stock
+         */
         PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfos);
         map.put("code", 0);
         map.put("msg", "");

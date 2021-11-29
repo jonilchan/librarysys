@@ -69,12 +69,24 @@ public class BookInfoController extends BaseController {
     }
 
 
+    //图书排行榜
+    @GetMapping("/rank")
+    public String toRank(){
+        return  "book/book_rank";
+    }
 //    @RequestMapping("/addOrUpdate")
 //    @ResponseBody
 //    ResultInfo addUser(String userId, String userName, String userPassword, String phone, Integer identity){
 //        userService.addUser(userId, userName, userPassword, phone, identity);
 //        return new ResultInfo(200);
 //    }
+
+    //查询图书排行
+    @GetMapping("/rankList")
+    @ResponseBody
+    public Map<String,Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery){
+        return bookInfoService.queryBookRankListByParams(bookInfoQuery);
+    }
 
 
 
