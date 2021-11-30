@@ -135,20 +135,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         wrapper.eq("reader_id", userId);
         List<Borrow> borrows = borrowMapper.selectList(wrapper);
         //查询借阅日期大于30的
-        int totalFineDay=  0;
+        double fine =  0;
         for (Borrow borrow : borrows) {
-            LocalDateTime borrowTime = borrow.getBorrowTime();
-            Date borrowT = Date.from(borrowTime.atZone(ZoneId.systemDefault()).toInstant());
-            Date currentT = new Date();
-            long c = currentT.getTime();
-            long b = borrowT.getTime();
-            long millis = c - b;
-            int borrowDay = (int)TimeUnit.MILLISECONDS.toDays(millis)-30;
-            if(borrowDay > 0){
-                totalFineDay+=borrowDay;
+            if(borrow.getFine() > 0){
+                fine+= borrow.getFine();
             }
         }
-        double fineMoney = totalFineDay * 0.1;
-        return fineMoney;
+        return fine;
     }
 }

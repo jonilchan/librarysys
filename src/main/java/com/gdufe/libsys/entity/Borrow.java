@@ -57,7 +57,7 @@ public class Borrow implements Serializable {
     /**
      * 0时未存在罚款，大于0时存在罚款
      */
-    private Integer fine;
+    private Double fine;
 
     /**
      * 0已借未还，1已还，2预约未拿
