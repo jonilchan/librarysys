@@ -68,10 +68,23 @@ public class BorrowController extends BaseController {
         return new ResultInfo(200);
     }
 
+    //续借
+    @RequestMapping("/renew")
+    @ResponseBody
+    public ResultInfo renew(Integer borrowId){
+        borrowService.renew(borrowId);
+        return new ResultInfo(200);
+    }
+
     //借阅管理页面
     @RequestMapping("/toManagePage")
     public String toManagePage(){
         return "/borrow/borrow_list";
+    }
+
+    @RequestMapping("/toRenewPage")
+    public String toRenewPage(){
+        return "/borrow/my_borrow";
     }
 }
 

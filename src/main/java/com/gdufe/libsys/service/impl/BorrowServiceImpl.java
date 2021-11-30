@@ -104,6 +104,17 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         borrowMapper.updateById(borrow);
     }
 
+
+    //续借(续借时间不会改)
+    @Override
+    public void renew(Integer borrowId) {
+        Borrow borrow = borrowMapper.selectById(borrowId);
+        AssertUtil.isTrue(borrow.getStatus() == BorrowStatusEnum.已还.getCode(), "续借失败，当前书籍已归还");
+        AssertUtil.isTrue(borrow.getRenew() == 1, "续借失败，当前书籍已被续借");
+        borrow.setRenew(1);
+        borrowMapper.updateById(borrow);
+    }
+
     //查询图书列表
     public Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery) {
         Map<String, Object> map = new HashMap<>();

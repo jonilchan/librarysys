@@ -76,6 +76,12 @@
                                     class="layui-left-nav">图书排行</span></a>
                     </li>
 
+                    <li class="layui-nav-item">
+                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
+                           data-tab="borrow/toRenewPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                                    class="layui-left-nav">我的借阅</span></a>
+                    </li>
+
                     </li>
                     <span class="layui-nav-bar" style="top: 201px; height: 0px; opacity: 0;"></span>
                 </ul>
