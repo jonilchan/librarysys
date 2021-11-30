@@ -18,8 +18,6 @@ import java.util.List;
  * @since 2021-11-23
  */
 public interface UserMapper extends BaseMapper<User> {
-
     //多条件查询
     List<User> selectByParams(BaseQuery baseQuery) throws DataAccessException;
-
 }

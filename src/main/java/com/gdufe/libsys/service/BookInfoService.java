@@ -21,10 +21,10 @@ public interface BookInfoService extends IService<BookInfo> {
     Map<String, Object> queryBookInfosByParams(BookInfoQuery bookInfoQuery);
 
     //查询图书排行
-    Map<String, Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery);
+//    Map<String, Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery);
 
     //根据isbn查询
-    BookInfo selectByIsbn(String isbn);
+//    BookInfo selectByIsbn(String isbn);
 
     void addBookInfo(String isbn, String bookName, String author, String publisher,Integer categoryId);
 

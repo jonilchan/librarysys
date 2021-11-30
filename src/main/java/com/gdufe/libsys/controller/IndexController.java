@@ -3,7 +3,6 @@ package com.gdufe.libsys.controller;
 import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.service.UserService;
-import com.gdufe.libsys.utils.LoginUserUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -16,7 +15,7 @@ public class IndexController extends BaseController {
     @Resource
     private UserService userService;
 
-
+    //用户登录页
     @GetMapping("index")
     public String index(){
         return "index";
@@ -33,6 +32,8 @@ public class IndexController extends BaseController {
         String[] status = {"正常", "挂失", "注销", "暂停借阅"};
         request.setAttribute("identity", identity[user.getIdentity()]);
         request.setAttribute("status", status[user.getStatus()]);
+        Double fine = userService.fineOfUser(userId);
+        request.setAttribute("fine", String.valueOf(fine).substring(0, (int) (Math.round(fine/10)+1)));
         return "welcome";
     }
 

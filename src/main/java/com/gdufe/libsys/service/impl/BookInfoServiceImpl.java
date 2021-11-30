@@ -87,15 +87,15 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         return map;
     }
 
-    @Override
-    public Map<String, Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery) {
-        Map<String, Object> map = new HashMap<>();
-        //拿到前三个月的借阅记录
-        List<Borrow> borrows = borrowMapper.selectByThreeMonths();
-        List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
-        QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper();
-        List<BookStock> bookStocks = bookStockMapper.selectList(bookStockWrapper);
-        ArrayList<BookRankVo> bookRankVos = new ArrayList<>();
+//    @Override
+//    public Map<String, Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery) {
+//        Map<String, Object> map = new HashMap<>();
+//        //拿到前三个月的借阅记录
+//        List<Borrow> borrows = borrowMapperRe.selectByThreeMonths();
+//        List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
+//        QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper();
+//        List<BookStock> bookStocks = bookStockMapper.selectList(bookStockWrapper);
+//        ArrayList<BookRankVo> bookRankVos = new ArrayList<>();
 //        for (Borrow borrow : borrows) {
 //            for (BookStock bookStock : bookStocks) {
 //                if(borrow.getBookId() == bookStock.getBookId()){
@@ -115,21 +115,21 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
          *  bookRankVo要set->三个月的借阅次数 borrowStockRatio
          *  再set borrowStockRatio = borrowStockRatio/total_stock
          */
-        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfos);
-        map.put("code", 0);
-        map.put("msg", "");
-        map.put("count", pageInfo.getTotal());
-        map.put("data", pageInfo.getList());
-        return map;
-    }
+//        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfos);
+//        map.put("code", 0);
+//        map.put("msg", "");
+//        map.put("count", pageInfo.getTotal());
+//        map.put("data", pageInfo.getList());
+//        return map;
+//    }
 
     //根据isBn查找图书
-    @Override
-    public BookInfo selectByIsbn(String isbn) {
-
-        BookInfo bookInfo = bookInfoMapper.selectByPrimaryKey(isbn);
-        return bookInfo;
-    }
+//    @Override
+//    public BookInfo selectByIsbn(String isbn) {
+//
+//        BookInfo bookInfo = bookInfoMapper.selectByPrimaryKey(isbn);
+//        return bookInfo;
+//    }
 
     @Override
     public void addBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId) {

@@ -34,13 +34,13 @@ public class UserController extends BaseController {
     //用户登录
     @PostMapping("/login")
     @ResponseBody
-    public ResultInfo login(HttpServletRequest request, String userName, String userPassword){
+    public ResultInfo login(HttpServletRequest request, String userId, String userPassword){
         //获取结果
-        ResultInfo loginResult = userService.login(userName, userPassword);
+        ResultInfo loginResult = userService.login(userId, userPassword);
         //设置cookie
         request.setAttribute("user", loginResult.getResult());
         //设置session
-        request.getSession().setAttribute("userId", userName);
+        request.getSession().setAttribute("userId", userId);
         //返回操作结果
         return loginResult;
     }

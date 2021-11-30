@@ -82,15 +82,11 @@ public class BookInfoController extends BaseController {
 //    }
 
     //查询图书排行
-    @GetMapping("/rankList")
-    @ResponseBody
-    public Map<String,Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery){
-        return bookInfoService.queryBookRankListByParams(bookInfoQuery);
-    }
-
-
-
-
+//    @GetMapping("/rankList")
+//    @ResponseBody
+//    public Map<String,Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery){
+//        return bookInfoService.queryBookRankListByParams(bookInfoQuery);
+//    }
 
 }
 

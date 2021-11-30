@@ -7,7 +7,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
     // 进行登录操作
     form.on('submit(login)', function (data) {
         data = data.field;
-        if ( data.username =="undefined" || data.username =="" || data.username.trim()=="") {
+        if ( data.userId =="undefined" || data.userId =="" || data.userId.trim()=="") {
             layer.msg('用户ID不能为空');
             return false;
         }
@@ -21,7 +21,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
             type:"post",
             url:ctx+"/user/login",
             data:{
-                userName:data.username,
+                userId:data.userId,
                 userPassword:data.password
             },
             dataType:"json",

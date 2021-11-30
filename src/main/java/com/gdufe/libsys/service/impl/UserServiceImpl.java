@@ -46,7 +46,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //用户登录
     @Override
     public ResultInfo login(String userId, String userPassword) {
-
         ResultInfo resultInfo = new ResultInfo();
         //数据库查询用户信息
         User user = userMapper.selectById(userId);
@@ -132,7 +131,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public double fineOfUser(String userId) {
-        List<Borrow> borrows = borrowMapper.selectByUserId(userId);
+        QueryWrapper<Borrow> wrapper = new QueryWrapper<>();
+        wrapper.eq("reader_id", userId);
+        List<Borrow> borrows = borrowMapper.selectList(wrapper);
         //查询借阅日期大于30的
         int totalFineDay=  0;
         for (Borrow borrow : borrows) {

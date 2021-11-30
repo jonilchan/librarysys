@@ -17,19 +17,6 @@ import java.util.List;
  * @since 2021-11-23
  */
 public interface BookInfoMapper extends BaseMapper<BookInfo> {
-    int deleteByPrimaryKey(String isbn);
-
-    int insert(BookInfo record);
-
-    int insertSelective(BookInfo record);
-
-    BookInfo selectByPrimaryKey(String isbn);
-
-    int updateByPrimaryKeySelective(BookInfo record);
-
-    int updateByPrimaryKey(BookInfo record);
-
     //多条件查询
     List<BookInfo> selectByParams(BaseQuery baseQuery) throws DataAccessException;
-
 }

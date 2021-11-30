@@ -27,6 +27,7 @@ import java.util.Map;
 public class BookStockController extends BaseController {
 
     String isbn;
+
     @Resource
     private BookStockService bookStockService;
 
@@ -36,7 +37,6 @@ public class BookStockController extends BaseController {
         request.setAttribute("isbn",isbn);
         this.isbn = isbn;
         return "bookStock/book_stock";
-//        return "bookStock/user";
     }
 
     //查询该isbn下的图书库存
