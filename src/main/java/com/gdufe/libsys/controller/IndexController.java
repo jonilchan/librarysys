@@ -32,8 +32,7 @@ public class IndexController extends BaseController {
         String[] status = {"正常", "挂失", "注销", "暂停借阅"};
         request.setAttribute("identity", identity[user.getIdentity()]);
         request.setAttribute("status", status[user.getStatus()]);
-        Double fine = userService.fineOfUser(userId);
-        request.setAttribute("fine", String.valueOf(fine).substring(0, (int) (Math.round(fine/10)+2)));
+        request.setAttribute("fine", userService.fineOfUser(userId));
         return "welcome";
     }
 
