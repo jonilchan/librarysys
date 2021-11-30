@@ -81,8 +81,8 @@ public class ReserveController extends BaseController {
     //归还图书
     @PostMapping ("/selectBook")
     @ResponseBody
-    public ResultInfo selectBookById(Integer bookId) {
-         return reserveService.selectBookById(bookId,readerId,reserveId);
+    public ResultInfo selectBookById(HttpServletRequest request, Integer bookId) {
+         return reserveService.selectBookById(bookId, readerId, reserveId, request.getSession().getAttribute("userId").toString());
     }
 }
 

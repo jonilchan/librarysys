@@ -66,7 +66,6 @@ layui.use(['table', 'layer', "form"], function () {
             case "del":
                 delUser(table.checkStatus(obj.config.id).data);
                 break;
-
         }
     });
 
@@ -141,8 +140,8 @@ layui.use(['table', 'layer', "form"], function () {
                 $.post(ctx+"/reserve/selectBook",{bookId:obj.data.bookId},function (data) {
                     if(data.code==200){
                         layer.msg("确认成功");
-                        tableIns.reload();
-
+                        parent.location.reload();
+                        layer.close(index);
                     }else{
                         layer.msg("该预约记录已处理！");
                     }
@@ -151,28 +150,4 @@ layui.use(['table', 'layer', "form"], function () {
 
         }
     });
-
-
-
-
-
-    //弹出框
-    function openAddOrUpdateUserDialog(id) {
-        var title = "用户管理-用户添加";
-        var url = ctx + "/user/addOrUpdateUserPage";
-        if (id) {
-            title = "用户管理-用户更新";
-            url = url + "?id=" + id;
-        }
-        layui.layer.open({
-            title: title,
-            type: 2,
-            area: ["700px", "500px"],
-            maxmin: true,
-            content: url
-        })
-    }
-
-
-
 });

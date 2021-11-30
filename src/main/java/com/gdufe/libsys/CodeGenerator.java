@@ -26,7 +26,7 @@ public class CodeGenerator {
         globalConfig.setServiceName("%sService");
         autoGenerator.setGlobalConfig(globalConfig);
         PackageConfig packageConfig = new PackageConfig();
-        packageConfig.setParent("com.gdufe.libsys");
+        packageConfig.setParent("com.code.libsys");
         packageConfig.setEntity("entity");
         packageConfig.setMapper("mapper");
         packageConfig.setController("controller");

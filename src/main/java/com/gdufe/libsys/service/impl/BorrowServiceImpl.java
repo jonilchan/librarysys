@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.base.BorrowStatusEnum;
 import com.gdufe.libsys.entity.BookStock;
 import com.gdufe.libsys.entity.Borrow;
+import com.gdufe.libsys.entity.Rank;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.mapper.BookInfoMapper;
 import com.gdufe.libsys.mapper.BookStockMapper;
@@ -63,6 +64,13 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         borrow.setReaderId(userId);
         borrow.setStatus(0);
         borrowMapper.insert(borrow);
+
+        //填充Rank表
+        Rank rank = new Rank();
+        rank.setBookId(bookStock.getBookId());
+        rank.setIsbn(isbn);
+        rank.setReaderId(userId);
+
         //更新被借书的状态
         bookStock.setStatus(1);
         bookStockMapper.updateById(bookStock);
@@ -83,8 +91,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         User user = userMapper.selectById(userId);
         Integer size = borrowList.size();
         Integer identity = user.getIdentity();
-        AssertUtil.isTrue(size == 5 && identity == 0, "借阅数量达到上线");
-        AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上线");
+        AssertUtil.isTrue(size == 5 && identity == 0, "借阅数量达到上限");
+        AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上限");
         //填充borrow数据，生成订单
         BookStock bookStock = bookStocks.get(0);
         Borrow borrow = new Borrow();
