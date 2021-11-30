@@ -17,7 +17,7 @@
                 <p>电话：${(user.phone)!"获取错误"}</p>
                 <p>身份：${(identity)!"获取错误"}</p>
                 <p>状态：${(status)!"获取错误"}</p>
-                <p>罚款：${(fine)!"获取错误"}元</p>
+                <p>罚款：${(fine)!"获取错误"}&nbsp;元</p>
             </blockquote>
         </div>
     </div>
