@@ -5,6 +5,7 @@ import com.gdufe.libsys.base.BorrowStatusEnum;
 import com.gdufe.libsys.entity.BookStock;
 import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.User;
+import com.gdufe.libsys.mapper.BookInfoMapper;
 import com.gdufe.libsys.mapper.BookStockMapper;
 import com.gdufe.libsys.mapper.BorrowMapper;
 import com.gdufe.libsys.mapper.UserMapper;
@@ -12,15 +13,16 @@ import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BorrowService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.utils.AssertUtil;
+import com.gdufe.libsys.vo.ReserveVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -39,6 +41,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Resource
     private BookStockMapper bookStockMapper;
 
+
+
     @Resource
     private UserMapper userMapper;
 
@@ -47,6 +51,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     public void borrow(String userId, String isbn) {
 
         QueryWrapper<BookStock> wrapper = new QueryWrapper();
+
         //查询符合条件的借书书籍
         wrapper.eq("isbn", isbn).eq("status", 0);
         List<BookStock> bookStocks = bookStockMapper.selectList(wrapper);
@@ -56,7 +61,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         Borrow borrow = new Borrow();
         borrow.setBookId(bookStock.getBookId());
         borrow.setReaderId(userId);
-        borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
+        borrow.setStatus(0);
         borrowMapper.insert(borrow);
         //更新被借书的状态
         bookStock.setStatus(1);
@@ -71,7 +76,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         bookStockWrapper.eq("isbn", isbn);
         List<BookStock> bookStocks = bookStockMapper.selectList(bookStockWrapper);
         AssertUtil.isTrue(bookStocks == null, "借阅书籍库存为空");
-        //查看借阅是否达到上线
+        //查看借阅是否达到上限
         QueryWrapper<Borrow> borrowQueryWrapper = new QueryWrapper<>();
         borrowQueryWrapper.eq("reader_id", userId);
         List<Borrow> borrowList = borrowMapper.selectList(borrowQueryWrapper);
@@ -97,7 +102,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         Borrow borrow = borrowMapper.selectById(borrowId);
         borrow.setReturnTime(LocalDateTime.now());
         AssertUtil.isTrue(borrow.getStatus() == 1, "当前书籍已归还");
-        borrow.setStatus(BorrowStatusEnum.已还.getCode());
+        borrow.setStatus(1);
         BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
         bookStock.setStatus(0);
         bookStockMapper.updateById(bookStock);
@@ -105,20 +110,26 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     }
 
 
-    //续借(续借时间不会改)
-    @Override
-    public void renew(Integer borrowId) {
-        Borrow borrow = borrowMapper.selectById(borrowId);
-        AssertUtil.isTrue(borrow.getStatus() == BorrowStatusEnum.已还.getCode(), "续借失败，当前书籍已归还");
-        AssertUtil.isTrue(borrow.getRenew() == 1, "续借失败，当前书籍已被续借");
-        borrow.setRenew(1);
-        borrowMapper.updateById(borrow);
-    }
-
-    //查询图书列表
+    //查询借阅记录（计算罚款
     public Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(borrowQuery.getPage(),borrowQuery.getLimit());
+        List<Borrow> borrows = borrowMapper.selectByParams(borrowQuery);
+        for (Borrow borrow : borrows) {
+            LocalDateTime borrowTime = borrow.getBorrowTime();
+            Date borrowT = Date.from(borrowTime.atZone(ZoneId.systemDefault()).toInstant());
+            Date currentT = new Date();
+            long c = currentT.getTime();
+            long b = borrowT.getTime();
+            long millis = c - b;
+            int borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-30;
+            if(borrowDay > 0){
+                double fine = borrowDay*0.1;
+                borrow.setFine(fine);
+                borrowMapper.updateById(borrow);
+            }
+        }
+
         PageInfo<Borrow> pageInfo = new PageInfo<>(borrowMapper.selectByParams(borrowQuery));
         map.put("code", 0);
         map.put("msg", "");
@@ -126,4 +137,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         map.put("data", pageInfo.getList());
         return map;
     }
+
+
 }

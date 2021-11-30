@@ -17,8 +17,23 @@ layui.use(['table', 'layer', "form"], function () {
             {type: "checkbox", fixed: "left", width: 50},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             // {field: "isbn", title: 'isbn', fixed: "true", width: 150},
-            {field: 'status', title: '借阅状态', minWidth: 50, align: "center"},
-            {field: 'bookLocation', title: '馆藏地址', minWidth: 50, align: "center"},
+            {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
+                    if(data.status==0){
+                        return "未借";
+                    }else if(data.status==1){
+                        return "被借";
+                    }
+                }},
+
+            {field: 'bookLocation', title: '馆藏地址', align: 'center', templet : function(data) {// 替换数据
+                    if(data.bookLocation==0){
+                        return "三水";
+                    }else if(data.bookLocation==1){
+                        return "广州";
+                    }else if(data.bookLocation==2){
+                        return "三水、广州";
+                    }
+                }},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });

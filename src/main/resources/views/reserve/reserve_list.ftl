@@ -10,7 +10,7 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="bookId" class="layui-input searchVal" placeholder="图书ID"/>
+                    <input type="text" name="isbn" class="layui-input searchVal" placeholder="isbn"/>
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" name="readerId" class="layui-input searchVal" placeholder="读者ID"/>
@@ -54,11 +54,11 @@
     </script>
     <!--操作-->
     <script id="userListBar" type="text/html">
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="giveback">归还</a>
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="urgereturn">催还</a>
+        <a class="layui-btn layui-btn-xs" id="edit" lay-event="process">处理预约</a>
+        <a class="layui-btn layui-btn-xs" id="edit" lay-event="remind">提醒取书</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/borrow/borrow_list.js"></script>
+<script type="text/javascript" src="${ctx}/js/reserve/reserve_list.js"></script>
 
 </body>
 </html>

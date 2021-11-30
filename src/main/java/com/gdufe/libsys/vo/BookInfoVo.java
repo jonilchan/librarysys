@@ -20,7 +20,6 @@ public class BookInfoVo implements Serializable {
     /**
      * isbn
      */
-    @TableId(value = "isbn")
     private String isbn;
 
     /**

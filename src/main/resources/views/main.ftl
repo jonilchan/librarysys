@@ -67,7 +67,7 @@
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="borrow/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">借阅管理</span></a>
+                                    class="layui-left-nav">借阅管理（管理员）</span></a>
                     </li>
 
                     <li class="layui-nav-item">
@@ -78,8 +78,8 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toRenewPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">我的借阅</span></a>
+                           data-tab="reserve/toReserve" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                                    class="layui-left-nav">预约管理（管理员）</span></a>
                     </li>
 
                     </li>

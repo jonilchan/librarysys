@@ -28,6 +28,8 @@ public class BookStock implements Serializable {
     @TableId(value = "book_id", type = IdType.AUTO)
     private Integer bookId;
 
+
+
     /**
      * isbn
      */

@@ -52,6 +52,42 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     public Map<String, Object> queryBookInfosByParams(BookInfoQuery bookInfoQuery) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(bookInfoQuery.getPage(),bookInfoQuery.getLimit());
+//        List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
+//        for (BookInfo bookInfo : bookInfos) {
+//            QueryWrapper<BookStock> wrapper = new QueryWrapper<>();
+//            wrapper.eq("isbn",bookInfo.getIsbn());
+//            List<BookStock> bookStocks = bookStockMapper.selectList(wrapper);
+//            //计算总库存
+//            bookInfo.setTotalStock(bookStocks.size());
+//            int i = 0;//计算未借阅的数数量
+//            int j = 0;//计算是三水还是广州
+//            for (BookStock bookStock : bookStocks) {
+//                if(bookStock.getStatus()==0){
+//                    i++;
+//                }
+//                if(bookStock.getBookLocation()==1){
+//                    j++;
+//                }
+//            }
+//            bookInfo.setPresentStock(i);
+//            if(j == 0){
+//                bookInfo.setBookLocation(0);
+//            }else if(j == bookStocks.size()){
+//                bookInfo.setBookLocation(1);
+//            }else {
+//                bookInfo.setBookLocation(2);
+//            }
+//        }
+        PageInfo<BookInfo> pageInfo = new PageInfo<>(getBookInfos(bookInfoQuery));
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", pageInfo.getTotal());
+        map.put("data", pageInfo.getList());
+        return map;
+    }
+
+    //把图书信息封装成一个方法
+    public List<BookInfo> getBookInfos(BookInfoQuery bookInfoQuery){
         List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
         for (BookInfo bookInfo : bookInfos) {
             QueryWrapper<BookStock> wrapper = new QueryWrapper<>();
@@ -78,15 +114,8 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
                 bookInfo.setBookLocation(2);
             }
         }
-
-        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfos);
-        map.put("code", 0);
-        map.put("msg", "");
-        map.put("count", pageInfo.getTotal());
-        map.put("data", pageInfo.getList());
-        return map;
+        return bookInfos;
     }
-
 //    @Override
 //    public Map<String, Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery) {
 //        Map<String, Object> map = new HashMap<>();

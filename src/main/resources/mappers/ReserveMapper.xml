@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdufe.libsys.mapper.ReserveMapper">
+  <resultMap id="BaseResultMap" type="com.gdufe.libsys.entity.Reserve">
+    <id column="reserve_id" jdbcType="INTEGER" property="reserveId" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="reader_id" jdbcType="VARCHAR" property="readerId" />
+    <result column="reader_identity" jdbcType="INTEGER" property="readerIdentity" />
+    <result column="reserve_time" jdbcType="TIMESTAMP" property="reserveTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    reserve_id, isbn, reader_id, reader_identity, reserve_time, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reserve
+    where reserve_id = #{reserveId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reserve
+    where reserve_id = #{reserveId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdufe.libsys.entity.Reserve">
+    insert into reserve (reserve_id, isbn, reader_id, 
+      reader_identity, reserve_time, status
+      )
+    values (#{reserveId,jdbcType=INTEGER}, #{isbn,jdbcType=VARCHAR}, #{readerId,jdbcType=VARCHAR}, 
+      #{readerIdentity,jdbcType=INTEGER}, #{reserveTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdufe.libsys.entity.Reserve">
+    insert into reserve
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reserveId != null">
+        reserve_id,
+      </if>
+      <if test="isbn != null">
+        isbn,
+      </if>
+      <if test="readerId != null">
+        reader_id,
+      </if>
+      <if test="readerIdentity != null">
+        reader_identity,
+      </if>
+      <if test="reserveTime != null">
+        reserve_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reserveId != null">
+        #{reserveId,jdbcType=INTEGER},
+      </if>
+      <if test="isbn != null">
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="readerId != null">
+        #{readerId,jdbcType=VARCHAR},
+      </if>
+      <if test="readerIdentity != null">
+        #{readerIdentity,jdbcType=INTEGER},
+      </if>
+      <if test="reserveTime != null">
+        #{reserveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdufe.libsys.entity.Reserve">
+    update reserverve
+    <set>
+      <if test="isbn != null">
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="readerId != null">
+        reader_id = #{readerId,jdbcType=VARCHAR},
+      </if>
+      <if test="readerIdentity != null">
+        reader_identity = #{readerIdentity,jdbcType=INTEGER},
+      </if>
+      <if test="reserveTime != null">
+        reserve_time = #{reserveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where reserve_id = #{reserveId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdufe.libsys.entity.Reserve">
+    update reserve
+    set isbn = #{isbn,jdbcType=VARCHAR},
+      reader_id = #{readerId,jdbcType=VARCHAR},
+      reader_identity = #{readerIdentity,jdbcType=INTEGER},
+      reserve_time = #{reserveTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where reserve_id = #{reserveId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByParams" parameterType="com.gdufe.libsys.entity.Reserve" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from reserve
+    <where>
+
+      <if test="null !=isbn and isbn !=''">
+        and isbn like concat('%',#{isbn},'%')
+      </if>
+      <if test="null !=reserveId and reserveId  !=''">
+        and reserve_id like concat('%',#{reserveId },'%')
+      </if>
+      <if test="null !=readerIdentity and readerIdentity!=''">
+        and reader_identity like concat('%',#{readerIdentity},'%')
+      </if>
+      <if test="null !=readerId and readerId  !=''">
+        and reader_id like concat('%',#{readerId },'%')
+      </if>
+
+    </where>
+  </select>
+</mapper>

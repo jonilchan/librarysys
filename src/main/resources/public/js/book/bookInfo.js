@@ -127,6 +127,7 @@ layui.use(['table', 'layer', "form"], function () {
 
     // 编辑 删除选项
     table.on('tool(users)', function (obj) {
+        // "bookId" : $("input[name='bookId']").val()
         var layEvent = obj.event;
         if (layEvent === "edit") {
             openAddOrUpdateUserDialog(obj.data.id);

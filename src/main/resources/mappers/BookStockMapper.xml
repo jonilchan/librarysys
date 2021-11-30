@@ -11,22 +11,20 @@
     book_id, isbn, status, book_location
   </sql>
 
-<!--  <select id="selectByParams" parameterType="com.gdufe.libsys.entity.BookInfo" resultMap="BaseResultMap">-->
-<!--    select-->
-<!--    <include refid="Base_Column_List"/>-->
-<!--    from book_stock-->
-<!--    <where>-->
+  <select id="selectAll" parameterType="com.gdufe.libsys.entity.BookInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from book_stock
+    <where>
 
-<!--      <if test="null !=isbn and isbn !=''">-->
-<!--        and isbn like concat('%',#{isbn},'%')-->
-<!--      </if>-->
-<!--      <if test="null !=bookName and bookName !=''">-->
-<!--        and book_name like concat('%',#{bookName},'%')-->
-<!--      </if>-->
-<!--      <if test="null !=author and author !=''">-->
-<!--        and author like concat('%',#{author},'%')-->
-<!--      </if>-->
+      <if test="null !=isbn and isbn !=''">
+        and isbn like concat('%',#{isbn},'%')
+      </if>
 
-<!--    </where>-->
-<!--  </select>-->
+      <if test="10 == status">
+        and status = 0
+      </if>
+
+    </where>
+  </select>
 </mapper>

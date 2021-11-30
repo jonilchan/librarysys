@@ -2,10 +2,10 @@ layui.use(['table', 'layer', "form"], function () {
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         table = layui.table;
-    //借阅列表展示
+
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/borrow/list',
+        url: ctx + '/reserve/list',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -15,27 +15,23 @@ layui.use(['table', 'layer', "form"], function () {
         id: "userListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
-            {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
-            {field: 'borrowTime', title: '借阅时间', minWidth: 100, align: 'center'},
-            {field: 'returnTime', title: '归还时间', minWidth: 100, align: 'center'},
-            {field: 'operator', title: '操作员', align: 'center'},
-            {field: 'fine', title: '罚款', align: 'center'},
+            // {field: "isbn", title: 'isbn', fixed: "true", width: 150},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
-                        return "已借未还";
+                        return "未借";
                     }else if(data.status==1){
-                        return "已还";
-                    }else if(data.status==2){
-                        return "预约未拿";
+                        return "被借";
                     }
                 }},
-            {field: 'renew', title: '是否续借', align: 'center', templet : function(data) {// 替换数据
-                    if(data.renew==0){
-                        return "未续借";
-                    }else if(data.renew==1){
-                        return "已续借";
+
+            {field: 'bookLocation', title: '馆藏地址', align: 'center', templet : function(data) {// 替换数据
+                    if(data.bookLocation==0){
+                        return "三水";
+                    }else if(data.bookLocation==1){
+                        return "广州";
+                    }else if(data.bookLocation==2){
+                        return "三水、广州";
                     }
                 }},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
@@ -50,11 +46,9 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                bookId: $("input[name='bookId']").val(),// isbn
-                readerId: "${user.userId}",//读者ID
-                status: $("input[name='status']").val() , //状态
-                operator: $("input[name='operator']").val(),//操作员
-                fine: $("select[name='fine']").val(), //罚款
+                isbn: $("input[name='isbn']").val(),// 用户名
+                bookName: $("input[name='bookName']").val(),// 邮箱
+                author: $("input[name='author']").val()    //手机号
             }
         })
     });
@@ -66,9 +60,13 @@ layui.use(['table', 'layer', "form"], function () {
             case "add":
                 openAddOrUpdateUserDialog();
                 break;
+            case "stockInfo":
+                openAddOrUpdateBookStock(table.checkStatus(obj.config.id).data);
+                break;
             case "del":
                 delUser(table.checkStatus(obj.config.id).data);
                 break;
+
         }
     });
 
@@ -113,22 +111,49 @@ layui.use(['table', 'layer', "form"], function () {
         })
     }
 
+    // // 编辑 删除选项
+    // table.on('tool(users)', function (obj) {
+    //     var layEvent = obj.event;
+    //     if (layEvent === "select") {
+    //         // openAddOrUpdateUserDialog(obj.data.id);
+    //
+    //         layer.confirm("确认选择该书?", {icon: 3, title: "借阅"}, function (index) {
+    //               $.post(ctx+"/reserve/selectBook",{id:obj.data.bookId},function (data) {
+    //                         alert(obj.data.bookId)
+    //                         if (data.code == 200) {
+    //                             layer.msg("选择成功");
+    //                             tableIns.reload();
+    //                         } else {
+    //                             layer.msg(data.msg);
+    //                         }
+    //                     })
+    //                 })
+    //     }
+    // });
+    //
     // 编辑 删除选项
-    table.on('tool(users)', function (obj) {
-        var layEvent = obj.event;
-        if (layEvent === "renew") {
-            layer.confirm("确认续借当前书籍?", {icon: 3, title: "书籍续借"}, function (index) {
-                $.get(ctx + "/borrow/renew", {borrowId: obj.data.borrowId}, function (data) {
-                    if (data.code == 200) {
-                        layer.msg("书籍续借成功");
-                        tableIns.reload() ;
-                    } else {
-                        layer.msg(data.msg);
+    table.on('tool(users)',function (obj) {
+        var layEvent =obj.event;
+        if(layEvent === "remind"){
+            alert("你点击了此按钮")
+        }else if(layEvent === "select"){
+            layer.confirm("确认选择该书?",{icon: 3, title: "库存详情"},function (index) {
+                $.post(ctx+"/reserve/selectBook",{bookId:obj.data.bookId},function (data) {
+                    if(data.code==200){
+                        layer.msg("确认成功");
+                        tableIns.reload();
+
+                    }else{
+                        layer.msg("该预约记录已处理！");
                     }
                 })
             })
+
         }
     });
+
+
+
 
 
     //弹出框
@@ -147,4 +172,7 @@ layui.use(['table', 'layer', "form"], function () {
             content: url
         })
     }
+
+
+
 });

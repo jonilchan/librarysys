@@ -22,7 +22,6 @@ public interface BorrowService extends IService<Borrow> {
 
     void giveback(Integer borrowId);
 
-    void renew(Integer borrowId);
-
     Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery);
+
 }
