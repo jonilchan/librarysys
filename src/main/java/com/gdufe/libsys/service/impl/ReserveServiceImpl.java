@@ -19,10 +19,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> implements ReserveService {
@@ -48,6 +46,8 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Autowired
     private RankMapper rankMapper;
 
+
+    //拉取查询列表
     @Override
     public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery) {
         Map<String, Object> map = new HashMap<>();
@@ -107,7 +107,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         //操作员
         borrow.setOperator(operator);
 
-        borrow.setStatus(BorrowStatusEnum.已借未换.getCode());
+        borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
         borrowMapper.insert(borrow);
         QueryWrapper<BookStock> bookStockQueryWrapper = new QueryWrapper<>();
         bookStockQueryWrapper.eq("book_id",bookId);
@@ -117,5 +117,19 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         reserve.setStatus(ReserveStatusEnum.已取书.getCode());
         reserveMapper.updateById(reserve);
         return new ResultInfo(200);
+    }
+
+
+    @Override
+    public void book(String readerId, String isbn) {
+        User user = userMapper.selectById(readerId);
+        AssertUtil.isTrue(user == null, "不存在该用户");
+        Reserve reserve = new Reserve();
+        reserve.setReaderId(readerId);
+        reserve.setIsbn(isbn);
+        reserve.setStatus(0);
+        reserve.setReserveTime(new Date());
+        reserve.setReaderIdentity(user.getStatus());
+        reserveMapper.insert(reserve);
     }
 }

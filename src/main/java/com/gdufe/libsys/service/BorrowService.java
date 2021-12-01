@@ -16,7 +16,7 @@ import java.util.Map;
  * @since 2021-11-23
  */
 public interface BorrowService extends IService<Borrow> {
-    void borrow(String userId, String isbn);
+    void borrow(String readerId, Integer bookId, String userId);
 
     void book(String userId, String isbn);
 

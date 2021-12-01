@@ -128,7 +128,7 @@ layui.use(['table', 'layer', "form"], function () {
                 })
             })
         } else if (layEvent === "urgereturn") {
-            layer.confirm("确认催还当前订单?", {icon: 3, title: "书籍催还"}, function (index) {
+            layer.confirm("确认催还当前书籍?", {icon: 3, title: "书籍催还"}, function (index) {
                         layer.msg("书籍催还成功");
                         tableIns.reload();
                 }
@@ -136,21 +136,4 @@ layui.use(['table', 'layer', "form"], function () {
         }
     });
 
-
-    //弹出框
-    function openAddOrUpdateUserDialog(id) {
-        var title = "用户管理-用户添加";
-        var url = ctx + "/user/addOrUpdateUserPage";
-        if (id) {
-            title = "用户管理-用户更新";
-            url = url + "?id=" + id;
-        }
-        layui.layer.open({
-            title: title,
-            type: 2,
-            area: ["700px", "500px"],
-            maxmin: true,
-            content: url
-        })
-    }
 });

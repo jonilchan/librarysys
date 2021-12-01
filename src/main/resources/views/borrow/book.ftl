@@ -43,10 +43,10 @@
     </script>
     <!--操作-->
     <script id="userListBar" type="text/html">
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="borrow">借阅</a>
+        <a class="layui-btn layui-btn-xs" id="edit" lay-event="book">预约</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/borrow/borrow.js"></script>
+<script type="text/javascript" src="${ctx}/js/borrow/book.js"></script>
 
 </body>
 </html>

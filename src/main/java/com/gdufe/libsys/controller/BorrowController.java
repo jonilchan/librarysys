@@ -2,9 +2,12 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
+import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.query.BorrowQuery;
+import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.service.BorrowService;
 import com.gdufe.libsys.utils.ResultInfo;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
@@ -30,13 +33,16 @@ public class BorrowController extends BaseController {
     private BorrowService borrowService;
 
 
+    @Resource
+    private BookStockService bookStockService;
+
     //借书
-    @RequestMapping("/borrow")
-    @ResponseBody
-    public ResultInfo borrow(HttpServletRequest request, String isbn){
-        borrowService.borrow(request.getSession().getAttribute("userId").toString(), isbn);
-        return new ResultInfo(200);
-    }
+//    @RequestMapping("/borrow")
+//    @ResponseBody
+//    public ResultInfo borrow(HttpServletRequest request, String isbn){
+//        borrowService.borrow(request.getSession().getAttribute("userId").toString(), isbn);
+//        return new ResultInfo(200);
+//    }
 
     //预约
     @RequestMapping("/book")
@@ -53,12 +59,32 @@ public class BorrowController extends BaseController {
         return borrowService.queryBorrowsByParams(borrowQuery);
     }
 
-    //借书、预约页
-    @RequestMapping("/toBorrowPage")
-    public String toBorrowPage(){
-        return "/borrow/borrow";
+    //加载库存表
+    @GetMapping("/toStock")
+    public String toStock(HttpServletRequest request, String isbn, String readerId){
+        request.setAttribute("isbn",isbn);
+        request.getSession().setAttribute("readerId",readerId);
+        request.getSession().setAttribute("userId",request.getSession().getAttribute("userId"));
+        return "borrow/borrow_process";
     }
 
+    //查询该isbn下的图书库存
+    @GetMapping("/book_stock")
+    @ResponseBody
+    public Map<String, Object> queryBookStocksByParams(HttpServletRequest request, BookStockQuery bookStockQuery) {
+        bookStockQuery.setIsbn(request.getSession().getAttribute("isbn").toString());
+        bookStockQuery.setStatus(10);
+        return bookStockService.selectAll(bookStockQuery);
+    }
+
+    //借书
+    @RequestMapping("/borrow_book")
+    @ResponseBody
+    public ResultInfo borrowBook(HttpServletRequest request, Integer bookId){
+        borrowService.borrow(request.getSession().getAttribute("readerId").toString(), bookId, request.getSession().getAttribute("userId").toString());
+        System.out.println("1111");
+        return new ResultInfo(200);
+    }
 
     //归还图书
     @RequestMapping("/giveback")
@@ -74,7 +100,17 @@ public class BorrowController extends BaseController {
         return "/borrow/borrow_list";
     }
 
+    //去管理员借阅界面
+    @RequestMapping("/toBorrowPage")
+    public String toBorrowPage(){
+        return "/borrow/borrow";
+    }
 
+    //借书、预约页
+    @RequestMapping("/toBookPage")
+    public String toBookPage(){
+        return "/borrow/book";
+    }
 
 }
 

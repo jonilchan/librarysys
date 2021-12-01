@@ -84,5 +84,13 @@ public class ReserveController extends BaseController {
     public ResultInfo selectBookById(HttpServletRequest request, Integer bookId) {
          return reserveService.selectBookById(bookId, readerId, reserveId, request.getSession().getAttribute("userId").toString());
     }
+
+    //预约书籍
+    @RequestMapping("book")
+    @ResponseBody
+    public ResultInfo bookABook(HttpServletRequest request, String isbn){
+        reserveService.book(request.getSession().getAttribute("userId").toString(), isbn);
+        return new ResultInfo(200);
+    }
 }
 

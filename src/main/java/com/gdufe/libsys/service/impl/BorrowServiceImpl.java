@@ -2,14 +2,8 @@ package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.base.BorrowStatusEnum;
-import com.gdufe.libsys.entity.BookStock;
-import com.gdufe.libsys.entity.Borrow;
-import com.gdufe.libsys.entity.Rank;
-import com.gdufe.libsys.entity.User;
-import com.gdufe.libsys.mapper.BookInfoMapper;
-import com.gdufe.libsys.mapper.BookStockMapper;
-import com.gdufe.libsys.mapper.BorrowMapper;
-import com.gdufe.libsys.mapper.UserMapper;
+import com.gdufe.libsys.entity.*;
+import com.gdufe.libsys.mapper.*;
 import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BorrowService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -42,38 +36,41 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Resource
     private BookStockMapper bookStockMapper;
 
-
-
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private BookInfoMapper bookInfoMapper;
+
+    @Resource
+    private RankMapper rankMapper;
+
     //借书
     @Override
-    public void borrow(String userId, String isbn) {
+    public void borrow(String readerId, Integer bookId, String userId) {
 
-        QueryWrapper<BookStock> wrapper = new QueryWrapper();
-
-        //查询符合条件的借书书籍
-        wrapper.eq("isbn", isbn).eq("status", 0);
-        List<BookStock> bookStocks = bookStockMapper.selectList(wrapper);
-        AssertUtil.isTrue(bookStocks == null, "借阅书籍库存为空");
-        //填充borrow数据，生成订单
-        BookStock bookStock = bookStocks.get(0);
+        //填充Borrow数据
         Borrow borrow = new Borrow();
-        borrow.setBookId(bookStock.getBookId());
-        borrow.setReaderId(userId);
-        borrow.setStatus(0);
-        borrowMapper.insert(borrow);
-
+        borrow.setReaderId(readerId);
+        borrow.setOperator(userMapper.selectById(userId).getUserName());
+        borrow.setBookId(bookId);
+        borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
+        AssertUtil.isTrue(borrowMapper.insert(borrow) != 1, "借阅书籍失败");;
         //填充Rank表
-        Rank rank = new Rank();
-        rank.setBookId(bookStock.getBookId());
-        rank.setIsbn(isbn);
-        rank.setReaderId(userId);
-
+        BookStock bookStock = bookStockMapper.selectById(bookId);
+//        Rank rank = new Rank();
+//        rank.setBookId(bookId);
+//        rank.setIsbn(bookStock.getIsbn());
+//        rank.setReaderId(readerId);
+//        rank.setBorrowTime(LocalDateTime.now());
+//        rankMapper.insert(rank);
         //更新被借书的状态
         bookStock.setStatus(1);
         bookStockMapper.updateById(bookStock);
+        //book_info减少库存
+        BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
+        bookInfo.setPresentStock(bookInfo.getPresentStock() - 1);
+        bookInfoMapper.updateById(bookInfo);
     }
 
     //预约
@@ -113,8 +110,14 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         borrow.setStatus(1);
         BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
         bookStock.setStatus(0);
+
         bookStockMapper.updateById(bookStock);
         borrowMapper.updateById(borrow);
+
+        //book_info增加库存
+        BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
+        bookInfo.setPresentStock(bookInfo.getPresentStock() + 1);
+        bookInfoMapper.updateById(bookInfo);
     }
 
 

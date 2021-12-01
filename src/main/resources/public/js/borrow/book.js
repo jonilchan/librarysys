@@ -52,21 +52,73 @@ layui.use(['table', 'layer', "form"], function () {
         ]]
     });
 
-    // 编辑 删除选项
-    table.on('tool(users)', function (obj) {
-        openBookStockInfo(obj.data);
+
+    // 头工具栏事件
+    table.on('toolbar(users)', function (obj) {
+        switch (obj.event) {
+            case "add":
+                openAddOrUpdateUserDialog();
+                break;
+            case "del":
+                delUser(table.checkStatus(obj.config.id).data);
+                break;
+        }
     });
 
-    //弹出框--库存信息
-    function openBookStockInfo(data) {
-        var readerId = prompt("请输入读者ID：");
-        var title = "图书库存记录";
-        layui.layer.open({
-            title: title,
-            type: 2,
-            area: ["900px", "600px"],
-            maxmin: true,
-            content: ctx + "/borrow/toStock?isbn=" + data.isbn + "&readerId=" + readerId
+
+    function delUser(datas) {
+        /**
+         * 批量删除
+         *   datas:选择的待删除记录数组
+         */
+        if (datas.length == 0) {
+            layer.msg("请选择待删除记录!");
+            return;
+        }
+        layer.confirm("确定删除选中的记录", {
+            btn: ['确定', '取消']
+        }, function (index) {
+            layer.close(index);
+            var ids = "ids=";
+            for (var i = 0; i < datas.length; i++) {
+                if (i < datas.length - 1) {
+                    ids = ids + datas[i].id + "&ids=";
+                } else {
+                    ids = ids + datas[i].id;
+                }
+            }
+            $.ajax({
+                type: "post",
+                url: ctx + "/user/delete",
+                data: ids,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        tableIns.reload();
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+
+
         })
     }
-})
+
+    // 编辑 删除选项
+    table.on('tool(users)', function (obj) {
+        var layEvent = obj.event;
+        if (layEvent === "book") {
+            layer.confirm("确认预约当前书籍?",{icon: 3, title: "预约书籍"},function (index) {
+                $.post(ctx+"/reserve/book",{isbn:obj.data.isbn},function (data) {
+                    if(data.code==200){
+                        layer.msg("预约成功");
+                        layer.close(index);
+                    }else{
+                        layer.msg("预约书籍失败");
+                    }
+                })
+            })
+        }
+    });
+});

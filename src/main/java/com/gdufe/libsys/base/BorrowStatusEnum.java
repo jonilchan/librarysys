@@ -5,7 +5,7 @@ import lombok.Getter;
 
 public enum BorrowStatusEnum {
 
-    已借未换(0),
+    已借未还(0),
 
     已还(1),
 

@@ -6,7 +6,6 @@ layui.use(['form','jquery','jquery_cookie'], function () {
 
     // 进行登录操作
     form.on('submit(saveBtn)', function (data) {
-        console.log(data)
         data = data.field;
         //加载
         index = layer.load(1);

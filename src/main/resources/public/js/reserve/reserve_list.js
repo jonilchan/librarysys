@@ -105,40 +105,14 @@ layui.use(['table', 'layer', "form"], function () {
     }
     //弹出框--库存信息
     function openBookStockInfo(data) {
-        // console.log(data[0].id)
-        // if (data.length == 0) {
-        //     layer.msg("请选择需要查看的图书!");
-        //     return;
-        // }
-        // if (data.length > 1) {
-        //     layer.msg("不支持批量查看!");
-        //     return;
-        // }
         var title = "图书库存记录";
         layui.layer.open({
             title: title,
             type: 2,
-            area: ["800px", "600px"],
+            area: ["900px", "600px"],
             maxmin: true,
             content: ctx + "/reserve/toStock?isbn=" + data.isbn +"&readerId="+data.readerId+"&reserveId="+data.reserveId
         })
         reloadtable()
-    }
-
-    //弹出框
-    function openAddOrUpdateUserDialog(id) {
-        var title = "用户管理-用户添加";
-        var url = ctx + "/user/addOrUpdateUserPage";
-        if (id) {
-            title = "用户管理-用户更新";
-            url = url + "?id=" + id;
-        }
-        layui.layer.open({
-            title: title,
-            type: 2,
-            area: ["700px", "500px"],
-            maxmin: true,
-            content: url
-        })
     }
 });

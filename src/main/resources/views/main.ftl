@@ -61,8 +61,13 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
+                           data-tab="borrow/toBookPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                                    class="layui-left-nav">图书预约</span></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="borrow/toBorrowPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">图书借阅</span></a>
+                                    class="layui-left-nav">图书借阅（管理员）</span></a>
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
