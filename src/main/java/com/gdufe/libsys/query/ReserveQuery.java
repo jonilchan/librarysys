@@ -11,4 +11,5 @@ public class ReserveQuery extends BaseQuery {
     private String readerId;
     private String isbn;
     private Integer readerIdentity;
+    private Integer status;
 }

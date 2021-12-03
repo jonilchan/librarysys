@@ -16,23 +16,24 @@
                     <input type="text" name="readerId" class="layui-input searchVal" placeholder="读者ID"/>
                 </div>
                 <div class="layui-input-inline">
+                    <input type="text" name="reserveId" class="layui-input searchVal" placeholder="预约号"/>
+                </div>
+                <div class="layui-input-inline">
                     <select name="status" class="layui-input searchVal">
                         <option value="">状态</option>
-                        <option value="0">已借未还</option>
-                        <option value="1">已还</option>
-                        <option value="2">预约未拿</option>
+                        <option value="0">未处理</option>
+                        <option value="1">已处理</option>
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="operator" class="layui-input searchVal" placeholder="操作员"/>
-                </div>
-                <div class="layui-input-inline">
-                    <select name="fine" class="layui-input searchVal">
-                        <option value="">有无罚款</option>
-                        <option value="0">无罚款</option>
-                        <option value="1">有罚款</option>
+                    <select name="status" class="layui-input searchVal">
+                        <option value="">身份</option>
+                        <option value="0">学生</option>
+                        <option value="1">老师</option>
+                        <option value="1">图书管理员</option>
                     </select>
                 </div>
+
                 <a class="layui-btn search_btn" data-type="reload"><i
                             class="layui-icon">&#xe615;</i> 搜索</a>
             </div>

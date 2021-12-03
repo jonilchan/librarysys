@@ -53,9 +53,9 @@ layui.use(['table', 'layer', "form"], function () {
             where: {
                 isbn: $("input[name='isbn']").val(),// isbn
                 readerId: $("input[name='readerId']").val(),//书名
+                reserveId: $("select[name='reserveId']").val(),//库存，
                 status: $("input[name='status']").val() , //状态
-                operator: $("input[name='operator']").val(),//操作员
-                fine: $("select[name='fine']").val(), //罚款
+                readerIdentity: $("input[name='readerIdentity']").val()  //状态
             }
         })
     });
