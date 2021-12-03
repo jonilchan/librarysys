@@ -16,4 +16,6 @@ layui.use(['element', 'layer', 'layuimini','jquery','jquery_cookie'], function (
             layer.close(index);
         });
     })
+
+
 });

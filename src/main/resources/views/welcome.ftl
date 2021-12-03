@@ -1,99 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html class="x-admin-sm">
 <head>
-  <#include "common.ftl">
+    <meta charset="UTF-8">
+    <title>欢迎页面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="${ctx}/xadmin/font.css">
+    <link rel="stylesheet" href="${ctx}/xadmin/xadmin.css">
+    <#include "./common.ftl">
+<#--    <script type="text/javascript" src="${ctx}/xadmin/layui.js"></script>-->
+<#--    <script type="text/javascript" src="${ctx}/xadmin/xadmin.js"></script>-->
+
+    <script type="text/javascript" src="${ctx}/js/welcome.js"></script>
 </head>
-
-
-<body class="childrenBody">
-
-<div class="layui-box">
-    <div class="layui-row layui-col-space10">
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
-            <blockquote class="layui-elem-quote main_btn">
-                <img src="/images/GdufeLibraryLogo.png">
-                <br/><br/><br/>
-                <p>姓名：${(user.userName)!"获取错误"}</p>
-                <p>电话：${(user.phone)!"获取错误"}</p>
-                <p>身份：${(identity)!"获取错误"}</p>
-                <p>状态：${(status)!"获取错误"}</p>
-                <p>罚款：${(fine)!"获取错误"}&nbsp;元</p>
-            </blockquote>
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">欢迎：
+                        <span class="x-red">${(user.userName)!"获取错误"}</span>！ 当前时间：${(datetime)!"获取错误"}
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">数据统计</div>
+                <div class="layui-card-body ">
+                    <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:" class="x-admin-backlog-body">
+                                <h3>本月借阅次数</h3>
+                                <p>
+                                    <cite>${(borrowtimes)!"获取错误"}&nbsp;次</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:" class="x-admin-backlog-body">
+                                <h3>本月预约次数</h3>
+                                <p>
+                                    <cite>${(reservetimes)!"获取错误"}&nbsp;次</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:" class="x-admin-backlog-body">
+                                <h3>今天登录次数</h3>
+                                <p>
+                                    <cite>${(logintimes)!"获取错误"}&nbsp;次</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:" class="x-admin-backlog-body">
+                                <h3>罚款数目</h3>
+                                <p>
+                                    <cite>${(fine)!"获取错误"}&nbsp;元</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:" class="x-admin-backlog-body">
+                                <h3>用户身份</h3>
+                                <p>
+                                    <cite>${(identity)!"获取错误"}</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6 ">
+                            <a href="javascript:" class="x-admin-backlog-body">
+                                <h3>用户状态</h3>
+                                <p>
+                                    <cite>${(status)!"获取错误"}</cite></p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">图书馆借阅次数
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body  ">
+                    <p><cite>1254&nbsp;次</cite></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">图书馆预约次数
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body ">
+                    <p><cite>687&nbsp;次</cite></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">图书馆访问次数
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body ">
+                    <p>
+                        <cite>xxx&nbsp;次</cite>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">图书馆工作天数
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body ">
+                    <p>
+                        <cite>${(dayOfMonth)!"获取错误"}&nbsp;天</cite>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">我的消息</div>
+                <div class="layui-card-body ">
+                    <table id="userList" class="layui-table" lay-filter="users"></table>
+                </div>
+            </div>
+        </div>
+        <style id="welcome_style"></style>
+        <div class="layui-col-md12">
+            <blockquote class="layui-elem-quote layui-quote-nm">广东财经大学图书馆</blockquote>
         </div>
     </div>
 </div>
-
-
-<script>
-    layui.use(['carousel', 'form'], function(){
-        var carousel = layui.carousel
-            ,form = layui.form;
-
-        //常规轮播
-        carousel.render({
-            elem: '#test1'
-            ,arrow: 'always'
-        });
-
-        //改变下时间间隔、动画类型、高度
-        carousel.render({
-            elem: '#test2'
-            ,interval: 1800
-            ,anim: 'fade'
-            ,height: '120px'
-        });
-
-        //设定各种参数
-        var ins3 = carousel.render({
-            elem: '#test3'
-        });
-        //图片轮播
-        carousel.render({
-            elem: '#test10'
-            ,width: '100%'
-            ,height: '440px'
-            ,interval: 3000
-        });
-
-        //事件
-        carousel.on('change(test4)', function(res){
-            console.log(res)
-        });
-
-        var $ = layui.$, active = {
-            set: function(othis){
-                var THIS = 'layui-bg-normal'
-                    ,key = othis.data('key')
-                    ,options = {};
-
-                othis.css('background-color', '#5FB878').siblings().removeAttr('style');
-                options[key] = othis.data('value');
-                ins3.reload(options);
-            }
-        };
-
-        //监听开关
-        form.on('switch(autoplay)', function(){
-            ins3.reload({
-                autoplay: this.checked
-            });
-        });
-
-        $('.demoSet').on('keyup', function(){
-            var value = this.value
-                ,options = {};
-            if(!/^\d+$/.test(value)) return;
-
-            options[this.name] = value;
-            ins3.reload(options);
-        });
-
-        //其它示例
-        $('.demoTest .layui-btn').on('click', function(){
-            var othis = $(this), type = othis.data('type');
-            active[type] ? active[type].call(this, othis) : '';
-        });
-    });
+</div>
+<script id="userListBar" type="text/html">
+    <#--        <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">预约</a>-->
 </script>
 </body>
 </html>
