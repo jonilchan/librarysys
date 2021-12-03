@@ -26,7 +26,7 @@
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <select name="status" class="layui-input searchVal">
+                    <select name="operator" class="layui-input searchVal">
                         <option value="">身份</option>
                         <option value="0">学生</option>
                         <option value="1">老师</option>

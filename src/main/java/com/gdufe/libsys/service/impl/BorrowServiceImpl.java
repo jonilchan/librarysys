@@ -104,6 +104,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         bookStockMapper.updateById(bookStock);
     }
 
+
+    //归还
     @Override
     public void giveback(Integer borrowId) {
         Borrow borrow = borrowMapper.selectById(borrowId);

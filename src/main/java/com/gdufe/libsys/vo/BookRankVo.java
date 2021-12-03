@@ -44,7 +44,7 @@ public class BookRankVo implements Serializable {
     private Integer totalStock;
 
     /**
-     * 当前库存
+     * 三个月内借阅次数
      */
     private Integer borrowTimesInThreeMonths;
 
@@ -63,4 +63,8 @@ public class BookRankVo implements Serializable {
      */
     private Integer categoryId;
 
+    /**
+     * 当前库存
+     */
+    private Integer presentStock;
 }

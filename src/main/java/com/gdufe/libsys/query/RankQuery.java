@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class RankQuery extends BaseQuery {
-    private Integer bookId;
-    private String readerId;
-    private String isbn;
+    //排序依据:作者
+    private String author;
+    //排序方式
+    private Integer order;
 }

@@ -52,7 +52,7 @@ layui.use(['table', 'layer', "form"], function () {
             where: {
                 bookId: $("input[name='bookId']").val(),// isbn
                 readerId: $("input[name='readerId']").val(),//书名
-                status: $("input[name='status']").val() , //状态
+                status: $("select[name='status']").val() , //状态
                 operator: $("input[name='operator']").val(),//操作员
                 fine: $("select[name='fine']").val(), //罚款
             }

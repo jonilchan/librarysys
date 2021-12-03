@@ -2,10 +2,10 @@ layui.use(['table', 'layer', "form"], function () {
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         table = layui.table;
-    //图书列表展示
+    //图书排行榜展示
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/book/rankList',
+        url: ctx + '/bookRank/rankList',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -14,7 +14,8 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            {type: "checkbox", fixed: "left", width: 50},
+            // {type: "checkbox", fixed: "left", width: 50},
+            {field:'selfIncreasing', width:50, title: '排名',fixed: 'left',type: 'numbers'},
             {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
             {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
             {field: 'categoryId', title: '类别', minWidth: 50, align: "center", templet : function(data) {// 替换数据
@@ -39,6 +40,7 @@ layui.use(['table', 'layer', "form"], function () {
                     }
                 }},
             {field: 'presentStock', title: '当前库存', align: 'center'},
+            {field: 'totalStock', title: '馆藏', align: 'center'},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
                         return "正常";
@@ -46,12 +48,10 @@ layui.use(['table', 'layer', "form"], function () {
                         return "暂停借阅";
                     }
                 }},
-            {field: 'totalStock', title: '馆藏', align: 'center'},
-            {field: 'presentStock', title: '借阅册次', align: 'center'},
-            {field: 'jieyuebi', title: '借阅比', align: 'center'},
-            {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
+            {field: 'borrowTimesInThreeMonths', title: '借阅次数', align: 'center'},
         ]]
     });
+
 
 
     // 多条件搜索
@@ -61,9 +61,8 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                isbn: $("input[name='isbn']").val(),// 用户名
-                bookName: $("input[name='bookName']").val(),// 邮箱
-                author: $("input[name='author']").val()    //手机号
+                author: $("input[name='basis']").val(),// 作者
+                order: $("select[name='order']").val(),// 排序依据
             }
         })
     });

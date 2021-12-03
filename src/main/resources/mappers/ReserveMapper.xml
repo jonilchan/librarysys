@@ -114,16 +114,16 @@
         and isbn like concat('%',#{isbn},'%')
       </if>
       <if test="null !=status and status !=''">
-        and status like concat('%',#{status},'%')
+        and status = #{status}
       </if>
       <if test="null !=reserveId and reserveId  !=''">
-        and reserve_id like concat('%',#{reserveId },'%')
+        and reserve_id = #{reserveId}
       </if>
       <if test="null !=readerIdentity and readerIdentity!=''">
-        and reader_identity like concat('%',#{readerIdentity},'%')
+        and reader_identity = #{readerIdentity}
       </if>
       <if test="null !=readerId and readerId  !=''">
-        and reader_id like concat('%',#{readerId },'%')
+        and reader_id = #{readerId }
       </if>
 
     </where>
