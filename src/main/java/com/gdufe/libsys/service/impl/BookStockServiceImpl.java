@@ -39,4 +39,15 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
         map.put("data", pageInfo.getList());
         return map;
     }
+
+    @Override
+    public void addStock(String isbn, int bookAmount, int bookLocation) {
+        for(int i = 0;i < bookAmount;i++){
+            BookStock bookStock = new BookStock();
+            bookStock.setIsbn(isbn);
+            bookStock.setBookLocation(bookLocation);
+            bookStock.setStatus(0);
+            bookStockMapper.insert(bookStock);
+        }
+    }
 }

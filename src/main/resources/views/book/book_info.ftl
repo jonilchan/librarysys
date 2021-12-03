@@ -33,7 +33,7 @@
         <div class="layui-btn-container">
             <a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">
                 <i class="layui-icon">&#xe608;</i>
-                图书入库
+                新增图书条目
             </a>
             <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">
                 <i class="layui-icon">&#xe608;</i>
@@ -41,7 +41,7 @@
             </a>
             <a class="layui-btn layui-btn-normal stock_btn" lay-event="stockInfo">
                 <i class="layui-icon">&#xe608;</i>
-                库存详情
+                库存数量管理
             </a>
         </div>
     </script>

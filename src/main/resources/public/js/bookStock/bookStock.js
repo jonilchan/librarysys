@@ -19,9 +19,12 @@ layui.use(['table', 'layer', "form"], function () {
             // {field: "isbn", title: 'isbn', fixed: "true", width: 150},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
-                        return "未借";
+                        return "可借";
                     }else if(data.status==1){
-                        return "被借";
+                        return "借出";
+                    }
+                    else if(data.status==2){
+                        return "出库";
                     }
                 }},
 
@@ -46,9 +49,9 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                isbn: $("input[name='isbn']").val(),// 用户名
-                bookName: $("input[name='bookName']").val(),// 邮箱
-                author: $("input[name='author']").val()    //手机号
+                bookId: $("input[name='bookId']").val(),// 用户名
+                status: $("input[name='status']").val(),// 邮箱
+                bookLocation: $("input[name='bookLocation']").val()    //手机号
             }
         })
     });
@@ -59,6 +62,9 @@ layui.use(['table', 'layer', "form"], function () {
         switch (obj.event) {
             case "add":
                 openAddOrUpdateUserDialog();
+                break;
+            case "reduce":
+                openReduceDialog();
                 break;
             case "stockInfo":
                 openAddOrUpdateBookStock(table.checkStatus(obj.config.id).data);
@@ -133,16 +139,32 @@ layui.use(['table', 'layer', "form"], function () {
 
     //弹出框
     function openAddOrUpdateUserDialog(id) {
-        var title = "用户管理-用户添加";
-        var url = ctx + "/user/addOrUpdateUserPage";
+        var title = "增加库存";
+        var url = ctx + "/bookStock/toAddStock";
         if (id) {
-            title = "用户管理-用户更新";
+            title = "增加库存";
             url = url + "?id=" + id;
         }
         layui.layer.open({
             title: title,
             type: 2,
-            area: ["700px", "500px"],
+            area: ["650px", "300px"],
+            maxmin: true,
+            content: url
+        })
+    }
+
+    function openReduceDialog(id) {
+        var title = "减少库存";
+        var url = ctx + "/bookStock/toReduceStock";
+        if (id) {
+            title = "减少库存";
+            url = url + "?id=" + id;
+        }
+        layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["650px", "300px"],
             maxmin: true,
             content: url
         })

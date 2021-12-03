@@ -16,12 +16,23 @@
                     <p>ISBN：${(isbn)!"获取错误"}&nbsp;</p>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="bookName" class="layui-input
+                    <input type="text" name="bookId" class="layui-input
 					searchVal" placeholder="bookId"/>
                 </div>
-                <div class="layui-input-inline">
-                    <input type="text" name="author" class="layui-input
-					searchVal" placeholder="作者"/>
+                <div class="layui-input-inline ">
+                    <select name="status" class="layui-input searchVal">
+                        <option value="">图书状态</option>
+                        <option value="0">可借</option>
+                        <option value="1">借出</option>
+                        <option value="2">出库</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline ">
+                    <select name="bookLocation" class="layui-input searchVal">
+                        <option value="">馆藏位置</option>
+                        <option value="0">三水</option>
+                        <option value="1">广州</option>
+                    </select>
                 </div>
                 <a class="layui-btn search_btn" data-type="reload"><i
                             class="layui-icon">&#xe615;</i> 搜索</a>
@@ -34,11 +45,11 @@
         <div class="layui-btn-container">
             <a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">
                 <i class="layui-icon">&#xe608;</i>
-                图书入库
+                增加库存
             </a>
-            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">
+            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="reduce">
                 <i class="layui-icon">&#xe608;</i>
-                图书出库
+                减少库存
             </a>
         </div>
     </script>
