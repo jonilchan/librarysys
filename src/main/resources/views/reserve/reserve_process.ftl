@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>用户管理</title>
+    <title>预约处理</title>
     <#include "../common.ftl">
 </head>
 <body class="childrenBody">

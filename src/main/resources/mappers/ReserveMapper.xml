@@ -113,8 +113,11 @@
       <if test="null !=isbn and isbn !=''">
         and isbn like concat('%',#{isbn},'%')
       </if>
-      <if test="null !=status and status !=''">
-        and status = #{status}
+      <if test="0 ==status">
+        and status = 0
+      </if>
+      <if test="1 ==status">
+        and status = 1
       </if>
       <if test="null !=reserveId and reserveId  !=''">
         and reserve_id = #{reserveId}

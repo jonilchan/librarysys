@@ -28,8 +28,14 @@
       <if test="null != readerId and readerId != ''">
         and reader_id like concat('%',#{readerId},'%')
       </if>
-      <if test="null != status and status != ''">
-        and status = #{status}
+      <if test="0 == status">
+        and status = 0
+      </if>
+      <if test="1 == status">
+        and status = 1
+      </if>
+      <if test="2 == status">
+        and status = 2
       </if>
       <if test="null != operator and operator !=''">
         and operator = #{operator}
