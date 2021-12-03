@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author jonil
- * @since 2021-11-30
+ * @since 2021-12-03
  */
 @Data
   @EqualsAndHashCode(callSuper = false)
   @Accessors(chain = true)
-public class Rank implements Serializable {
+public class BookRank implements Serializable {
 
     private static final long serialVersionUID=1L;
 

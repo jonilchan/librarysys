@@ -132,7 +132,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public double fineOfUser(String userId) {
         QueryWrapper<Borrow> wrapper = new QueryWrapper<>();
-        wrapper.eq("reader_id", userId);
+        wrapper.eq("reader_id", userId).eq("return_time", null);
         List<Borrow> borrows = borrowMapper.selectList(wrapper);
         //查询借阅日期大于30的
         double fine =  0;

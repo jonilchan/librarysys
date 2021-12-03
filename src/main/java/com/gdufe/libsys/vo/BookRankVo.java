@@ -63,16 +63,4 @@ public class BookRankVo implements Serializable {
      */
     private Integer categoryId;
 
-    /**
-     * 入库时间
-     */
-    private float borrowStockRatio;
-
-    /**
-     * 更新时间
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
-
 }

@@ -12,6 +12,7 @@ import com.gdufe.libsys.vo.ReserveVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -43,10 +44,11 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     private BookInfoMapper bookInfoMapper;
 
     @Resource
-    private RankMapper rankMapper;
+    private BookRankMapper bookRankMapper;
 
     //借书
     @Override
+    @Transactional
     public void borrow(String readerId, Integer bookId, String userId) {
 
         //填充Borrow数据
@@ -58,12 +60,12 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         AssertUtil.isTrue(borrowMapper.insert(borrow) != 1, "借阅书籍失败");;
         //填充Rank表
         BookStock bookStock = bookStockMapper.selectById(bookId);
-//        Rank rank = new Rank();
-//        rank.setBookId(bookId);
-//        rank.setIsbn(bookStock.getIsbn());
-//        rank.setReaderId(readerId);
-//        rank.setBorrowTime(LocalDateTime.now());
-//        rankMapper.insert(rank);
+        BookRank bookRank = new BookRank();
+        bookRank.setBookId(bookId);
+        bookRank.setIsbn(bookStock.getIsbn());
+        bookRank.setReaderId(readerId);
+//        bookRank.setBorrowTime(LocalDateTime.now());
+        bookRankMapper.insert(bookRank);
         //更新被借书的状态
         bookStock.setStatus(1);
         bookStockMapper.updateById(bookStock);
@@ -121,7 +123,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     }
 
 
-    //查询借阅记录（计算罚款
+    //查询借阅记录（计算罚款）
     public Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(borrowQuery.getPage(),borrowQuery.getLimit());

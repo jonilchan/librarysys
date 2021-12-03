@@ -29,9 +29,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     private ReserveMapper reserveMapper;
 
     @Autowired
-    private BookInfoMapper bookInfoMapper;
-
-    @Autowired
     private BorrowMapper borrowMapper;
 
     @Autowired
@@ -44,7 +41,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     private BookInfoServiceImpl bookInfoService;
 
     @Autowired
-    private RankMapper rankMapper;
+    private BookRankMapper bookRankMapper;
 
 
     //拉取查询列表
@@ -95,11 +92,11 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上限");
 
         //填充Rank表
-        Rank rank = new Rank();
-        rank.setBookId(bookId);
-        rank.setIsbn(bookStockMapper.selectById(bookId).getIsbn());
-        rank.setReaderId(readerId);
-
+        BookRank bookRank = new BookRank();
+        bookRank.setBookId(bookId);
+        bookRank.setIsbn(bookStockMapper.selectById(bookId).getIsbn());
+        bookRank.setReaderId(readerId);
+        bookRankMapper.insert(bookRank);
         //填充borrow
         Borrow borrow = new Borrow();
         borrow.setBookId(bookId);
