@@ -17,4 +17,6 @@ import java.util.Map;
 public interface BookStockService extends IService<BookStock> {
 
     public Map<String, Object> selectAll(BookStockQuery bookStockQuery);
+
+    public void addStock(String isbn,int bookAmount,int bookLocation);
 }

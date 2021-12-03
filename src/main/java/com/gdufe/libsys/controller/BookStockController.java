@@ -4,6 +4,7 @@ package com.gdufe.libsys.controller;
 import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.service.BookStockService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -45,6 +46,22 @@ public class BookStockController extends BaseController {
     public Map<String, Object> queryBookStocksByParams(BookStockQuery bookStockQuery) {
         bookStockQuery.setIsbn(isbn);
         return bookStockService.selectAll(bookStockQuery);
+    }
+
+    //增加库存
+    @GetMapping("toAddStock")
+    public String toAddStock(String isbn, Model model){
+//        model.addAttribute("bookinfo",bookInfoService.selectByIsbn(isbn));
+        //System.out.println(customerService.getById(id));
+        return "bookStock/add_stock";
+    }
+
+    //减少库存
+    @GetMapping("toReduceStock")
+    public String toReduceStock(String isbn, Model model){
+//        model.addAttribute("bookinfo",bookInfoService.selectByIsbn(isbn));
+        //System.out.println(customerService.getById(id));
+        return "bookStock/reduce_stock";
     }
 }
 
