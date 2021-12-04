@@ -25,5 +25,5 @@ public interface UserService extends IService<User> {
     //查询用户
     Map<String, Object> queryUsersByParams(UserQuery userQuery);
 
-    double  fineOfUser(String userId);
+    double fineOfUser(String userId);
 }

@@ -25,7 +25,7 @@ public class DruidConfig {
     //因为Springboot内置了servlet容器，所以没有web.xml，替代方法就是将ServletRegistrationBean注册进去
     //加入后台监控
     @Bean  //这里其实就相当于servlet的web.xml
-    public ServletRegistrationBean statViewServlet() {
+    public ServletRegistrationBean<StatViewServlet> statViewServlet() {
         ServletRegistrationBean<StatViewServlet> bean =
                 new ServletRegistrationBean<StatViewServlet>(new StatViewServlet(), "/druid/*");
 
@@ -46,13 +46,13 @@ public class DruidConfig {
 
     //再配置一个过滤器，Servlet按上面的方式注册Filter也只能这样
     @Bean
-    public FilterRegistrationBean webStatFilter() {
-        FilterRegistrationBean bean = new FilterRegistrationBean();
+    public FilterRegistrationBean<WebStatFilter> webStatFilter() {
+        FilterRegistrationBean<WebStatFilter> bean = new FilterRegistrationBean<>();
         //可以设置也可以获取,设置一个阿里巴巴的过滤器
         bean.setFilter(new WebStatFilter());
         bean.addUrlPatterns("/*");
         //可以过滤和排除哪些东西
-        Map<String, String> initParams = new HashMap<String, String>();
+        Map<String, String> initParams = new HashMap<>();
         //把不需要监控的过滤掉,这些不进行统计
         initParams.put("exclusions", "*.js,*.gif,*.ico,*.png,*.woff2,*.css,/druid/*");
         bean.setInitParameters(initParams);

@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.base.UserStatusEnum;
 import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.User;
+import com.gdufe.libsys.entity.UserMsg;
 import com.gdufe.libsys.mapper.BorrowMapper;
 import com.gdufe.libsys.mapper.UserMapper;
+import com.gdufe.libsys.mapper.UserMsgMapper;
 import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -43,6 +45,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private BorrowMapper borrowMapper;
+
+    @Resource
+    private UserMsgMapper userMsgMapper;
 
     //用户登录
     @Override
@@ -153,6 +158,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if(borrow.getFine() > 0){
                 fine+= borrow.getFine();
             }
+        }
+        if (fine > 0){
+            UserMsg userMsg = new UserMsg();
+            userMsg.setUserId(userId);
+            userMsg.setMsg("您有罚款尚未缴清，请到图书管理员处缴纳！");
+            userMsgMapper.insert(userMsg);
+            User user = userMapper.selectById(userId).setStatus(UserStatusEnum.暂停借阅.getCode());
+            userMapper.updateById(user);
         }
         return fine;
     }
