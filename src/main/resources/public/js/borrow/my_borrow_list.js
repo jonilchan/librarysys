@@ -38,7 +38,7 @@ layui.use(['table', 'layer', "form"], function () {
                         return "已续借";
                     }
                 }},
-            // {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
+            {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
 
@@ -116,23 +116,17 @@ layui.use(['table', 'layer', "form"], function () {
     // 编辑 删除选项
     table.on('tool(users)', function (obj) {
         var layEvent = obj.event;
-        if (layEvent === "giveback") {
-            layer.confirm("确认归还当前书籍?", {icon: 3, title: "书籍归还"}, function (index) {
-                $.get(ctx + "/borrow/giveback", {borrowId: obj.data.borrowId}, function (data) {
+        if (layEvent === "renew") {
+            layer.confirm("确认续借当前书籍?", {icon: 3, title: "书籍归还"}, function (index) {
+                $.get(ctx + "/borrow/renew", {borrowId: obj.data.borrowId}, function (data) {
                     if (data.code == 200) {
-                        layer.msg("书籍归还申请成功");
+                        layer.msg("书籍续借申请成功");
                         tableIns.reload() ;
                     } else {
                         layer.msg(data.msg);
                     }
                 })
             })
-        } else if (layEvent === "urgereturn") {
-            layer.confirm("确认催还当前书籍?", {icon: 3, title: "书籍催还"}, function (index) {
-                        layer.msg("书籍催还成功");
-                        tableIns.reload();
-                }
-            )
         }
     });
 

@@ -43,8 +43,7 @@
     </script>
     <!--操作-->
     <script id="userListBar" type="text/html">
-<#--        <a class="layui-btn layui-btn-xs" id="edit" lay-event="giveback">归还</a>-->
-<#--        <a class="layui-btn layui-btn-xs" id="edit" lay-event="urgereturn">催还</a>-->
+        <a class="layui-btn layui-btn-xs" id="edit" lay-event="renew">续借</a>
     </script>
 </form>
 <script type="text/javascript" src="${ctx}/js/borrow/my_borrow_list.js"></script>

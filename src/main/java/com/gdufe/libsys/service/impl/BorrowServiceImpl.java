@@ -141,6 +141,14 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         userMsgMapper.insert(userMsg);
     }
 
+    @Override
+    public void renewBorrow(Integer borrowId) {
+        Borrow borrow = borrowMapper.selectById(borrowId);
+        AssertUtil.isTrue(borrow == null, "不存在该订单！");
+        borrow.setRenew(1);
+        borrowMapper.updateById(borrow);
+    }
+
 
     //查询借阅记录（计算罚款）
     public Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery) {
@@ -154,14 +162,19 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
             long c = currentT.getTime();
             long b = borrowT.getTime();
             long millis = c - b;
-            int borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-30;
+            int borrowDay = 0;
+            if (borrow.getRenew() == 1){
+                borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-60;
+            } else {
+                borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-30;
+            }
+
             if(borrowDay > 0){
                 double fine = borrowDay*0.1;
                 borrow.setFine(fine);
                 borrowMapper.updateById(borrow);
             }
         }
-
         PageInfo<Borrow> pageInfo = new PageInfo<>(borrowMapper.selectByParams(borrowQuery));
         map.put("code", 0);
         map.put("msg", "");

@@ -24,5 +24,7 @@ public interface BookStockService extends IService<BookStock> {
 
     public void deleBook(Integer bookId);
 
-    public void transferLocation(Integer bookId);
+    public void transferToSS(Integer[] bookIds);
+
+    public void transferToGZ(Integer[] bookIds);
 }

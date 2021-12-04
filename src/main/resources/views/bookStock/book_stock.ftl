@@ -51,7 +51,7 @@
                 <i class="layui-icon">&#xe608;</i>
                 减少库存
             </a>
-            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="tansferToSanShui">
+            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="transferBookToSS">
                 <i class="layui-icon">&#xe608;</i>
                 转移到三水
             </a>

@@ -6,12 +6,9 @@ import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.utils.ResultInfo;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -89,19 +86,19 @@ public class BookStockController extends BaseController {
     }
 
     //转移馆藏三水
-    @PostMapping("book/transferToSanShui")
+    @PostMapping("/transferToSS")
     @ResponseBody
-    public ResultInfo transferToSanShui(Integer[] ids){
-//        userService.deleteUserByIds(ids);
-        return success("用户记录删除成功");
+    public ResultInfo transferToSS(Integer[] ids){
+        bookStockService.transferToSS(ids);
+        return success("转移馆藏到三水成功");
     }
 
     //转移馆藏广州
-    @PostMapping("book/transferToGZ")
+    @PostMapping("/transferToGZ")
     @ResponseBody
     public ResultInfo transferToGZ(Integer[] ids){
-//        userService.deleteUserByIds(ids);
-        return success("用户记录删除成功");
+        bookStockService.transferToGZ(ids);
+        return success("转移图书到广州成功");
     }
 
 

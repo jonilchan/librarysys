@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,9 +80,21 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
     }
 
     @Override
-    public void transferLocation(Integer bookId) {
-        BookStock bookStock = bookStockMapper.selectById(bookId);
-//        bookStock.set
+    public void transferToSS(Integer[] bookIds) {
+        List<BookStock> bookStockList = bookStockMapper.selectBatchIds(Arrays.asList(bookIds));
+        for (BookStock bookStock : bookStockList) {
+            bookStock.setBookLocation(0);
+        }
+        updateBatchById(bookStockList);
+    }
+
+    @Override
+    public void transferToGZ(Integer[] bookIds) {
+        List<BookStock> bookStockList = bookStockMapper.selectBatchIds(Arrays.asList(bookIds));
+        for (BookStock bookStock : bookStockList) {
+            bookStock.setBookLocation(1);
+        }
+        updateBatchById(bookStockList);
     }
 
 

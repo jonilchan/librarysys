@@ -69,18 +69,18 @@ layui.use(['table', 'layer', "form"], function () {
             case "stockInfo":
                 openAddOrUpdateBookStock(table.checkStatus(obj.config.id).data);
                 break;
-            case "tansferToSanShui":
-                transferBookToSanShui(table.checkStatus(obj.config.id).data);
+            case "transferBookToSS":
+                transferBookToSS(table.checkStatus(obj.config.id).data);
                 break;
             case "tansferToGZ":
-                tansferToGZ(table.checkStatus(obj.config.id).data);
+                transferToGZ(table.checkStatus(obj.config.id).data);
                 break;
 
         }
     });
 
 
-    function transferBookToSanShui(datas) {
+    function transferBookToSS(datas) {
         /**
          * 批量删除
          *   datas:选择的待删除记录数组
@@ -89,34 +89,72 @@ layui.use(['table', 'layer', "form"], function () {
             layer.msg("请选择待转移图书!");
             return;
         }
-        layer.confirm("确定选中的图书？", {
-            btn: ['确定', '取消']
-        }, function (index) {
+        layer.confirm("确定选中图书？",{
+            btn:['确定','取消']
+        },function (index) {
             layer.close(index);
-            // ids=10&ids=20&ids=30
-            var ids = "ids=";
-            for (var i = 0; i < datas.length; i++) {
-                if (i < datas.length - 1) {
-                    ids = ids + datas[i].id + "&ids=";
-                } else {
-                    ids = ids + datas[i].id;
+            // var ids = datas
+            var ids="ids=";
+            for(var i=0;i<datas.length;i++){
+                if(i<datas.length-1){
+                    ids=ids+datas[i].bookId+"&ids=";
+                }else{
+                    ids=ids+datas[i].bookId;
                 }
             }
             $.ajax({
                 type: "post",
-                url: ctx + "/book/transfer",
+                url: ctx + "/bookStock/transferToSS",
                 data: ids,
                 dataType: "json",
                 success: function (data) {
                     if (data.code == 200) {
+                        layer.msg("转移馆藏成功");
                         tableIns.reload();
                     } else {
                         layer.msg(data.msg);
                     }
                 }
             })
+        })
+    }
 
-
+    function transferToGZ(datas) {
+        /**
+         * 批量删除
+         *   datas:选择的待删除记录数组
+         */
+        if (datas.length == 0) {
+            layer.msg("请选择待转移图书!");
+            return;
+        }
+        layer.confirm("确定选中图书？",{
+            btn:['确定','取消']
+        },function (index) {
+            layer.close(index);
+            // var ids = datas
+            var ids="ids=";
+            for(var i=0;i<datas.length;i++){
+                if(i<datas.length-1){
+                    ids=ids+datas[i].bookId+"&ids=";
+                }else{
+                    ids=ids+datas[i].bookId;
+                }
+            }
+            $.ajax({
+                type: "post",
+                url: ctx + "/bookStock/transferToGZ",
+                data: ids,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        layer.msg("转移馆藏成功");
+                        tableIns.reload();
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                }
+            })
         })
     }
 

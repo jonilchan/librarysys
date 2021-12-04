@@ -117,7 +117,7 @@ public class BorrowController extends BaseController {
 
     //借书、预约页
     @RequestMapping("/toBookPage")
-    public String toBookPage(){
+    public String toBookPidsage(){
         return "/borrow/book";
     }
 
@@ -133,6 +133,13 @@ public class BorrowController extends BaseController {
     public Map<String,Object> queryMyBorrowByParams(HttpServletRequest request, BorrowQuery borrowQuery){
         borrowQuery.setReaderId(request.getSession().getAttribute("userId").toString());
         return borrowService.queryBorrowsByParams(borrowQuery);
+    }
+
+    @RequestMapping("/renew")
+    @ResponseBody
+    public ResultInfo renewBorrow(Integer borrowId){
+        borrowService.renewBorrow(borrowId);
+        return new ResultInfo(200);
     }
 
 }

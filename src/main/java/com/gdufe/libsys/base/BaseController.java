@@ -22,6 +22,7 @@ public class BaseController {
 
     public ResultInfo success(String msg){
         ResultInfo resultInfo= new ResultInfo();
+        resultInfo.setCode(200);
         resultInfo.setMsg(msg);
         return resultInfo;
     }

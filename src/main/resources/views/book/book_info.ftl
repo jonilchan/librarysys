@@ -35,21 +35,13 @@
                 <i class="layui-icon">&#xe608;</i>
                 新增图书条目
             </a>
-<#--            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">-->
-<#--                <i class="layui-icon">&#xe608;</i>-->
-<#--                图书出库-->
-<#--            </a>-->
-<#--            <a class="layui-btn layui-btn-normal stock_btn" lay-event="stockInfo">-->
-<#--                <i class="layui-icon">&#xe608;</i>-->
-<#--                库存数量管理-->
-<#--            </a>-->
         </div>
     </script>
     <!--操作-->
     <script id="userListBar" type="text/html">
         <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="stockManage">库存管理</a>
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="stop">暂停借阅</a>
+        <a class="layui-btn layui-btn-xs" lay-event="stockManage">库存管理</a>
+        <a class="layui-btn layui-btn-xs" id="stop" lay-event="stop">暂停借阅</a>
     </script>
 </form>
 <script type="text/javascript" src="${ctx}/js/book/bookInfo.js"></script>
