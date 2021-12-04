@@ -51,12 +51,19 @@
                 <i class="layui-icon">&#xe608;</i>
                 减少库存
             </a>
+            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="tansferToSanShui">
+                <i class="layui-icon">&#xe608;</i>
+                转移到三水
+            </a>
+            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="tansferToGZ">
+                <i class="layui-icon">&#xe608;</i>
+                转移到广州
+            </a>
         </div>
     </script>
     <!--操作-->
     <script id="userListBar" type="text/html">
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">出库</a>
     </script>
 </form>
 <script type="text/javascript" src="${ctx}/js/bookStock/bookStock.js"></script>

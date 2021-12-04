@@ -28,6 +28,10 @@ public interface BookInfoService extends IService<BookInfo> {
 
     void addBookInfo(String isbn, String bookName, String author, String publisher,Integer categoryId);
 
+    void updateBookInfo(String isbn, String bookName, String author, String publisher,Integer categoryId);
+
+    void stopBookBorrw(String isbn);
+
 
 
 

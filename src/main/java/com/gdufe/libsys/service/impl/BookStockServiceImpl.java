@@ -6,12 +6,14 @@ import com.gdufe.libsys.mapper.BookStockMapper;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.service.BookStockService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gdufe.libsys.utils.AssertUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,4 +52,37 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
             bookStockMapper.insert(bookStock);
         }
     }
+
+    @Override
+    public void reduceStock(String isbn, int bookAmount, int bookLocation) {
+        QueryWrapper<BookStock> objectQueryWrapper = new QueryWrapper<>();
+        objectQueryWrapper.eq("isbn",isbn).eq("book_location",bookLocation).eq("status",0);
+        List<BookStock> bookStocks = bookStockMapper.selectList(objectQueryWrapper);
+        AssertUtil.isTrue(bookAmount>bookStocks.size(), "填入的出库数量大于现有库存");
+        int i = 0;
+        for (BookStock bookStock : bookStocks) {
+            bookStock.setStatus(2);
+            bookStockMapper.updateById(bookStock);
+            i++;
+            if(i == bookAmount) break;
+        }
+
+
+
+    }
+
+    @Override
+    public void deleBook(Integer bookId) {
+        BookStock bookStock = bookStockMapper.selectById(bookId);
+        bookStock.setStatus(2);
+        bookStockMapper.updateById(bookStock);
+    }
+
+    @Override
+    public void transferLocation(Integer bookId) {
+        BookStock bookStock = bookStockMapper.selectById(bookId);
+//        bookStock.set
+    }
+
+
 }

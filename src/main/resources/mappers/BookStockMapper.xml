@@ -11,7 +11,7 @@
     book_id, isbn, status, book_location
   </sql>
 
-  <select id="selectAll" parameterType="com.gdufe.libsys.entity.BookInfo" resultMap="BaseResultMap">
+  <select id="selectAll" parameterType="com.gdufe.libsys.entity.BookStock" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from book_stock
@@ -19,6 +19,30 @@
 
       <if test="null !=isbn and isbn !=''">
         and isbn like concat('%',#{isbn},'%')
+      </if>
+
+      <if test="null !=bookId and bookId !=''">
+        and book_id  = #{bookId}
+      </if>
+
+      <if test="0==status">
+        and status  = 0
+      </if>
+
+      <if test="1==status">
+        and status  = 1
+      </if>
+
+      <if test="0==bookLocation">
+        and book_location  = 0
+      </if>
+
+      <if test="1==bookLocation">
+        and book_location  = 1
+      </if>
+
+      <if test="null !=bookLocation and bookLocation !=''">
+        and book_Location  = #{bookLocation}
       </if>
 
       <if test="10 == status">

@@ -69,24 +69,27 @@ layui.use(['table', 'layer', "form"], function () {
             case "stockInfo":
                 openAddOrUpdateBookStock(table.checkStatus(obj.config.id).data);
                 break;
-            case "del":
-                delUser(table.checkStatus(obj.config.id).data);
+            case "tansferToSanShui":
+                transferBookToSanShui(table.checkStatus(obj.config.id).data);
+                break;
+            case "tansferToGZ":
+                tansferToGZ(table.checkStatus(obj.config.id).data);
                 break;
 
         }
     });
 
 
-    function delUser(datas) {
+    function transferBookToSanShui(datas) {
         /**
          * 批量删除
          *   datas:选择的待删除记录数组
          */
         if (datas.length == 0) {
-            layer.msg("请选择待删除记录!");
+            layer.msg("请选择待转移图书!");
             return;
         }
-        layer.confirm("确定删除选中的记录", {
+        layer.confirm("确定选中的图书？", {
             btn: ['确定', '取消']
         }, function (index) {
             layer.close(index);
@@ -101,7 +104,7 @@ layui.use(['table', 'layer', "form"], function () {
             }
             $.ajax({
                 type: "post",
-                url: ctx + "/user/delete",
+                url: ctx + "/book/transfer",
                 data: ids,
                 dataType: "json",
                 success: function (data) {
@@ -123,10 +126,10 @@ layui.use(['table', 'layer', "form"], function () {
         if (layEvent === "edit") {
             openAddOrUpdateUserDialog(obj.data.id);
         } else if (layEvent === "del") {
-            layer.confirm("确认删除当前记录?", {icon: 3, title: "用户管理"}, function (index) {
-                $.post(ctx + "/user/delete", {ids: obj.data.id}, function (data) {
+            layer.confirm("确认出库该书?", {icon: 3, title: "图书管理"}, function (index) {
+                $.post(ctx + "/bookStock/deleteStock", {bookId: obj.data.bookId}, function (data) {
                     if (data.code == 200) {
-                        layer.msg("删除成功");
+                        layer.msg("出库成功");
                         tableIns.reload();
                     } else {
                         layer.msg(data.msg);

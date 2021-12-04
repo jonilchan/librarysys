@@ -88,7 +88,7 @@ public class ReserveController extends BaseController {
     //预约书籍
     @RequestMapping("book")
     @ResponseBody
-    public ResultInfo bookABook(HttpServletRequest request, String isbn){
+    public ResultInfo reserveBook(HttpServletRequest request, String isbn){
         reserveService.book(request.getSession().getAttribute("userId").toString(), isbn);
         return new ResultInfo(200);
     }

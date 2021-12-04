@@ -172,4 +172,22 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         bookInfo.setEnterTime(LocalDateTime.now());
         AssertUtil.isTrue(bookInfoMapper.insert(bookInfo) < 1, 201, "添加用户失败");
     }
+
+    @Override
+    public void updateBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId) {
+        BookInfo bookInfo = bookInfoMapper.selectById(isbn);
+        bookInfo.setBookName(bookName);
+        bookInfo.setAuthor(author);
+        bookInfo.setPublisher(publisher);
+        bookInfo.setCategoryId(categoryId);
+        bookInfo.setUpdateTime(LocalDateTime.now());
+        AssertUtil.isTrue(bookInfoMapper.updateById(bookInfo) < 1, 201, "编辑失败");
+    }
+
+    @Override
+    public void stopBookBorrw(String isbn) {
+        BookInfo bookInfo = bookInfoMapper.selectById(isbn);
+        bookInfo.setStatus(1);
+        bookInfoMapper.updateById(bookInfo);
+    }
 }

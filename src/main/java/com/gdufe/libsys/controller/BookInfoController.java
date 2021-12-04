@@ -2,6 +2,7 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
+import com.gdufe.libsys.entity.BookInfo;
 import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.service.BookInfoService;
 import com.gdufe.libsys.service.BookStockService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -68,6 +70,27 @@ public class BookInfoController extends BaseController {
         return new ResultInfo(200);
     }
 
+    @RequestMapping("toUpdatePage")
+    public String toUpdatePage(HttpServletRequest request, String isbn){
+        BookInfo bookInfo = bookInfoService.getById(isbn);
+        request.setAttribute("bookInfo",bookInfo);
+        return "book/update_book";
+    }
+
+    @RequestMapping("/updateBook")
+    @ResponseBody
+    ResultInfo updateBook(String isbn, String bookName, String author, String publisher,Integer category){
+        int i= 0;
+        bookInfoService.updateBookInfo(isbn,bookName,author,publisher,category);
+        return new ResultInfo(200);
+    }
+
+    @RequestMapping("/stopBorrowBook")
+    @ResponseBody
+    ResultInfo updateBook(String isbn){
+        bookInfoService.stopBookBorrw(isbn);
+        return new ResultInfo(200);
+    }
 
 
 //    @RequestMapping("/addOrUpdate")

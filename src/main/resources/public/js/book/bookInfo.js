@@ -48,7 +48,7 @@ layui.use(['table', 'layer', "form"], function () {
                     }
                 }},
             {field: 'enterTime', title: '入库时间', align: 'center', width: 120},
-            {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
+            {title: '操作', minWidth: 250, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
 
@@ -72,7 +72,7 @@ layui.use(['table', 'layer', "form"], function () {
     table.on('toolbar(users)', function (obj) {
         switch (obj.event) {
             case "add":
-                openAddOrUpdateUserDialog();
+                openAddDialog();
                 break;
             case "stockInfo":
                 openAddOrUpdateBookStock(table.checkStatus(obj.config.id).data);
@@ -130,12 +130,14 @@ layui.use(['table', 'layer', "form"], function () {
         // "bookId" : $("input[name='bookId']").val()
         var layEvent = obj.event;
         if (layEvent === "edit") {
-            openAddOrUpdateUserDialog(obj.data.id);
-        } else if (layEvent === "del") {
-            layer.confirm("确认删除当前记录?", {icon: 3, title: "用户管理"}, function (index) {
-                $.post(ctx + "/user/delete", {ids: obj.data.id}, function (data) {
+            openAddOrUpdateUserDialog(obj.data.isbn);
+        }else if(layEvent == "stockManage"){
+            openAddBookStock(obj.data.isbn);
+        }else if (layEvent === "stop") {
+            layer.confirm("确认删确认暂停该书借阅?", {icon: 3, title: "图书管理"}, function (index) {
+                $.post(ctx + "/book/stopBorrowBook", {isbn: obj.data.isbn}, function (data) {
                     if (data.code == 200) {
-                        layer.msg("删除成功");
+                        layer.msg("确认成功");
                         tableIns.reload();
                     } else {
                         layer.msg(data.msg);
@@ -156,25 +158,51 @@ layui.use(['table', 'layer', "form"], function () {
             layer.msg("不支持批量查看!");
             return;
         }
-        var title = "图书库存记录";
+        var title = "图书库存管理";
         // alert(data[0].isbn)
         layui.layer.open({
             title: title,
             type: 2,
-            area: ["800px", "600px"],
+            area: ["950px", "640px"],
             maxmin: true,
             content: ctx + "/bookStock/info?isbn=" + data[0].isbn
         })
     }
 
     //弹出框
-    function openAddOrUpdateUserDialog(id) {
+    function openAddBookStock(isbn) {
+        console.log(isbn)
+        var title = "图书库存管理";
+        // alert(data[0].isbn)
+        layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["950px", "640px"],
+            maxmin: true,
+            content: ctx + "/bookStock/info?isbn=" + isbn
+        })
+    }
+
+    //弹出框
+    function openAddOrUpdateUserDialog(isbn) {
+        var title = "图书入库";
+        var url = ctx + "/book/toUpdatePage";
+        if (isbn) {
+            title = "图书入库";
+            url = url + "?isbn=" + isbn;
+        }
+        layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["700px", "500px"],
+            maxmin: true,
+            content: url
+        })
+    }
+
+    function openAddDialog() {
         var title = "图书入库";
         var url = ctx + "/book/toAddBook";
-        if (id) {
-            title = "图书入库";
-            url = url + "?id=" + id;
-        }
         layui.layer.open({
             title: title,
             type: 2,
