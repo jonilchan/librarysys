@@ -50,13 +50,6 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll layui-left-menu">
                 <ul class="layui-nav layui-nav-tree layui-left-nav-tree layui-this" id="currency">
-
-                    <li class="layui-nav-item">
-                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="user/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">用户管理</span></a>
-                    </li>
-
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="borrow/toBookPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
@@ -73,6 +66,12 @@
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="bookRank/toRankPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
                                     class="layui-left-nav">图书排行</span></a>
+                    </li>
+
+                    <li class="layui-nav-item">
+                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
+                           data-tab="user/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                                    class="layui-left-nav">用户管理（管理员）</span></a>
                     </li>
 
                     <li class="layui-nav-item">
