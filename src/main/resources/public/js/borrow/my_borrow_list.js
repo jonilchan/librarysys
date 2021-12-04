@@ -5,7 +5,7 @@ layui.use(['table', 'layer', "form"], function () {
     //借阅列表展示
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/borrow/list',
+        url: ctx + '/borrow/my_borrow_list',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -14,10 +14,10 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            {type: "checkbox", fixed: "left", width: 50},
+            // {type: "checkbox", fixed: "left", width: 50},
             {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
-            {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
+            // {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
             {field: 'borrowTime', title: '借阅时间', minWidth: 100, align: 'center'},
             {field: 'returnTime', title: '归还时间', minWidth: 100, align: 'center'},
             {field: 'operator', title: '操作员', align: 'center'},
@@ -38,7 +38,7 @@ layui.use(['table', 'layer', "form"], function () {
                         return "已续借";
                     }
                 }},
-            {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
+            // {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
 
@@ -51,7 +51,7 @@ layui.use(['table', 'layer', "form"], function () {
             },
             where: {
                 bookId: $("input[name='bookId']").val(),// isbn
-                readerId: $("input[name='readerId']").val(),//书名
+                // readerId: $("input[name='readerId']").val(),//读者ID
                 status: $("select[name='status']").val() , //状态
                 operator: $("input[name='operator']").val(),//操作员
                 fine: $("select[name='fine']").val(), //罚款
@@ -129,14 +129,8 @@ layui.use(['table', 'layer', "form"], function () {
             })
         } else if (layEvent === "urgereturn") {
             layer.confirm("确认催还当前书籍?", {icon: 3, title: "书籍催还"}, function (index) {
-                $.get(ctx + "/borrow/urgereturn", {borrowId: obj.data.borrowId}, function (data) {
-                    if (data.code == 200) {
-                        layer.msg("书籍归还申请成功");
-                        tableIns.reload() ;
-                    } else {
-                        layer.msg(data.msg);
-                    }
-                })
+                        layer.msg("书籍催还成功");
+                        tableIns.reload();
                 }
             )
         }

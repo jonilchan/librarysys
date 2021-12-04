@@ -46,6 +46,9 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Resource
     private BookRankMapper bookRankMapper;
 
+    @Resource
+    private UserMsgMapper userMsgMapper;
+
     //借书
     @Override
     @Transactional
@@ -122,6 +125,20 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
         bookInfo.setPresentStock(bookInfo.getPresentStock() + 1);
         bookInfoMapper.updateById(bookInfo);
+    }
+
+
+    //催还
+    @Override
+    public void urgereturn(Integer borrowId) {
+        UserMsg userMsg = new UserMsg();
+        Borrow borrow = borrowMapper.selectById(borrowId);
+        AssertUtil.isTrue(borrow.getStatus() == BorrowStatusEnum.已还.getCode(), "本书籍已归还！");
+        BookInfo bookInfo = bookInfoMapper.selectById(bookStockMapper.selectById(borrow.getBookId()).getIsbn());
+        userMsg.setUserId(borrow.getReaderId());
+        userMsg.setCreateTime(LocalDateTime.now());
+        userMsg.setMsg("您的书籍《" + bookInfo.getBookName() + "》已超时未还！请尽快到图书馆归还！");
+        userMsgMapper.insert(userMsg);
     }
 
 

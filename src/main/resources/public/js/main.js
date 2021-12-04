@@ -12,10 +12,23 @@ layui.use(['element', 'layer', 'layuimini','jquery','jquery_cookie'], function (
             $.removeCookie("userId",{path:"/"})
             $.removeCookie("userName",{path:"/"})
             $.removeCookie("trueName",{path:"/"})
+            //页面跳转
             window.parent.location.href = ctx + "/index";
             layer.close(index);
         });
     })
 
-
+    $(".loss-apply").click(function () {
+        layer.confirm('是否挂失当前用户?', {icon: 3, title:'提示'}, function(index){
+            $.post(ctx+"/user/lossApply", function (data) {
+                if(data.code==200){
+                    layer.msg("确认成功");
+                    layer.close(index);
+                }else{
+                    layer.msg(data.msg);
+                }
+            })
+            layer.close(index);
+        });
+    })
 });

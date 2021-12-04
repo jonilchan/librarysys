@@ -1,6 +1,7 @@
 package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdufe.libsys.base.UserStatusEnum;
 import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.mapper.BorrowMapper;
@@ -93,6 +94,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.updateById(user);
     }
 
+    //添加用户
     @Override
     public void addUser(String userId, String userName, String userPassword, String phone, Integer identity) {
         //生成用户对象并补全信息
@@ -106,6 +108,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         AssertUtil.isTrue(userMapper.insert(user) < 1, 201, "添加用户失败");
     }
 
+    //更新用户信息
     @Override
     public void updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status) {
         User user = userMapper.selectById(userId);
@@ -114,6 +117,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setIdentity(identity);
         user.setStatus(status);
         user.setUpdateTime(LocalDateTime.now());
+        userMapper.updateById(user);
+    }
+
+
+    //申请挂失
+    @Override
+    public void lossApply(String userId) {
+        User user = userMapper.selectById(userId);
+        AssertUtil.isTrue(user == null, "挂失失败，请联系图书管理员！");
+        user.setStatus(UserStatusEnum.申请挂失.getCode());
         userMapper.updateById(user);
     }
 

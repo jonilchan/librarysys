@@ -2,6 +2,7 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
+import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BookStockService;
@@ -94,6 +95,14 @@ public class BorrowController extends BaseController {
         return new ResultInfo(200);
     }
 
+    //催还图书
+    @RequestMapping("/urgereturn")
+    @ResponseBody
+    public ResultInfo urgereturn(Integer borrowId){
+        borrowService.urgereturn(borrowId);
+        return new ResultInfo(200);
+    }
+
     //借阅管理页面
     @RequestMapping("/toManagePage")
     public String toManagePage(){
@@ -110,6 +119,20 @@ public class BorrowController extends BaseController {
     @RequestMapping("/toBookPage")
     public String toBookPage(){
         return "/borrow/book";
+    }
+
+    @RequestMapping("/toMyBorrowPage")
+    public String toMyBorrowPage(HttpServletRequest request){
+        request.setAttribute("user", request.getAttribute("user"));
+        return "borrow/my_borrow_list";
+    }
+
+    //读者个人借阅表查询
+    @RequestMapping("/my_borrow_list")
+    @ResponseBody
+    public Map<String,Object> queryMyBorrowByParams(HttpServletRequest request, BorrowQuery borrowQuery){
+        borrowQuery.setReaderId(request.getSession().getAttribute("userId").toString());
+        return borrowService.queryBorrowsByParams(borrowQuery);
     }
 
 }

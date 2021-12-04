@@ -25,6 +25,12 @@
                 <a href="javascript:;">${(user.userName)!"未登录"}</a>
                 <dl class="layui-nav-child">
                     <dd>
+                        <a href="javascript:;" class="loss-apply" data-icon="fa fa-gears">挂失申请</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" onclick="javascript:layer.msg('请向图书管理员缴纳罚款！');" data-icon="fa fa-gears">缴纳罚款</a>
+                    </dd>
+                    <dd>
                         <a href="javascript:;" data-iframe-tab="${ctx}/user/toPasswordPage" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
                     </dd>
                     <dd>
@@ -51,12 +57,10 @@
                                     class="layui-left-nav">用户管理</span></a>
                     </li>
 
-
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="book/index" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
                                     class="layui-left-nav">图书信息</span></a>
-
                     </li>
 
                     <li class="layui-nav-item">
@@ -64,11 +68,13 @@
                            data-tab="borrow/toBookPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
                                     class="layui-left-nav">图书预约</span></a>
                     </li>
+
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="borrow/toBorrowPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
                                     class="layui-left-nav">图书借阅（管理员）</span></a>
                     </li>
+
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="borrow/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
@@ -87,7 +93,12 @@
                                     class="layui-left-nav">预约管理（管理员）</span></a>
                     </li>
 
+                    <li class="layui-nav-item">
+                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
+                           data-tab="borrow/toMyBorrowPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                                    class="layui-left-nav">我的借阅</span></a>
                     </li>
+
                     <span class="layui-nav-bar" style="top: 201px; height: 0px; opacity: 0;"></span>
                 </ul>
         </div>

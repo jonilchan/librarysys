@@ -34,7 +34,7 @@ public class IndexController extends BaseController {
     private ReserveMapper reserveMapper;
 
     //用户登录页
-    @GetMapping("index")
+    @GetMapping(value = {"index", "/"})
     public String index(){
         return "index";
     }
@@ -65,7 +65,7 @@ public class IndexController extends BaseController {
     }
 
     //后台管理页
-    @GetMapping(value = {"/","main"})
+    @GetMapping("main")
     public String admin(HttpServletRequest request) {
         String userId = request.getSession().getAttribute("userId").toString();
         User user = userService.getById(userId);

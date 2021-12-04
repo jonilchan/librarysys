@@ -5,7 +5,7 @@
     <title>修改用户信息</title>
     <#include "../common.ftl">
     <style>
-        .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+        .layui-form-item {width: auto;padding-right: 10px;line-height: 38px;}
     </style>
 </head>
 <body>
@@ -16,14 +16,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required">用户名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder=${(user.userName)!"获取错误"}   value="" class="layui-input">
+                    <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder='用户名'   value=${(user.userName)!"获取错误"} class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label required">电话</label>
                 <div class="layui-input-block">
-                    <input type="text" name="phone" lay-verify="required" lay-reqtext="电话不能为空" placeholder=${(user.phone)!"获取错误"}  value="" class="layui-input">
+                    <input type="text" name="phone" lay-verify="required" lay-reqtext="电话不能为空" placeholder='用户电话'  value=${(user.phone)!"获取错误"} class="layui-input">
                 </div>
             </div>
 
