@@ -37,14 +37,6 @@ public class BorrowController extends BaseController {
     @Resource
     private BookStockService bookStockService;
 
-    //借书
-//    @RequestMapping("/borrow")
-//    @ResponseBody
-//    public ResultInfo borrow(HttpServletRequest request, String isbn){
-//        borrowService.borrow(request.getSession().getAttribute("userId").toString(), isbn);
-//        return new ResultInfo(200);
-//    }
-
     //预约
     @RequestMapping("/book")
     @ResponseBody

@@ -2,6 +2,9 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
+import com.gdufe.libsys.entity.UserMsg;
+import com.gdufe.libsys.mapper.ReserveMapper;
+import com.gdufe.libsys.mapper.UserMsgMapper;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.query.ReserveQuery;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -35,7 +39,7 @@ public class ReserveController extends BaseController {
     private ReserveService reserveService;
 
     @Resource
-    BookStockService bookStockService;
+    private BookStockService bookStockService;
 
     String isbn;
     String readerId;
@@ -92,5 +96,14 @@ public class ReserveController extends BaseController {
         reserveService.book(request.getSession().getAttribute("userId").toString(), isbn);
         return new ResultInfo(200);
     }
+
+    //提醒取书
+    @RequestMapping("/remind")
+    @ResponseBody
+    public ResultInfo remindBook(Integer reserveId){
+        reserveService.remindBook(readerId);
+        return new ResultInfo(200);
+    }
+
 }
 

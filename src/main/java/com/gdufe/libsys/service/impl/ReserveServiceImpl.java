@@ -19,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -42,6 +43,9 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
 
     @Autowired
     private BookRankMapper bookRankMapper;
+
+    @Resource
+    private BookInfoMapper bookInfoMapper;
 
 
     //拉取查询列表
@@ -128,5 +132,16 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         reserve.setReserveTime(new Date());
         reserve.setReaderIdentity(user.getStatus());
         reserveMapper.insert(reserve);
+    }
+
+    @Override
+    public void remindBook(String borrowId) {
+        Borrow borrow = borrowMapper.selectById(borrowId);
+        BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
+        BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
+        UserMsg userMsg = new UserMsg();
+        userMsg.setMsg("您预约的书籍《" + bookInfo.getBookName() + "》现在可以到图书馆领取！");
+        userMsg.setUserId(borrow.getReaderId());
+        userMsg.setCreateTime(LocalDateTime.now());
     }
 }

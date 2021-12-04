@@ -83,8 +83,17 @@ layui.use(['table', 'layer', "form"], function () {
         if (layEvent === "process") {
             openBookStockInfo(obj.data);
         }else if(layEvent === "remind"){
-            alert("你点击了此按钮")
-            reloadtable()
+            layer.confirm("确认提醒取书?",{icon: 3, title: "库存详情"},function (index) {
+                $.post(ctx+"/reserve/remind",{reserveId:obj.data.reserveId},function (data) {
+                    if(data.code==200){
+                        layer.msg("确认成功");
+                        parent.location.reload();
+                        layer.close(index);
+                    }else{
+                        layer.msg("该预约记录已处理！");
+                    }
+                })
+            })
         }
     });
 

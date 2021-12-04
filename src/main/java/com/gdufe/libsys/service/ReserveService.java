@@ -15,4 +15,6 @@ public interface ReserveService extends IService<Reserve> {
     ResultInfo selectBookById(Integer bookId, String userId, Integer reserveId, String operator);
 
     void book(String readerId, String book_id);
+
+    void remindBook(String borrowId);
 }
