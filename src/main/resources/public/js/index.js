@@ -33,17 +33,17 @@ layui.use(['form','jquery','jquery_cookie'], function () {
                         time: 1500, //1.5秒关闭（如果不配置，默认是3秒）
                         shade : [0.6 , '#000' , true],
                     },function () {
-                        var result =data.result;
-                        $.cookie("userId",result.userId);
-                        $.cookie("userName",result.userName);
-                        $.cookie("trueName",result.trueName);
-                        // 如果点击记住我 设置cookie 过期时间7天
-                        if($("input[type='checkbox']").is(':checked')){
-                            // 写入cookie 7天
-                            $.cookie("userId",result.userId, { expires: 7 });
-                            $.cookie("userName",result.userName, { expires: 7 });
-                            $.cookie("trueName",result.trueName, { expires: 7 });
-                        }
+                        // var result =data.result;
+                        // $.cookie("userId",result.userId);
+                        // $.cookie("userName",result.userName);
+                        // $.cookie("trueName",result.trueName);
+                        // // 如果点击记住我 设置cookie 过期时间7天
+                        // if($("input[type='checkbox']").is(':checked')){
+                        //     // 写入cookie 7天
+                        //     $.cookie("userId",result.userId, { expires: 7 });
+                        //     $.cookie("userName",result.userName, { expires: 7 });
+                        //     $.cookie("trueName",result.trueName, { expires: 7 });
+                        // }
                         window.location.href=ctx+"/main";
                     });
                 }else{
