@@ -51,9 +51,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     //拉取查询列表
     @Override
     public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery) {
-        if(reserveQuery.getStatus()==null){
-            reserveQuery.setStatus(0);
-        }
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(reserveQuery.getPage(),reserveQuery.getLimit());
         List<Reserve> reserves = reserveMapper.selectByParams(reserveQuery);

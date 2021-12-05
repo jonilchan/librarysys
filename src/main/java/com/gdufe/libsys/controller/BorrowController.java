@@ -134,5 +134,12 @@ public class BorrowController extends BaseController {
         return new ResultInfo(200);
     }
 
+    //查看罚款历史
+    @RequestMapping("/toFinePage")
+    public String toFinePage(){
+        return "borrow/fine_list";
+    }
+
+
 }
 
