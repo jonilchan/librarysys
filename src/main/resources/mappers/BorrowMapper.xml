@@ -46,6 +46,12 @@
       <if test="'' != fine and fine != null and fine != 0" >
         and fine != 0
       </if>
+      <if test="fineFin == 0">
+        and return_Time is null
+      </if>
+      <if test="fineFin == 1">
+        and return_Time is true
+      </if>
     </where>
   </select>
 

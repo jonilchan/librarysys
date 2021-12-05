@@ -5,7 +5,7 @@ layui.use(['table', 'layer', "form"], function () {
     //借阅列表展示
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/borrow/my_borrow_list',
+        url: ctx + '/borrow/my_fine_list',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -18,32 +18,15 @@ layui.use(['table', 'layer', "form"], function () {
             {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
-            {field: 'fine', title: '超时', align: 'center',templet : function(data){
-                if(data.fine==0){
-                  return "否";
-                }else if(data.fine>0){
-                  return "超时";
-                }
-            }},
-            {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
-                    if(data.status==0){
-                        return "已借未还";
-                    }else if(data.status==1){
-                        return "已还";
-                    }else if(data.status==2){
-                        return "预约未拿";
+            {field: 'fine', title: '罚款', align: 'center'},
+            {field: 'returnTime', title: '状态', align: 'center', templet : function(data) {// 替换数据
+                    if(data.returnTime==null){
+                        return "未缴费";
+                    }else if(data.returnTime!=null){
+                        return "已缴费";
                     }
                 }},
-            {field: 'renew', title: '是否续借', align: 'center', templet : function(data) {// 替换数据
-                    if(data.renew==0){
-                        return "未续借";
-                    }else if(data.renew==1){
-                        return "已续借";
-                    }
-                }},
-            {field: 'operator', title: '操作员', align: 'center'},
-            {field: 'borrowTime', title: '借阅时间', minWidth: 100, align: 'center'},
-            {field: 'returnTime', title: '归还时间', minWidth: 100, align: 'center'},
+            {field: 'returnTime', title: '处理时间', minWidth: 100, align: 'center'},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
@@ -57,10 +40,9 @@ layui.use(['table', 'layer', "form"], function () {
             },
             where: {
                 bookId: $("input[name='bookId']").val(),// isbn
-                // readerId: $("input[name='readerId']").val(),//读者ID
                 status: $("select[name='status']").val() , //状态
                 operator: $("input[name='operator']").val(),//操作员
-                fine: $("select[name='fine']").val(), //罚款
+                fineFin: $("select[name='fineFin']").val(), //归还时间
             }
         })
     });

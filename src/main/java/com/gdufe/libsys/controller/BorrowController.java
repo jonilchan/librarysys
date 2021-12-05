@@ -127,6 +127,15 @@ public class BorrowController extends BaseController {
         return borrowService.queryBorrowsByParams(borrowQuery);
     }
 
+    //读者个人借阅表查询
+    @RequestMapping("/my_fine_list")
+    @ResponseBody
+    public Map<String,Object> queryMyFineByParams(HttpServletRequest request, BorrowQuery borrowQuery){
+        borrowQuery.setReaderId(request.getSession().getAttribute("userId").toString());
+        borrowQuery.setFine(1);
+        return borrowService.queryBorrowsByParams(borrowQuery);
+    }
+
     @RequestMapping("/renew")
     @ResponseBody
     public ResultInfo renewBorrow(Integer borrowId){

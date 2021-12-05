@@ -13,21 +13,10 @@
                     <input type="text" name="bookId" class="layui-input searchVal" placeholder="图书ID"/>
                 </div>
                 <div class="layui-input-inline">
-                    <select name="status" class="layui-input searchVal">
-                        <option value="">状态</option>
-                        <option value="0">已借未还</option>
-                        <option value="1">已还</option>
-                        <option value="2">预约未拿</option>
-                    </select>
-                </div>
-                <div class="layui-input-inline">
-                    <input type="text" name="operator" class="layui-input searchVal" placeholder="操作员"/>
-                </div>
-                <div class="layui-input-inline">
-                    <select name="fine" class="layui-input searchVal">
-                        <option value="">有无罚款</option>
-                        <option value="0">无罚款</option>
-                        <option value="1">有罚款</option>
+                    <select name="fineFin" class="layui-input searchVal">
+                        <option value="">交纳状态</option>
+                        <option value="0">未交纳</option>
+                        <option value="1">已交纳</option>
                     </select>
                 </div>
                 <a class="layui-btn search_btn" data-type="reload"><i
@@ -46,7 +35,7 @@
         <a class="layui-btn layui-btn-xs" id="edit" lay-event="renew">续借</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/borrow/my_borrow_list.js"></script>
+<script type="text/javascript" src="${ctx}/js/borrow/my_fine_list.js"></script>
 
 </body>
 </html>
