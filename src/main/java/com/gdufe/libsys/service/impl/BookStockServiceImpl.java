@@ -75,6 +75,7 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
     @Override
     public void deleBook(Integer bookId) {
         BookStock bookStock = bookStockMapper.selectById(bookId);
+        AssertUtil.isTrue(bookStock.getStatus() == 1, "该书处于借出状态！无法出库");
         bookStock.setStatus(2);
         bookStockMapper.updateById(bookStock);
     }
@@ -83,6 +84,8 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
     public void transferToSS(Integer[] bookIds) {
         List<BookStock> bookStockList = bookStockMapper.selectBatchIds(Arrays.asList(bookIds));
         for (BookStock bookStock : bookStockList) {
+            AssertUtil.isTrue(bookStock.getStatus() == 1, "该书处于借出状态！无法转移");
+            AssertUtil.isTrue(bookStock.getStatus() == 2, "该书处于出库状态！无法转移");
             bookStock.setBookLocation(0);
         }
         updateBatchById(bookStockList);

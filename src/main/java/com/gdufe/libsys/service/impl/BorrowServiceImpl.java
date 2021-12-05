@@ -84,6 +84,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         //查询符合条件的借书书籍
         QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper();
         bookStockWrapper.eq("isbn", isbn);
+        BookInfo bookInfo = bookInfoMapper.selectById("isbn");
         List<BookStock> bookStocks = bookStockMapper.selectList(bookStockWrapper);
         AssertUtil.isTrue(bookStocks == null, "借阅书籍库存为空");
         //查看借阅是否达到上限
@@ -93,6 +94,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         User user = userMapper.selectById(userId);
         Integer size = borrowList.size();
         Integer identity = user.getIdentity();
+        AssertUtil.isTrue(bookInfo.getStatus()==1, "该书暂停借阅！");
         AssertUtil.isTrue(size == 5 && identity == 0, "借阅数量达到上限");
         AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上限");
         //填充borrow数据，生成订单
@@ -144,6 +146,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Override
     public void renewBorrow(Integer borrowId) {
         Borrow borrow = borrowMapper.selectById(borrowId);
+        AssertUtil.isTrue(borrow.getStatus()==1, "该书已经归还！");
         AssertUtil.isTrue(borrow == null, "不存在该订单！");
         borrow.setRenew(1);
         borrowMapper.updateById(borrow);

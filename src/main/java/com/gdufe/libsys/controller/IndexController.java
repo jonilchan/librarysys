@@ -2,6 +2,7 @@ package com.gdufe.libsys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.base.BaseController;
+import com.gdufe.libsys.base.UserRoleEnum;
 import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.Reserve;
 import com.gdufe.libsys.entity.User;
@@ -70,6 +71,14 @@ public class IndexController extends BaseController {
         String userId = request.getSession().getAttribute("userId").toString();
         User user = userService.getById(userId);
         request.setAttribute("user", user);
-        return "main";
+//        return "main_reader";
+        if(user.getIdentity().equals(3)){
+            return "main_libraryAdmin";
+        }else if(user.getIdentity().equals(0)||user.getIdentity().equals(1)){
+            return "main_reader";
+        }else if(user.getIdentity().equals(2)){
+            return "main_sysAdmin";
+        }
+        return "main_reader";
     }
 }

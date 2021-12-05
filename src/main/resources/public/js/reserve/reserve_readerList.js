@@ -5,7 +5,7 @@ layui.use(['table', 'layer', "form"], function () {
     //借阅列表展示
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/reserve/reserveList',
+        url: ctx + '/reserve/reserveReaderList',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -34,10 +34,11 @@ layui.use(['table', 'layer', "form"], function () {
             {field: 'presentStock', title: '当前库存', align: 'center'},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
-                        return "未处理";
+                        return "等待取书";
                     }else if(data.status==1){
-                        return "已处理";
-                    }else if(data.status==2){
+                        return "已取书";
+                    }
+                    else if(data.status==2){
                         return "预约失效";
                     }
                 }},
@@ -84,15 +85,15 @@ layui.use(['table', 'layer', "form"], function () {
         var layEvent = obj.event;
         if (layEvent === "process") {
             openBookStockInfo(obj.data);
-        }else if(layEvent === "remind"){
-            layer.confirm("确认提醒取书?",{icon: 3, title: "库存详情"},function (index) {
-                $.post(ctx+"/reserve/remind",{reserveId:obj.data.reserveId},function (data) {
+        }else if(layEvent === "cancel"){
+            layer.confirm("确认取消预约?",{icon: 3, title: "预约信息"},function (index) {
+                $.post(ctx+"/reserve/cancel",{reserveId:obj.data.reserveId},function (data) {
                     if(data.code==200){
                         layer.msg("确认成功");
                         parent.location.reload();
                         layer.close(index);
                     }else{
-                        layer.msg("该预约记录已处理！");
+                        layer.msg(data.msg);
                     }
                 })
             })

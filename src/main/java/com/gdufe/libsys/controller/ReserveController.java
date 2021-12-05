@@ -105,5 +105,32 @@ public class ReserveController extends BaseController {
         return new ResultInfo(200);
     }
 
+
+    //跳转到预约表(读书者下的
+    @RequestMapping("/toReaderReserve")
+    public String toReaderReserve(){
+        return "/reserve/reserve_readerList";
+    }
+
+
+    //加载预约列表(读者下的
+    @GetMapping("/reserveReaderList")
+    @ResponseBody
+    public Map<String,Object> queryReserveReaderListByParams(ReserveQuery reserveQuery,HttpServletRequest request){
+        String userId =(String) request.getSession().getAttribute("userId");
+        Map<String, Object> stringObjectMap = reserveService.queryReserveListByParams(reserveQuery,userId);
+        return stringObjectMap;
+    }
+
+    //读者取消预约
+    @RequestMapping("/cancel")
+    @ResponseBody
+    public ResultInfo cancelReserve(Integer reserveId){
+        reserveService.cancelReserve(reserveId);
+        return new ResultInfo(200);
+    }
+
+
+
 }
 

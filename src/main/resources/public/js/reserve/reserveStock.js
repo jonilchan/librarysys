@@ -143,7 +143,7 @@ layui.use(['table', 'layer', "form"], function () {
                         parent.location.reload();
                         layer.close(index);
                     }else{
-                        layer.msg("该预约记录已处理！");
+                        layer.msg(data.msg);
                     }
                 })
             })

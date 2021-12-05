@@ -131,7 +131,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void lossApply(String userId) {
         User user = userMapper.selectById(userId);
         AssertUtil.isTrue(user == null, "挂失失败，请联系图书管理员！");
-        user.setStatus(UserStatusEnum.申请挂失.getCode());
+        user.setStatus(UserStatusEnum.挂失.getCode());
         userMapper.updateById(user);
     }
 
