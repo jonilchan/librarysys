@@ -19,16 +19,17 @@ layui.use(['element', 'layer', 'layuimini','jquery','jquery_cookie'], function (
     })
 
     $(".loss-apply").click(function () {
-        layer.confirm('是否挂失当前用户?', {icon: 3, title:'提示'}, function(index){
-            $.post(ctx+"/user/lossApply", function (data) {
-                if(data.code==200){
-                    layer.msg("确认成功");
-                    layer.close(index);
-                }else{
-                    layer.msg(data.msg);
-                }
-            })
-            layer.close(index);
-        });
+        layer.confirm('是否挂失当前用户?', {icon: 3, title: '提示'}, function (index) {
+            var title = "用户挂失";
+            var url = ctx + "/user/toLossPage";
+            layui.layer.open({
+                title: title,
+                type: 2,
+                area: ["700px", "500px"],
+                maxmin: true,
+                content: url
+            });
+        })
     })
+
 });

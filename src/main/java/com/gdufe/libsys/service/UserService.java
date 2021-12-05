@@ -21,7 +21,7 @@ public interface UserService extends IService<User> {
     void updateInfo(String userId, String username, String phone);
     void addUser(String userId, String userName, String userPassword, String phone, Integer identity);
     void updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status);
-    void lossApply(String userId);
+    void lossApply(String userId, String password);
     //查询用户
     Map<String, Object> queryUsersByParams(UserQuery userQuery);
 

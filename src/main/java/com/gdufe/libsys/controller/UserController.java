@@ -115,10 +115,15 @@ public class UserController extends BaseController {
         return "user/update_user";
     }
 
+    @RequestMapping("/toLossPage")
+    public String toLossPage(){
+        return "user/loss_page";
+    }
+
     @RequestMapping("/lossApply")
     @ResponseBody
-    ResultInfo lossApply(HttpServletRequest request){
-        userService.lossApply(request.getSession().getAttribute("userId").toString());
+    public ResultInfo lossApply(HttpServletRequest request, String password){
+        userService.lossApply(request.getSession().getAttribute("userId").toString(), password);
         return new ResultInfo(200);
     }
 

@@ -25,7 +25,7 @@
                 <a href="javascript:;">${(user.userName)!"未登录"}</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="javascript:;" class="loss-apply" data-icon="fa fa-gears">挂失申请</a>
+                        <a href="javascript:;" data-iframe-tab="${ctx}/user/toLossPage" class="loss-apply" data-icon="fa fa-gears">挂失申请</a>
                     </dd>
                     <dd>
                         <a href="javascript:;" onclick="javascript:layer.msg('请向图书管理员缴纳罚款！');" data-icon="fa fa-gears">缴纳罚款</a>

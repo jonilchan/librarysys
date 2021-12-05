@@ -59,14 +59,8 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="bookRank/toRankPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">个人信息</span></a>
-                    </li>
-
-                    <li class="layui-nav-item">
-                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="borrow/toBookPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">图书检索(读者）</span></a>
+                                    class="layui-left-nav">图书检索（读者）</span></a>
                     </li>
 
                     <li class="layui-nav-item">
@@ -92,14 +86,6 @@
                            data-tab="borrow/toFinePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
                                     class="layui-left-nav">罚款记录</span></a>
                     </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="bookRank/toRankPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">读者挂失</span></a>
-                    </li>
-
-
-
 
 
                     <span class="layui-nav-bar" style="top: 201px; height: 0px; opacity: 0;"></span>

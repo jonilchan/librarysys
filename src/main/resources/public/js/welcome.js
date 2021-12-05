@@ -14,7 +14,7 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            {field: "createTime", title: '时间', width:400, fixed: "true"},
+            {field: "createTime", title: '时间', width:350, fixed: "true", align: "center"},
             {field: 'msg', title: '消息', minWidth: 50, align: "center"},
         ]]
     });

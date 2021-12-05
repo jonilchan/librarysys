@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<img src="/images/indexbg.jpg" width="110%" height="110%" style="position: absolute; left: -10px; top: -10px">
 <head>
     <meta charset="UTF-8">
     <title>广东财经大学图书管理系统</title>
@@ -7,7 +8,8 @@
     <link rel="stylesheet" href="${ctx}/css/index.css" media="all">
     <style>
         html, body {width: 100%;height: 100%;overflow: hidden}
-        body {background: #1E9FFF;}
+        /*body {background: #1E9FFF;}*/
+        /*body {background-image:url('/images/index_bgimg.jpg')}*/
         body:after {content:'';background-repeat:no-repeat;background-size:cover;-webkit-filter:blur(3px);-moz-filter:blur(3px);-o-filter:blur(3px);-ms-filter:blur(3px);filter:blur(3px);position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;}
         .layui-container {width: 100%;height: 100%;overflow: hidden}
         .admin-login-background {width:360px;height:300px;position:absolute;left:50%;top:40%;margin-left:-180px;margin-top:-100px;}
@@ -23,12 +25,15 @@
     </style>
 </head>
 <body>
+
 <div class="layui-container">
     <div class="admin-login-background">
         <div class="layui-form login-form">
             <form class="layui-form" action="">
+
                 <div class="layui-form-item logo-title">
-                    <h1>广东财经大学图书馆</h1>
+<#--                    <h1>广东财经大学图书馆</h1>-->
+                    <img src="/images/GdufeLibraryLogo.png" width="300px">
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
@@ -53,12 +58,12 @@
 <script src="${ctx}/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
 <script>
     // 粒子线条背景
-    $(document).ready(function(){
-        $('.layui-container').particleground({
-            dotColor:'#7ec7fd',
-            lineColor:'#7ec7fd'
-        });
-    });
+    // $(document).ready(function(){
+    //     $('.layui-container').particleground({
+    //         dotColor:'#7ec7fd',
+    //         lineColor:'#7ec7fd'
+    //     });
+    // });
 </script>
 <script src="${ctx}/js/index.js" charset="utf-8"></script>
 </body>

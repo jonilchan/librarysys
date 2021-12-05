@@ -70,6 +70,9 @@ public class BookRankServiceImpl extends ServiceImpl<BookRankMapper, BookRank> i
         if (rankQuery.getAuthor() != null){
             bookRankVoArrayList.removeIf(a -> !a.equals(rankQuery.getAuthor()));
         }
+        if (bookRankVoArrayList.size() > 10){
+            bookRankVoArrayList = (ArrayList<BookRankVo>) bookRankVoArrayList.subList(0,9);
+        }
         PageHelper.startPage(rankQuery.getPage(),rankQuery.getLimit());
         PageInfo<BookRankVo> pageInfo = new PageInfo<>(bookRankVoArrayList);
         map.put("code", 0);

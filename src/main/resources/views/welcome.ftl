@@ -19,6 +19,9 @@
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
+            <img src="/images/GdufeLibraryLogo.png">
+        </div>
+        <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
                     <blockquote class="layui-elem-quote">欢迎：

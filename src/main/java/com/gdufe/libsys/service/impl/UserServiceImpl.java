@@ -128,9 +128,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     //申请挂失
     @Override
-    public void lossApply(String userId) {
+    public void lossApply(String userId, String password) {
         User user = userMapper.selectById(userId);
         AssertUtil.isTrue(user == null, "挂失失败，请联系图书管理员！");
+        AssertUtil.isTrue(!user.getUserPassword().equals(Md5Util.encode(password)), "密码错误，挂失失败，请稍后再试！");
         user.setStatus(UserStatusEnum.挂失.getCode());
         userMapper.updateById(user);
     }
