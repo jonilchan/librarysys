@@ -5,7 +5,7 @@ layui.use(['table', 'layer', "form"], function () {
 
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/reserve/list',
+        url: ctx + '/borrow/borrowList',
         cellMinWidth: 95,
         page: true,
         height: "full-125",

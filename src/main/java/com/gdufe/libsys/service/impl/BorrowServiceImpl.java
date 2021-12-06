@@ -8,9 +8,11 @@ import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BorrowService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.utils.AssertUtil;
+import com.gdufe.libsys.vo.BorrowVo;
 import com.gdufe.libsys.vo.ReserveVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -158,7 +160,9 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(borrowQuery.getPage(),borrowQuery.getLimit());
         List<Borrow> borrows = borrowMapper.selectByParams(borrowQuery);
+        ArrayList<BorrowVo> borrowVos = new ArrayList<>();
         for (Borrow borrow : borrows) {
+            BorrowVo borrowVo = new BorrowVo();
             LocalDateTime borrowTime = borrow.getBorrowTime();
             Date borrowT = Date.from(borrowTime.atZone(ZoneId.systemDefault()).toInstant());
             Date currentT = new Date();
@@ -177,11 +181,19 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
                 borrow.setFine(fine);
                 borrowMapper.updateById(borrow);
             }
+            BeanUtils.copyProperties(borrow,borrowVo);
+            BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
+            BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
+            borrowVo.setBookName(bookInfo.getBookName());
+            borrowVos.add(borrowVo);
         }
-        PageInfo<Borrow> pageInfo = new PageInfo<>(borrowMapper.selectByParams(borrowQuery));
+        //先更新 再查询
+//        PageInfo<Borrow> pageInfo = new PageInfo<>(borrowMapper.selectByParams(borrowQuery));
+        PageInfo<BorrowVo> pageInfo = new PageInfo<>(borrowVos);
+        PageInfo<Borrow> pageInfo1 = new PageInfo<>(borrows);
         map.put("code", 0);
         map.put("msg", "");
-        map.put("count", pageInfo.getTotal());
+        map.put("count", pageInfo1.getTotal());
         map.put("data", pageInfo.getList());
         return map;
     }

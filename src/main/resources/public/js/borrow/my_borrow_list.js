@@ -18,6 +18,7 @@ layui.use(['table', 'layer', "form"], function () {
             {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
+            {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
             {field: 'fine', title: '超时', align: 'center',templet : function(data){
                 if(data.fine==0){
                   return "否";

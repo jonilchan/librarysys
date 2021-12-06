@@ -55,9 +55,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         ResultInfo resultInfo = new ResultInfo();
         //数据库查询用户信息
         User user = userMapper.selectById(userId);
-        AssertUtil.isTrue(null == user,"用户不存在！");
+        LocalDateTime loginTime = user.getLoginTime();
+        if(loginTime!=null){
+            Date borrowT = Date.from(loginTime.atZone(ZoneId.systemDefault()).toInstant());
+            Date currentT = new Date();
+            long c = currentT.getTime();
+            long b = borrowT.getTime();
+            long millis = c - b;
+            int lastLoginDay = 0;
+            lastLoginDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-1;
+            if(lastLoginDay > 0){
+                user.setPwErrortimes(0);
+                userMapper.updateById(user);
+            }
+        }
+
+        AssertUtil.isTrue(user.getPwErrortimes()>=5,"当天输入密码错误次数达到上限！");
+        AssertUtil.isTrue(null == user,"用户或密码错误！");
         //检查密码是否错误
-        AssertUtil.isTrue(!(user.getUserPassword().equals(Md5Util.encode(userPassword))),"密码错误！请检查是否输入正确");
+        if(!(user.getUserPassword().equals(Md5Util.encode(userPassword)))){
+            Integer pwErrortimes = user.getPwErrortimes();
+            pwErrortimes++;
+            user.setPwErrortimes(pwErrortimes);
+            user.setLoginTime(LocalDateTime.now());
+            userMapper.updateById(user);
+        }
+        AssertUtil.isTrue(!(user.getUserPassword().equals(Md5Util.encode(userPassword))),"用户或密码错误！");
+
         resultInfo.setCode(200);
         resultInfo.setResult(user);
         return resultInfo;

@@ -52,32 +52,6 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     public Map<String, Object> queryBookInfosByParams(BookInfoQuery bookInfoQuery) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(bookInfoQuery.getPage(),bookInfoQuery.getLimit());
-//        List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
-//        for (BookInfo bookInfo : bookInfos) {
-//            QueryWrapper<BookStock> wrapper = new QueryWrapper<>();
-//            wrapper.eq("isbn",bookInfo.getIsbn());
-//            List<BookStock> bookStocks = bookStockMapper.selectList(wrapper);
-//            //计算总库存
-//            bookInfo.setTotalStock(bookStocks.size());
-//            int i = 0;//计算未借阅的数数量
-//            int j = 0;//计算是三水还是广州
-//            for (BookStock bookStock : bookStocks) {
-//                if(bookStock.getStatus()==0){
-//                    i++;
-//                }
-//                if(bookStock.getBookLocation()==1){
-//                    j++;
-//                }
-//            }
-//            bookInfo.setPresentStock(i);
-//            if(j == 0){
-//                bookInfo.setBookLocation(0);
-//            }else if(j == bookStocks.size()){
-//                bookInfo.setBookLocation(1);
-//            }else {
-//                bookInfo.setBookLocation(2);
-//            }
-//        }
         PageInfo<BookInfo> pageInfo = new PageInfo<>(getBookInfos(bookInfoQuery));
         map.put("code", 0);
         map.put("msg", "");
@@ -106,6 +80,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
                 }
             }
             bookInfo.setPresentStock(i);
+            bookInfoMapper.updateById(bookInfo);
             if(j == 0){
                 bookInfo.setBookLocation(0);
             }else if(j == bookStocks.size()){

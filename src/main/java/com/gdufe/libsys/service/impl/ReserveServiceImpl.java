@@ -54,6 +54,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(reserveQuery.getPage(),reserveQuery.getLimit());
         List<Reserve> reserves = reserveMapper.selectByParams(reserveQuery);
+
         List<BookInfo> bookInfos = bookInfoService.getBookInfos(new BookInfoQuery());
         ArrayList<ReserveVo> reserveVos = new ArrayList<>();
         for (Reserve reserve : reserves) {
@@ -67,11 +68,12 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
                 }
             }
         }
-        PageInfo<ReserveVo> pageInfo = new PageInfo<>(reserveVos);
+        PageInfo<Reserve> pageInfo = new PageInfo<>(reserves);
+        PageInfo<ReserveVo> pageInfo1 = new PageInfo<>(reserveVos);
         map.put("code", 0);
         map.put("msg", "");
         map.put("count", pageInfo.getTotal());
-        map.put("data", pageInfo.getList());
+        map.put("data", pageInfo1.getList());
         return map;
     }
 
@@ -95,9 +97,10 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
             }
         }
         PageInfo<ReserveVo> pageInfo = new PageInfo<>(reserveVos);
+        PageInfo<Reserve> pageInfo1 = new PageInfo<>(reserves);
         map.put("code", 0);
         map.put("msg", "");
-        map.put("count", pageInfo.getTotal());
+        map.put("count", pageInfo1.getTotal());
         map.put("data", pageInfo.getList());
         return map;
     }

@@ -18,9 +18,7 @@ layui.use(['table', 'layer', "form"], function () {
             {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
-            {field: 'borrowTime', title: '借阅时间', minWidth: 100, align: 'center'},
-            {field: 'returnTime', title: '归还时间', minWidth: 100, align: 'center'},
-            {field: 'operator', title: '操作员', align: 'center'},
+            {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
             {field: 'fine', title: '罚款', align: 'center'},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
@@ -38,6 +36,9 @@ layui.use(['table', 'layer', "form"], function () {
                         return "已续借";
                     }
                 }},
+            {field: 'operator', title: '操作员', align: 'center'},
+            {field: 'borrowTime', title: '借阅时间', minWidth: 100, align: 'center'},
+            {field: 'returnTime', title: '归还时间', minWidth: 100, align: 'center'},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
