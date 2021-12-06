@@ -5,7 +5,7 @@
     <title>广东财经大学图书管理系统</title>
     <#include "common.ftl">
 </head>
-<body class="layui-layout-body layuimini-all">
+<body class="layui-layout-body layuimini-mini">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header header">
         <div class="layui-logo">
@@ -15,7 +15,7 @@
             </a>
         </div>
         <a>
-            <div class="layuimini-tool"><i title="展开" class="fa fa-outdent" data-side-fold="1"></i></div>
+            <div class="layuimini-tool"><i title="展开" class="fa fa-indent" data-side-fold="0"></i></div>
         </a>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item mobile layui-hide-xs" lay-unselect>
