@@ -53,65 +53,66 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="welcome" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                           data-tab="welcome" target="_self"><span class="iconfont icon-shouye-xianxing">&nbsp;</span><span
                                     class="layui-left-nav">首页</span></a>
                     </li>
+
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toBookPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">图书检索（读者）</span></a>
+                           data-tab="borrow/toBookPage" target="_self"><span class="iconfont icon-sousuo">&nbsp;</span><span
+                                    class="layui-left-nav">图书检索</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toMyBorrowPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">我的借阅（读者）</span></a>
+                           data-tab="borrow/toMyBorrowPage" target="_self"><span class="iconfont icon-quanwenjieyue">&nbsp;</span><span
+                                    class="layui-left-nav">我的借阅</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="bookRank/toRankPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                           data-tab="bookRank/toRankPage" target="_self"><span class="iconfont icon-paixingbang">&nbsp;</span><span
                                     class="layui-left-nav">图书排行</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="user/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">用户管理（系统管理员）</span></a>
+                           data-tab="user/toManagePage" target="_self"><span class="iconfont icon-yonghuguanli">&nbsp;</span><span
+                                    class="layui-left-nav">用户管理</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toBorrowPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">图书借阅（管理员）</span></a>
+                           data-tab="borrow/toBorrowPage" target="_self"><span class="iconfont icon-quanwenjieyue">&nbsp;</span><span
+                                    class="layui-left-nav">图书借阅</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="book/index" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">图书管理（管理员）</span></a>
+                           data-tab="book/index" target="_self"><span class="iconfont icon-cangkuguanli-">&nbsp;</span><span
+                                    class="layui-left-nav">图书管理</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toManagePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">借阅管理（管理员）</span></a>
-                    </li>
-
-
-
-                    <li class="layui-nav-item">
-                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="reserve/toReserve" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">预约管理（管理员）</span></a>
+                           data-tab="borrow/toManagePage" target="_self"><span class="iconfont icon-jiekuanshenqing">&nbsp;</span><span
+                                    class="layui-left-nav">借阅管理</span></a>
                     </li>
 
 
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="druid/index.html" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">系统监控（管理员）</span></a>
+                           data-tab="reserve/toReserve" target="_self"><span class="iconfont icon-yuyueguanli">&nbsp;</span><span
+                                    class="layui-left-nav">预约管理</span></a>
+                    </li>
+
+
+
+                    <li class="layui-nav-item">
+                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
+                           data-tab="druid/index.html" target="_self"><span class="iconfont icon-xitongjiankong">&nbsp;</span><span
+                                    class="layui-left-nav">系统监控</span></a>
                     </li>
 
                     <span class="layui-nav-bar" style="top: 201px; height: 0px; opacity: 0;"></span>

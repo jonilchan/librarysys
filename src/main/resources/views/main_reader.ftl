@@ -53,37 +53,37 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="welcome" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                           data-tab="welcome" target="_self"><span class="iconfont icon-shouye-xianxing">&nbsp;</span><span
                                     class="layui-left-nav">首页</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toBookPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">图书检索（读者）</span></a>
+                           data-tab="borrow/toBookPage" target="_self"><span class="iconfont icon-sousuo">&nbsp;</span><span
+                                    class="layui-left-nav">图书检索</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toMyBorrowPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
-                                    class="layui-left-nav">我的借阅（读者）</span></a>
+                           data-tab="borrow/toMyBorrowPage" target="_self"><span class="iconfont icon-quanwenjieyue">&nbsp;</span><span
+                                    class="layui-left-nav">我的借阅</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="bookRank/toRankPage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                           data-tab="bookRank/toRankPage" target="_self"><span class="iconfont icon-paixingbang">&nbsp;</span><span
                                     class="layui-left-nav">图书排行</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="reserve/toReaderReserve" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                           data-tab="reserve/toReaderReserve" target="_self"><span class="iconfont icon-yuyue">&nbsp;</span><span
                                     class="layui-left-nav">预约信息</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toFinePage" target="_self"><i class="fa fa-user">&nbsp;&nbsp;</i><span
+                           data-tab="borrow/toFinePage" target="_self"><span class="iconfont icon-qianbao">&nbsp;</span><span
                                     class="layui-left-nav">罚款记录</span></a>
                     </li>
 
