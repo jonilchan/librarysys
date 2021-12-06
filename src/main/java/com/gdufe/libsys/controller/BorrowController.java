@@ -2,16 +2,14 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
-import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.service.BorrowService;
 import com.gdufe.libsys.utils.ResultInfo;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -20,7 +18,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author jonil
@@ -40,7 +38,7 @@ public class BorrowController extends BaseController {
     //预约
     @RequestMapping("/book")
     @ResponseBody
-    public ResultInfo book(HttpServletRequest request, String isbn){
+    public ResultInfo book(HttpServletRequest request, String isbn) {
         borrowService.book(request.getSession().getAttribute("userId").toString(), isbn);
         return new ResultInfo(200);
     }
@@ -48,16 +46,16 @@ public class BorrowController extends BaseController {
     //借阅表查询
     @RequestMapping("/list")
     @ResponseBody
-    public Map<String,Object> queryBorrowByParams(BorrowQuery borrowQuery){
+    public Map<String, Object> queryBorrowByParams(BorrowQuery borrowQuery) {
         return borrowService.queryBorrowsByParams(borrowQuery);
     }
 
     //加载库存表
     @GetMapping("/toStock")
-    public String toStock(HttpServletRequest request, String isbn, String readerId){
-        request.getSession().setAttribute("isbn",isbn);
-        request.getSession().setAttribute("readerId",readerId);
-        request.getSession().setAttribute("userId",request.getSession().getAttribute("userId"));
+    public String toStock(HttpServletRequest request, String isbn, String readerId) {
+        request.getSession().setAttribute("isbn", isbn);
+        request.getSession().setAttribute("readerId", readerId);
+        request.getSession().setAttribute("userId", request.getSession().getAttribute("userId"));
         return "borrow/borrow_process";
     }
 
@@ -82,7 +80,7 @@ public class BorrowController extends BaseController {
     //借书
     @RequestMapping("/borrow_book")
     @ResponseBody
-    public ResultInfo borrowBook(HttpServletRequest request, Integer bookId){
+    public ResultInfo borrowBook(HttpServletRequest request, Integer bookId) {
         borrowService.borrow(request.getSession().getAttribute("readerId").toString(), bookId, request.getSession().getAttribute("userId").toString());
         System.out.println("1111");
         return new ResultInfo(200);
@@ -91,7 +89,7 @@ public class BorrowController extends BaseController {
     //归还图书
     @RequestMapping("/giveback")
     @ResponseBody
-    public ResultInfo giveback(Integer borrowId){
+    public ResultInfo giveback(Integer borrowId) {
         borrowService.giveback(borrowId);
         return new ResultInfo(200);
     }
@@ -99,31 +97,31 @@ public class BorrowController extends BaseController {
     //催还图书
     @RequestMapping("/urgereturn")
     @ResponseBody
-    public ResultInfo urgereturn(Integer borrowId){
+    public ResultInfo urgereturn(Integer borrowId) {
         borrowService.urgereturn(borrowId);
         return new ResultInfo(200);
     }
 
     //借阅管理页面
     @RequestMapping("/toManagePage")
-    public String toManagePage(){
+    public String toManagePage() {
         return "/borrow/borrow_list";
     }
 
     //去管理员借阅界面
     @RequestMapping("/toBorrowPage")
-    public String toBorrowPage(){
+    public String toBorrowPage() {
         return "/borrow/borrow";
     }
 
     //借书、预约页
     @RequestMapping("/toBookPage")
-    public String toBookPidsage(){
+    public String toBookPidsage() {
         return "/borrow/book";
     }
 
     @RequestMapping("/toMyBorrowPage")
-    public String toMyBorrowPage(HttpServletRequest request){
+    public String toMyBorrowPage(HttpServletRequest request) {
         request.setAttribute("user", request.getAttribute("user"));
         return "borrow/my_borrow_list";
     }
@@ -131,7 +129,7 @@ public class BorrowController extends BaseController {
     //读者个人借阅表查询
     @RequestMapping("/my_borrow_list")
     @ResponseBody
-    public Map<String,Object> queryMyBorrowByParams(HttpServletRequest request, BorrowQuery borrowQuery){
+    public Map<String, Object> queryMyBorrowByParams(HttpServletRequest request, BorrowQuery borrowQuery) {
         borrowQuery.setReaderId(request.getSession().getAttribute("userId").toString());
         return borrowService.queryBorrowsByParams(borrowQuery);
     }
@@ -139,7 +137,7 @@ public class BorrowController extends BaseController {
     //读者个人借阅表查询
     @RequestMapping("/my_fine_list")
     @ResponseBody
-    public Map<String,Object> queryMyFineByParams(HttpServletRequest request, BorrowQuery borrowQuery){
+    public Map<String, Object> queryMyFineByParams(HttpServletRequest request, BorrowQuery borrowQuery) {
         borrowQuery.setReaderId(request.getSession().getAttribute("userId").toString());
         borrowQuery.setFine(1);
         return borrowService.queryBorrowsByParams(borrowQuery);
@@ -147,14 +145,14 @@ public class BorrowController extends BaseController {
 
     @RequestMapping("/renew")
     @ResponseBody
-    public ResultInfo renewBorrow(Integer borrowId){
+    public ResultInfo renewBorrow(Integer borrowId) {
         borrowService.renewBorrow(borrowId);
         return new ResultInfo(200);
     }
 
     //查看罚款历史
     @RequestMapping("/toFinePage")
-    public String toFinePage(){
+    public String toFinePage() {
         return "borrow/fine_list";
     }
 

@@ -14,7 +14,7 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            {type: "checkbox", fixed: "left", width: 50},
+            // {type: "checkbox", fixed: "left", width: 50},
             {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},

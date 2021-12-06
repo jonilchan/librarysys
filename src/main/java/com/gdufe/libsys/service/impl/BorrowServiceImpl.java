@@ -1,15 +1,15 @@
 package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.base.BorrowStatusEnum;
+import com.gdufe.libsys.base.Statistic;
 import com.gdufe.libsys.entity.*;
 import com.gdufe.libsys.mapper.*;
 import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BorrowService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.utils.AssertUtil;
 import com.gdufe.libsys.vo.BorrowVo;
-import com.gdufe.libsys.vo.ReserveVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jonil
@@ -62,7 +62,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         borrow.setOperator(userMapper.selectById(userId).getUserName());
         borrow.setBookId(bookId);
         borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
-        AssertUtil.isTrue(borrowMapper.insert(borrow) != 1, "借阅书籍失败");;
+        AssertUtil.isTrue(borrowMapper.insert(borrow) != 1, "借阅书籍失败");
         //填充Rank表
         BookStock bookStock = bookStockMapper.selectById(bookId);
         BookRank bookRank = new BookRank();
@@ -78,10 +78,13 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
         bookInfo.setPresentStock(bookInfo.getPresentStock() - 1);
         bookInfoMapper.updateById(bookInfo);
+
+        Statistic.borrow();
     }
 
     //预约
     @Override
+    @Transactional
     public void book(String userId, String isbn) {
         //查询符合条件的借书书籍
         QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper();
@@ -96,7 +99,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         User user = userMapper.selectById(userId);
         Integer size = borrowList.size();
         Integer identity = user.getIdentity();
-        AssertUtil.isTrue(bookInfo.getStatus()==1, "该书暂停借阅！");
+        AssertUtil.isTrue(bookInfo.getStatus() == 1, "该书暂停借阅！");
         AssertUtil.isTrue(size == 5 && identity == 0, "借阅数量达到上限");
         AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上限");
         //填充borrow数据，生成订单
@@ -109,6 +112,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         //更新被借书的状态
         bookStock.setStatus(1);
         bookStockMapper.updateById(bookStock);
+
+        Statistic.reverse();
     }
 
 
@@ -148,8 +153,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Override
     public void renewBorrow(Integer borrowId) {
         Borrow borrow = borrowMapper.selectById(borrowId);
-        AssertUtil.isTrue(borrow.getStatus()==1, "该书已经归还！");
-        AssertUtil.isTrue(borrow.getRenew()==1, "该书已经续借！！");
+        AssertUtil.isTrue(borrow.getStatus() == 1, "该书已经归还！");
+        AssertUtil.isTrue(borrow.getRenew() == 1, "该书已经续借！！");
         AssertUtil.isTrue(borrow == null, "不存在该订单！");
         borrow.setRenew(1);
         borrowMapper.updateById(borrow);
@@ -159,7 +164,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     //查询借阅记录（计算罚款）
     public Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery) {
         Map<String, Object> map = new HashMap<>();
-        PageHelper.startPage(borrowQuery.getPage(),borrowQuery.getLimit());
+        PageHelper.startPage(borrowQuery.getPage(), borrowQuery.getLimit());
         List<Borrow> borrows = borrowMapper.selectByParams(borrowQuery);
         ArrayList<BorrowVo> borrowVos = new ArrayList<>();
         for (Borrow borrow : borrows) {
@@ -171,18 +176,18 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
             long b = borrowT.getTime();
             long millis = c - b;
             int borrowDay = 0;
-            if (borrow.getRenew() == 1){
-                borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-60;
+            if (borrow.getRenew() == 1) {
+                borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis) - 60;
             } else {
-                borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-30;
+                borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis) - 30;
             }
 
-            if(borrowDay > 0){
-                double fine = borrowDay*0.1;
+            if (borrowDay > 0) {
+                double fine = borrowDay * 0.1;
                 borrow.setFine(fine);
                 borrowMapper.updateById(borrow);
             }
-            BeanUtils.copyProperties(borrow,borrowVo);
+            BeanUtils.copyProperties(borrow, borrowVo);
             BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
             BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
             borrowVo.setBookName(bookInfo.getBookName());

@@ -14,7 +14,7 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            {type: "checkbox", fixed: "left", width: 50},
+            // {type: "checkbox", fixed: "left", width: 50},
             {field: "userId", title: '用户ID', fixed: "true", width: 150},
             {field: 'userName', title: '用户名', minWidth: 50, align: "center"},
             {field: 'phone', title: '电话', minWidth: 100, align: 'center'},

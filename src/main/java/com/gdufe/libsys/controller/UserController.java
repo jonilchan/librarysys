@@ -5,11 +5,10 @@ import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.ResultInfo;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -18,7 +17,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author jonil
@@ -34,7 +33,7 @@ public class UserController extends BaseController {
     //用户登录
     @PostMapping("/login")
     @ResponseBody
-    public ResultInfo login(HttpServletRequest request, String userId, String userPassword){
+    public ResultInfo login(HttpServletRequest request, String userId, String userPassword) {
         //获取结果
         ResultInfo loginResult = userService.login(userId, userPassword);
         //设置session
@@ -46,7 +45,7 @@ public class UserController extends BaseController {
     //用户更新密码
     @PostMapping("/updatePassword")
     @ResponseBody
-    public ResultInfo updateUserInfo(HttpServletRequest request, String oldPassword, String newPassword, String confirmPassword){
+    public ResultInfo updateUserInfo(HttpServletRequest request, String oldPassword, String newPassword, String confirmPassword) {
         //用于放置结果信息
         ResultInfo resultInfo = new ResultInfo(200);
         //更新密码操作
@@ -57,7 +56,7 @@ public class UserController extends BaseController {
 
     @RequestMapping("/updateInfo")
     @ResponseBody
-    public ResultInfo updateInfo(HttpServletRequest request, String username, String phone){
+    public ResultInfo updateInfo(HttpServletRequest request, String username, String phone) {
         ResultInfo resultInfo = new ResultInfo(200);
         userService.updateInfo(request.getSession().getAttribute("userId").toString(), username, phone);
         return resultInfo;
@@ -65,64 +64,64 @@ public class UserController extends BaseController {
 
     //更新密码页
     @GetMapping("/toPasswordPage")
-    public String toPasswordPage(){
+    public String toPasswordPage() {
         return "user/password";
     }
 
     //查询用户列表
     @GetMapping("/list")
     @ResponseBody
-    public Map<String,Object> queryBookInfosByParams(UserQuery userQuery){
+    public Map<String, Object> queryBookInfosByParams(UserQuery userQuery) {
         return userService.queryUsersByParams(userQuery);
     }
 
     @RequestMapping("/addUser")
     @ResponseBody
-    ResultInfo addUser(String userId, String userName, String userPassword, String phone, Integer identity){
+    ResultInfo addUser(String userId, String userName, String userPassword, String phone, Integer identity) {
         userService.addUser(userId, userName, userPassword, phone, identity);
         return new ResultInfo(200);
     }
 
     @RequestMapping("/updateUser")
     @ResponseBody
-    ResultInfo updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status){
+    ResultInfo updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status) {
         userService.updateUser(userId, userName, userPassword, phone, identity, status);
         return new ResultInfo(200);
     }
 
     //更新用户信息
     @RequestMapping("/toInfoPage")
-    public String toInfoPage(HttpServletRequest request){
+    public String toInfoPage(HttpServletRequest request) {
         User user = userService.getById(request.getSession().getAttribute("userId").toString());
         request.getSession().setAttribute("user", user);
         return "user/Info";
     }
 
     @RequestMapping("/toManagePage")
-    public String toManagePage(){
+    public String toManagePage() {
         return "user/manage";
     }
 
     @RequestMapping("/toAddUserPage")
-    public String toAddUserPage(){
+    public String toAddUserPage() {
         return "user/add_user";
     }
 
     @RequestMapping("/toUpdateUserPage")
-    public String toUpdateUserPage(HttpServletRequest request, String userId){
+    public String toUpdateUserPage(HttpServletRequest request, String userId) {
         User user = userService.getById(userId);
         request.setAttribute("user", user);
         return "user/update_user";
     }
 
     @RequestMapping("/toLossPage")
-    public String toLossPage(){
+    public String toLossPage() {
         return "user/loss_page";
     }
 
     @RequestMapping("/lossApply")
     @ResponseBody
-    public ResultInfo lossApply(HttpServletRequest request, String password){
+    public ResultInfo lossApply(HttpServletRequest request, String password) {
         userService.lossApply(request.getSession().getAttribute("userId").toString(), password);
         return new ResultInfo(200);
     }

@@ -1,15 +1,14 @@
 package com.gdufe.libsys.service;
 
-import com.gdufe.libsys.entity.Borrow;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.query.BorrowQuery;
-import com.gdufe.libsys.query.UserQuery;
 
 import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author jonil

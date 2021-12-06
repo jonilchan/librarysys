@@ -1,6 +1,7 @@
 package com.gdufe.libsys.base;
 
 import lombok.Getter;
+
 @Getter
 
 public enum BorrowStatusEnum {
@@ -10,7 +11,7 @@ public enum BorrowStatusEnum {
     已还(1),
 
     预约未拿(2),
-    
+
     ;
 
     Integer code;

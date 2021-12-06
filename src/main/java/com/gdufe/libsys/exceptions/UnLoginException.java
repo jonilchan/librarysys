@@ -4,8 +4,8 @@ package com.gdufe.libsys.exceptions;
  * 自定义参数异常
  */
 public class UnLoginException extends RuntimeException {
-    private Integer code=300;
-    private String msg="用户未登录!";
+    private Integer code = 300;
+    private String msg = "用户未登录!";
 
 
     public UnLoginException() {

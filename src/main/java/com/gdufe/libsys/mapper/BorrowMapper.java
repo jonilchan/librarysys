@@ -3,7 +3,6 @@ package com.gdufe.libsys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gdufe.libsys.base.BaseQuery;
-import com.gdufe.libsys.entity.BookInfo;
 import com.gdufe.libsys.entity.Borrow;
 import org.springframework.dao.DataAccessException;
 

@@ -2,7 +2,6 @@ package com.gdufe.libsys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gdufe.libsys.entity.BookRank;
-import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.query.RankQuery;
 
 import java.util.Map;
@@ -10,7 +9,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author jonil

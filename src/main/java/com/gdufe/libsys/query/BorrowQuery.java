@@ -4,8 +4,6 @@ package com.gdufe.libsys.query;
 import com.gdufe.libsys.base.BaseQuery;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class BorrowQuery extends BaseQuery {
     private Integer bookId;

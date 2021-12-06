@@ -6,7 +6,7 @@ import com.gdufe.libsys.entity.BookRank;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author jonil

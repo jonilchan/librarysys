@@ -5,10 +5,12 @@ import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.utils.ResultInfo;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author jonil
@@ -32,8 +34,8 @@ public class BookStockController extends BaseController {
 
 
     @GetMapping("/info")
-    public String bookStockInfo(String isbn, HttpServletRequest request){
-        request.getSession().setAttribute("isbn",isbn);
+    public String bookStockInfo(String isbn, HttpServletRequest request) {
+        request.getSession().setAttribute("isbn", isbn);
 //        request.setAttribute("isbn",isbn);
 //        this.isbn = isbn;
         return "bookStock/book_stock";
@@ -49,7 +51,7 @@ public class BookStockController extends BaseController {
 
     //增加库存
     @GetMapping("toAddStock")
-    public String toAddStock(String isbn, Model model){
+    public String toAddStock(String isbn, Model model) {
 //        model.addAttribute("bookinfo",bookInfoService.selectByIsbn(isbn));
         //System.out.println(customerService.getById(id));
         return "bookStock/add_stock";
@@ -57,14 +59,15 @@ public class BookStockController extends BaseController {
 
     @RequestMapping("addStock")
     @ResponseBody
-    public ResultInfo addStock(HttpServletRequest request,Integer bookLocation,Integer amount){
+    public ResultInfo addStock(HttpServletRequest request, Integer bookLocation, Integer amount) {
         String isbn = (String) request.getSession().getAttribute("isbn");
-        bookStockService.addStock(isbn,amount,bookLocation);
+        bookStockService.addStock(isbn, amount, bookLocation);
         return new ResultInfo(200);
     }
+
     //减少库存
     @GetMapping("toReduceStock")
-    public String toReduceStock(String isbn, Model model){
+    public String toReduceStock(String isbn, Model model) {
 //        model.addAttribute("bookinfo",bookInfoService.selectByIsbn(isbn));
         //System.out.println(customerService.getById(id));
         return "bookStock/reduce_stock";
@@ -72,15 +75,15 @@ public class BookStockController extends BaseController {
 
     @RequestMapping("reduceStock")
     @ResponseBody
-    public ResultInfo reduceStock(HttpServletRequest request,Integer bookLocation,Integer amount){
+    public ResultInfo reduceStock(HttpServletRequest request, Integer bookLocation, Integer amount) {
         String isbn = (String) request.getSession().getAttribute("isbn");
-        bookStockService.reduceStock(isbn,amount,bookLocation);
+        bookStockService.reduceStock(isbn, amount, bookLocation);
         return new ResultInfo(200);
     }
 
     @RequestMapping("deleteStock")
     @ResponseBody
-    public ResultInfo deleteStock(Integer bookId){
+    public ResultInfo deleteStock(Integer bookId) {
         bookStockService.deleBook(bookId);
         return new ResultInfo(200);
     }
@@ -88,7 +91,7 @@ public class BookStockController extends BaseController {
     //转移馆藏三水
     @PostMapping("/transferToSS")
     @ResponseBody
-    public ResultInfo transferToSS(Integer[] ids){
+    public ResultInfo transferToSS(Integer[] ids) {
         bookStockService.transferToSS(ids);
         return success("转移馆藏到三水成功");
     }
@@ -96,7 +99,7 @@ public class BookStockController extends BaseController {
     //转移馆藏广州
     @PostMapping("/transferToGZ")
     @ResponseBody
-    public ResultInfo transferToGZ(Integer[] ids){
+    public ResultInfo transferToGZ(Integer[] ids) {
         bookStockService.transferToGZ(ids);
         return success("转移图书到广州成功");
     }

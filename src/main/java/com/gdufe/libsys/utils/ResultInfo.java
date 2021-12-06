@@ -1,8 +1,8 @@
 package com.gdufe.libsys.utils;
 
 public class ResultInfo {
-    private Integer code=200;
-    private String msg="success";
+    private Integer code = 200;
+    private String msg = "success";
 
     private Object result;
 

@@ -2,14 +2,9 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
-import com.gdufe.libsys.entity.UserMsg;
-import com.gdufe.libsys.mapper.ReserveMapper;
-import com.gdufe.libsys.mapper.UserMsgMapper;
 import com.gdufe.libsys.query.BookStockQuery;
-import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.query.ReserveQuery;
 import com.gdufe.libsys.service.BookStockService;
-import com.gdufe.libsys.service.BorrowService;
 import com.gdufe.libsys.service.ReserveService;
 import com.gdufe.libsys.utils.ResultInfo;
 import org.springframework.stereotype.Controller;
@@ -20,12 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author jonil
@@ -35,27 +29,24 @@ import java.util.Map;
 @RequestMapping("/reserve")
 public class ReserveController extends BaseController {
 
-    @Resource
-    private ReserveService reserveService;
-
-    @Resource
-    private BookStockService bookStockService;
-
     String isbn;
     String readerId;
     Integer reserveId;
-
+    @Resource
+    private ReserveService reserveService;
+    @Resource
+    private BookStockService bookStockService;
 
     //跳转到预约表
     @RequestMapping("/toReserve")
-    public String toReserve(){
+    public String toReserve() {
         return "/reserve/reserve_list";
     }
 
     //加载预约列表
     @GetMapping("/reserveList")
     @ResponseBody
-    public Map<String,Object> queryReserveListByParams(ReserveQuery reserveQuery){
+    public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery) {
         Map<String, Object> stringObjectMap = reserveService.queryReserveListByParams(reserveQuery);
         return stringObjectMap;
     }
@@ -63,8 +54,8 @@ public class ReserveController extends BaseController {
 
     //加载库存表
     @GetMapping("/toStock")
-    public String toStock(String isbn, String readerId,Integer reserveId,HttpServletRequest request){
-        request.setAttribute("isbn",isbn);
+    public String toStock(String isbn, String readerId, Integer reserveId, HttpServletRequest request) {
+        request.setAttribute("isbn", isbn);
 //        request.setAttribute("readerId",readerId);
 //        request.setAttribute("reserveId",reserveId);
         this.isbn = isbn;
@@ -83,16 +74,16 @@ public class ReserveController extends BaseController {
     }
 
     //归还图书
-    @PostMapping ("/selectBook")
+    @PostMapping("/selectBook")
     @ResponseBody
     public ResultInfo selectBookById(HttpServletRequest request, Integer bookId) {
-         return reserveService.selectBookById(bookId, readerId, reserveId, request.getSession().getAttribute("userId").toString());
+        return reserveService.selectBookById(bookId, readerId, reserveId, request.getSession().getAttribute("userId").toString());
     }
 
     //预约书籍
     @RequestMapping("book")
     @ResponseBody
-    public ResultInfo reserveBook(HttpServletRequest request, String isbn){
+    public ResultInfo reserveBook(HttpServletRequest request, String isbn) {
         reserveService.book(request.getSession().getAttribute("userId").toString(), isbn);
         return new ResultInfo(200);
     }
@@ -100,7 +91,7 @@ public class ReserveController extends BaseController {
     //提醒取书
     @RequestMapping("/remind")
     @ResponseBody
-    public ResultInfo remindBook(Integer reserveId){
+    public ResultInfo remindBook(Integer reserveId) {
         reserveService.remindBook(readerId);
         return new ResultInfo(200);
     }
@@ -108,7 +99,7 @@ public class ReserveController extends BaseController {
 
     //跳转到预约表(读书者下的
     @RequestMapping("/toReaderReserve")
-    public String toReaderReserve(){
+    public String toReaderReserve() {
         return "/reserve/reserve_readerList";
     }
 
@@ -116,20 +107,19 @@ public class ReserveController extends BaseController {
     //加载预约列表(读者下的
     @GetMapping("/reserveReaderList")
     @ResponseBody
-    public Map<String,Object> queryReserveReaderListByParams(ReserveQuery reserveQuery,HttpServletRequest request){
-        String userId =(String) request.getSession().getAttribute("userId");
-        Map<String, Object> stringObjectMap = reserveService.queryReserveListByParams(reserveQuery,userId);
+    public Map<String, Object> queryReserveReaderListByParams(ReserveQuery reserveQuery, HttpServletRequest request) {
+        String userId = (String) request.getSession().getAttribute("userId");
+        Map<String, Object> stringObjectMap = reserveService.queryReserveListByParams(reserveQuery, userId);
         return stringObjectMap;
     }
 
     //读者取消预约
     @RequestMapping("/cancel")
     @ResponseBody
-    public ResultInfo cancelReserve(Integer reserveId){
+    public ResultInfo cancelReserve(Integer reserveId) {
         reserveService.cancelReserve(reserveId);
         return new ResultInfo(200);
     }
-
 
 
 }

@@ -1,15 +1,14 @@
 package com.gdufe.libsys.service;
 
-import com.gdufe.libsys.entity.BookInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gdufe.libsys.entity.BookStock;
+import com.gdufe.libsys.entity.BookInfo;
 import com.gdufe.libsys.query.BookInfoQuery;
 
 import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author jonil
@@ -26,14 +25,11 @@ public interface BookInfoService extends IService<BookInfo> {
     //根据isbn查询
 //    BookInfo selectByIsbn(String isbn);
 
-    void addBookInfo(String isbn, String bookName, String author, String publisher,Integer categoryId);
+    void addBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId);
 
-    void updateBookInfo(String isbn, String bookName, String author, String publisher,Integer categoryId);
+    void updateBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId);
 
     void stopBookBorrw(String isbn);
-
-
-
 
 
 }

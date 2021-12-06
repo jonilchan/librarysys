@@ -1,6 +1,8 @@
 package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gdufe.libsys.base.Statistic;
 import com.gdufe.libsys.base.UserStatusEnum;
 import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.User;
@@ -10,10 +12,9 @@ import com.gdufe.libsys.mapper.UserMapper;
 import com.gdufe.libsys.mapper.UserMsgMapper;
 import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.utils.AssertUtil;
 import com.gdufe.libsys.utils.Md5Util;
-//import org.apache.commons.lang.StringUtils;
+import com.gdufe.libsys.utils.PhoneUtil;
 import com.gdufe.libsys.utils.ResultInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jonil
@@ -56,31 +57,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //数据库查询用户信息
         User user = userMapper.selectById(userId);
         LocalDateTime loginTime = user.getLoginTime();
-        if(loginTime!=null){
+        if (loginTime != null) {
             Date borrowT = Date.from(loginTime.atZone(ZoneId.systemDefault()).toInstant());
             Date currentT = new Date();
             long c = currentT.getTime();
             long b = borrowT.getTime();
             long millis = c - b;
             int lastLoginDay = 0;
-            lastLoginDay = (int) TimeUnit.MILLISECONDS.toDays(millis)-1;
-            if(lastLoginDay > 0){
+            lastLoginDay = (int) TimeUnit.MILLISECONDS.toDays(millis) - 1;
+            if (lastLoginDay > 0) {
                 user.setPwErrortimes(0);
                 userMapper.updateById(user);
             }
         }
 
-        AssertUtil.isTrue(user.getPwErrortimes()>=5,"当天输入密码错误次数达到上限！");
-        AssertUtil.isTrue(null == user,"用户或密码错误！");
+        AssertUtil.isTrue(user.getPwErrortimes() >= 5, "当天输入密码错误次数达到上限！");
+        AssertUtil.isTrue(null == user, "用户或密码错误！");
         //检查密码是否错误
-        if(!(user.getUserPassword().equals(Md5Util.encode(userPassword)))){
+        if (!(user.getUserPassword().equals(Md5Util.encode(userPassword)))) {
             Integer pwErrortimes = user.getPwErrortimes();
             pwErrortimes++;
             user.setPwErrortimes(pwErrortimes);
             user.setLoginTime(LocalDateTime.now());
             userMapper.updateById(user);
         }
-        AssertUtil.isTrue(!(user.getUserPassword().equals(Md5Util.encode(userPassword))),"用户或密码错误！");
+        AssertUtil.isTrue(!(user.getUserPassword().equals(Md5Util.encode(userPassword))), "用户或密码错误！");
+
+        Statistic.login();
 
         resultInfo.setCode(200);
         resultInfo.setResult(user);
@@ -89,12 +92,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     //修改用户密码
     @Override
-    public void updateUserPassword(String userId,String userOldPassword,String newPassword,String confirmPassword) {
+    public void updateUserPassword(String userId, String userOldPassword, String newPassword, String confirmPassword) {
 
         //判断更新的数据是否为空值
-        AssertUtil.isTrue((userOldPassword.equals("") || userOldPassword == null),  "旧密码不能为空！");
-        AssertUtil.isTrue((newPassword.equals("") || newPassword == null),"新密码不能为空！");
-        AssertUtil.isTrue((confirmPassword.equals("") || confirmPassword == null),"确认密码不能为空！");
+        AssertUtil.isTrue((userOldPassword.equals("") || userOldPassword == null), "旧密码不能为空！");
+        AssertUtil.isTrue((newPassword.equals("") || newPassword == null), "新密码不能为空！");
+        AssertUtil.isTrue((confirmPassword.equals("") || confirmPassword == null), "确认密码不能为空！");
         //判断确认密码是否一致
         AssertUtil.isTrue(!(newPassword.equals(confirmPassword)), "确认密码与新密码不一致！");
         //如果新旧密码一致
@@ -113,6 +116,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.update(user, wrapper);
     }
 
+    //修改信息
     @Override
     public void updateInfo(String userId, String username, String phone) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
@@ -131,6 +135,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setUserId(userId);
         user.setUserName(userName);
         user.setUserPassword(Md5Util.encode(userPassword));
+        if (phone != null) {
+            AssertUtil.isTrue(PhoneUtil.isMobile(phone), "您的手机格式不正确，请检查！");
+        }
         user.setPhone(phone);
         user.setIdentity(identity);
         user.setCreateTime(LocalDateTime.now());
@@ -142,7 +149,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status) {
         User user = userMapper.selectById(userId);
         user.setUserName(userName);
-        user.setPhone(phone);
+        if (phone != null) {
+            AssertUtil.isTrue(PhoneUtil.isMobile(phone), "您的手机格式不正确，请检查！");
+            user.setPhone(phone);
+        }
         user.setIdentity(identity);
         user.setStatus(status);
         user.setUpdateTime(LocalDateTime.now());
@@ -163,7 +173,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Map<String, Object> queryUsersByParams(UserQuery userQuery) {
         Map<String, Object> map = new HashMap<>();
-        PageHelper.startPage(userQuery.getPage(),userQuery.getLimit());
+        PageHelper.startPage(userQuery.getPage(), userQuery.getLimit());
         PageInfo<User> pageInfo = new PageInfo<>(userMapper.selectByParams(userQuery));
         map.put("code", 0);
         map.put("msg", "");
@@ -178,13 +188,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         wrapper.eq("reader_id", userId).eq("return_time", null);
         List<Borrow> borrows = borrowMapper.selectList(wrapper);
         //查询借阅日期大于30的
-        double fine =  0;
+        double fine = 0;
         for (Borrow borrow : borrows) {
-            if(borrow.getFine() > 0){
-                fine+= borrow.getFine();
+            if (borrow.getFine() > 0) {
+                fine += borrow.getFine();
             }
         }
-        if (fine > 0){
+        if (fine > 0) {
             UserMsg userMsg = new UserMsg();
             userMsg.setUserId(userId);
             userMsg.setMsg("您有罚款尚未缴清，请到图书管理员处缴纳！");

@@ -2,7 +2,6 @@ package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import com.gdufe.libsys.entity.BookInfo;
 import com.gdufe.libsys.entity.BookRank;
 import com.gdufe.libsys.mapper.BookInfoMapper;
@@ -10,7 +9,6 @@ import com.gdufe.libsys.mapper.BookRankMapper;
 import com.gdufe.libsys.query.RankQuery;
 import com.gdufe.libsys.service.BookRankService;
 import com.gdufe.libsys.vo.BookRankVo;
-import com.gdufe.libsys.vo.ReserveVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +19,7 @@ import java.util.*;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jonil
@@ -52,7 +50,7 @@ public class BookRankServiceImpl extends ServiceImpl<BookRankMapper, BookRank> i
             BookRankVo bookRankVo = new BookRankVo();
             QueryWrapper<BookInfo> wrapper = new QueryWrapper<BookInfo>().eq("isbn", isbn);
             BookInfo bookInfo = bookInfoMapper.selectOne(wrapper);
-            BeanUtils.copyProperties(bookInfo,bookRankVo);
+            BeanUtils.copyProperties(bookInfo, bookRankVo);
             QueryWrapper<BookRank> queryWrapper = new QueryWrapper<BookRank>().eq("isbn", isbn);
             Integer amount = bookRankMapper.selectList(queryWrapper).size();
             bookRankVo.setBorrowTimesInThreeMonths(amount);
@@ -60,16 +58,16 @@ public class BookRankServiceImpl extends ServiceImpl<BookRankMapper, BookRank> i
             bookRankVoArrayList.add(bookRankVo);
         }
         //升序，降序
-        if (rankQuery.getOrder() != null && rankQuery.getOrder() == 2){
+        if (rankQuery.getOrder() != null && rankQuery.getOrder() == 2) {
             bookRankVoArrayList.sort(Comparator.comparing(BookRankVo::getBorrowTimesInThreeMonths));
-        }else{
+        } else {
             bookRankVoArrayList.sort(Comparator.comparing(BookRankVo::getBorrowTimesInThreeMonths).reversed());
         }
         //选择作者
-        if (rankQuery.getAuthor() != null){
+        if (rankQuery.getAuthor() != null) {
             bookRankVoArrayList.removeIf(bookRankVo -> !bookRankVo.getAuthor().equals(rankQuery.getAuthor()));
         }
-        PageHelper.startPage(rankQuery.getPage(),rankQuery.getLimit());
+        PageHelper.startPage(rankQuery.getPage(), rankQuery.getLimit());
         PageInfo<BookRankVo> pageInfo = new PageInfo<>(bookRankVoArrayList);
         map.put("code", 0);
         map.put("msg", "");

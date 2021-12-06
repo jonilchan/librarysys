@@ -7,7 +7,6 @@ import com.gdufe.libsys.base.ReserveStatusEnum;
 import com.gdufe.libsys.entity.*;
 import com.gdufe.libsys.mapper.*;
 import com.gdufe.libsys.query.BookInfoQuery;
-import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.query.ReserveQuery;
 import com.gdufe.libsys.service.ReserveService;
 import com.gdufe.libsys.utils.AssertUtil;
@@ -52,17 +51,17 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Override
     public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery) {
         Map<String, Object> map = new HashMap<>();
-        PageHelper.startPage(reserveQuery.getPage(),reserveQuery.getLimit());
+        PageHelper.startPage(reserveQuery.getPage(), reserveQuery.getLimit());
         List<Reserve> reserves = reserveMapper.selectByParams(reserveQuery);
 
         List<BookInfo> bookInfos = bookInfoService.getBookInfos(new BookInfoQuery());
         ArrayList<ReserveVo> reserveVos = new ArrayList<>();
         for (Reserve reserve : reserves) {
             for (BookInfo bookInfo : bookInfos) {
-                if(reserve.getIsbn().equals(bookInfo.getIsbn())){
+                if (reserve.getIsbn().equals(bookInfo.getIsbn())) {
                     ReserveVo reserveVo = new ReserveVo();
-                    BeanUtils.copyProperties(bookInfo,reserveVo);
-                    BeanUtils.copyProperties(reserve,reserveVo);
+                    BeanUtils.copyProperties(bookInfo, reserveVo);
+                    BeanUtils.copyProperties(reserve, reserveVo);
                     reserveVos.add(reserveVo);
                     break;
                 }
@@ -80,17 +79,17 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Override
     public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery, String readerId) {
         Map<String, Object> map = new HashMap<>();
-        PageHelper.startPage(reserveQuery.getPage(),reserveQuery.getLimit());
+        PageHelper.startPage(reserveQuery.getPage(), reserveQuery.getLimit());
         reserveQuery.setReaderId(readerId);
         List<Reserve> reserves = reserveMapper.selectByParams(reserveQuery);
         List<BookInfo> bookInfos = bookInfoService.getBookInfos(new BookInfoQuery());
         ArrayList<ReserveVo> reserveVos = new ArrayList<>();
         for (Reserve reserve : reserves) {
             for (BookInfo bookInfo : bookInfos) {
-                if(reserve.getIsbn().equals(bookInfo.getIsbn())){
+                if (reserve.getIsbn().equals(bookInfo.getIsbn())) {
                     ReserveVo reserveVo = new ReserveVo();
-                    BeanUtils.copyProperties(bookInfo,reserveVo);
-                    BeanUtils.copyProperties(reserve,reserveVo);
+                    BeanUtils.copyProperties(bookInfo, reserveVo);
+                    BeanUtils.copyProperties(reserve, reserveVo);
                     reserveVos.add(reserveVo);
                     break;
                 }
@@ -111,16 +110,16 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     public ResultInfo selectBookById(Integer bookId, String readerId, Integer reserveId, String operator) {
 
         Reserve reserve = reserveMapper.selectById(reserveId);
-        AssertUtil.isTrue(reserve.getStatus() == 1 , "该预约已经处理");
-        AssertUtil.isTrue(reserve.getStatus() == 2,"该预约已经失效");
+        AssertUtil.isTrue(reserve.getStatus() == 1, "该预约已经处理");
+        AssertUtil.isTrue(reserve.getStatus() == 2, "该预约已经失效");
         //查看借阅是否达到上限
         QueryWrapper<Borrow> borrowQueryWrapper = new QueryWrapper<>();
-        borrowQueryWrapper.eq("reader_id", readerId).eq("status",0);
+        borrowQueryWrapper.eq("reader_id", readerId).eq("status", 0);
         List<Borrow> borrowList = borrowMapper.selectList(borrowQueryWrapper);
         User user = userMapper.selectById(readerId);
         Integer size = borrowList.size();
         Integer identity = user.getIdentity();
-        AssertUtil.isTrue(size == 5 && (identity == 0 ||identity == 2), "借阅数量达到上限");
+        AssertUtil.isTrue(size == 5 && (identity == 0 || identity == 2), "借阅数量达到上限");
         AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上限");
 
         //填充Rank表
@@ -139,7 +138,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
         borrowMapper.insert(borrow);
         QueryWrapper<BookStock> bookStockQueryWrapper = new QueryWrapper<>();
-        bookStockQueryWrapper.eq("book_id",bookId);
+        bookStockQueryWrapper.eq("book_id", bookId);
         BookStock bookStock = bookStockMapper.selectOne(bookStockQueryWrapper);
         bookStock.setStatus(1);
         bookStockMapper.updateById(bookStock);
@@ -153,21 +152,21 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     public void book(String readerId, String isbn) {
         User user = userMapper.selectById(readerId);
         QueryWrapper<Borrow> queryWrapper1 = new QueryWrapper();
-        queryWrapper1.eq("reader_id",readerId).eq("status",0);
+        queryWrapper1.eq("reader_id", readerId).eq("status", 0);
         List<Borrow> borrows = borrowMapper.selectList(queryWrapper1);
         for (Borrow borrow : borrows) {
             BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
             AssertUtil.isTrue(bookStock.getIsbn().equals(isbn), "读者已经借阅了该书！请勿重复预约");
         }
         QueryWrapper<Reserve> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("reader_id",readerId).eq("status",0);
+        queryWrapper.eq("reader_id", readerId).eq("status", 0);
         List<Reserve> reserves = reserveMapper.selectList(queryWrapper);
         for (Reserve reserve : reserves) {
-                AssertUtil.isTrue(reserve.getIsbn().equals(isbn), "读者已经预约了该书！请勿重复预约");
+            AssertUtil.isTrue(reserve.getIsbn().equals(isbn), "读者已经预约了该书！请勿重复预约");
         }
         AssertUtil.isTrue(user == null, "不存在该用户");
         BookInfo bookInfo = bookInfoMapper.selectById(isbn);
-        AssertUtil.isTrue(bookInfo.getStatus()==1, "该书暂停借阅！");
+        AssertUtil.isTrue(bookInfo.getStatus() == 1, "该书暂停借阅！");
         Reserve reserve = new Reserve();
         reserve.setReaderId(readerId);
         reserve.setIsbn(isbn);
@@ -191,7 +190,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Override
     public void cancelReserve(Integer reserveId) {
         Reserve reserve = reserveMapper.selectById(reserveId);
-        AssertUtil.isTrue(reserve.getStatus()==2, "请勿重复取消！");
+        AssertUtil.isTrue(reserve.getStatus() == 2, "请勿重复取消！");
         reserve.setStatus(2);
         reserveMapper.updateById(reserve);
     }

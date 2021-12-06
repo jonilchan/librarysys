@@ -2,14 +2,13 @@ package com.gdufe.libsys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdufe.libsys.base.BaseController;
-import com.gdufe.libsys.base.UserRoleEnum;
+import com.gdufe.libsys.base.Statistic;
 import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.Reserve;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.mapper.BorrowMapper;
 import com.gdufe.libsys.mapper.ReserveMapper;
 import com.gdufe.libsys.service.UserService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -17,7 +16,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.List;
@@ -36,14 +34,14 @@ public class IndexController extends BaseController {
 
     //用户登录页
     @GetMapping(value = {"index", "/"})
-    public String index(){
+    public String index() {
         return "index";
     }
 
 
     //系统欢迎页
     @GetMapping("welcome")
-    public String welcome(HttpServletRequest request){
+    public String welcome(HttpServletRequest request) {
         String userId = request.getSession().getAttribute("userId").toString();
         User user = userService.getById(userId);
         request.setAttribute("user", user);
@@ -59,7 +57,13 @@ public class IndexController extends BaseController {
         List<Reserve> reserveList = reserveMapper.selectList(new QueryWrapper<Reserve>().ge("reserve_time", LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth())).le("reserve_time", LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth())).eq("reader_id", userId));
         request.setAttribute("borrowtimes", borrowList.size());
         request.setAttribute("reservetimes", reserveList.size());
-        request.setAttribute("dayOfMonth", Calendar.DAY_OF_MONTH);
+        request.setAttribute("dayOfMonth", Calendar.DAY_OF_MONTH + 1);
+
+        //图书馆信息
+        request.setAttribute("libBorrowTimes", Statistic.getLibBorrowTimes());
+        request.setAttribute("libReverseTimes", Statistic.getLibReverseTimes());
+        request.setAttribute("libLoginTimes", Statistic.getLibLoginTimes());
+
         Double fine = userService.fineOfUser(userId);
         request.setAttribute("fine", fine);
         return "welcome";
@@ -72,11 +76,11 @@ public class IndexController extends BaseController {
         User user = userService.getById(userId);
         request.setAttribute("user", user);
 //        return "main_reader";
-        if(user.getIdentity().equals(3)){
+        if (user.getIdentity().equals(3)) {
             return "main_libraryAdmin";
-        }else if(user.getIdentity().equals(0)||user.getIdentity().equals(1)){
+        } else if (user.getIdentity().equals(0) || user.getIdentity().equals(1)) {
             return "main_reader";
-        }else if(user.getIdentity().equals(2)){
+        } else if (user.getIdentity().equals(2)) {
             return "main_sysAdmin";
         }
         return "main_reader";

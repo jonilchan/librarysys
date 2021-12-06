@@ -1,9 +1,9 @@
 package com.gdufe.libsys.exceptions;
 
 //认证异常
-public class AuthException extends RuntimeException{
-    private Integer code=400;
-    private String msg="暂无权限";
+public class AuthException extends RuntimeException {
+    private Integer code = 400;
+    private String msg = "暂无权限";
 
 
     public AuthException() {

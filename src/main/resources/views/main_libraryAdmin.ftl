@@ -6,7 +6,7 @@
     <#include "common.ftl">
 
 </head>
-<body class="layui-layout-body layuimini-all">
+<body class="layui-layout-body layuimini-mini">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header header">
         <div class="layui-logo">
@@ -16,7 +16,7 @@
             </a>
         </div>
         <a>
-            <div class="layuimini-tool"><i title="展开" class="fa fa-outdent" data-side-fold="1"></i></div>
+            <div class="layuimini-tool"><i title="展开" class="fa fa-indent" data-side-fold="0"></i></div>
         </a>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item mobile layui-hide-xs" lay-unselect>
@@ -38,7 +38,7 @@
                         <a href="javascript:;" data-iframe-tab="${ctx}/user/toInfoPage" data-title="修改信息" data-icon="fa fa-gears">修改信息</a>
                     </dd>
                     <dd>
-                        <a href="javascript:;" data-iframe-tab="${ctx}/index" data-title="登录"  data-icon="fa fa-gears" class="login-out">退出登录</a>
+                        <a href="javascript:;" data-title="登录"  data-icon="fa fa-gears" class="login-out">退出登录</a>
                     </dd>
                 </dl>
             </li>
@@ -54,49 +54,49 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="welcome" target="_self"><span class="iconfont icon-shouye-xianxing">&nbsp;</span><span
+                           data-tab="welcome" target="_self"><i class="iconfont icon-shouye-xianxing">&nbsp;</i><span
                                     class="layui-left-nav">首页</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toBookPage" target="_self"><span class="iconfont icon-sousuo">&nbsp;</span><span
+                           data-tab="borrow/toBookPage" target="_self"><i class="iconfont icon-sousuo">&nbsp;</i><span
                                     class="layui-left-nav">图书检索</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toMyBorrowPage" target="_self"><span class="iconfont icon-quanwenjieyue">&nbsp;</span><span
+                           data-tab="borrow/toMyBorrowPage" target="_self"><i class="iconfont icon-quanwenjieyue">&nbsp;</i><span
                                     class="layui-left-nav">我的借阅</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="bookRank/toRankPage" target="_self"><span class="iconfont icon-paixingbang">&nbsp;</span><span
+                           data-tab="bookRank/toRankPage" target="_self"><i class="iconfont icon-paixingbang">&nbsp;</i><span
                                     class="layui-left-nav">图书排行</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="user/toManagePage" target="_self"><span class="iconfont icon-yonghuguanli">&nbsp;</span><span
+                           data-tab="user/toManagePage" target="_self"><i class="iconfont icon-yonghuguanli">&nbsp;</i><span
                                     class="layui-left-nav">用户管理</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toBorrowPage" target="_self"><span class="iconfont icon-quanwenjieyue">&nbsp;</span><span
+                           data-tab="borrow/toBorrowPage" target="_self"><i class="iconfont icon-quanwenjieyue">&nbsp;</i><span
                                     class="layui-left-nav">图书借阅</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="book/index" target="_self"><span class="iconfont icon-cangkuguanli-">&nbsp;</span><span
+                           data-tab="book/index" target="_self"><i class="iconfont icon-cangkuguanli-">&nbsp;</i><span
                                     class="layui-left-nav">图书管理</span></a>
                     </li>
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="borrow/toManagePage" target="_self"><span class="iconfont icon-jiekuanshenqing">&nbsp;</span><span
+                           data-tab="borrow/toManagePage" target="_self"><i class="iconfont icon-jiekuanshenqing">&nbsp;</i><span
                                     class="layui-left-nav">借阅管理</span></a>
                     </li>
 
@@ -104,7 +104,7 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="reserve/toReserve" target="_self"><span class="iconfont icon-yuyueguanli">&nbsp;</span><span
+                           data-tab="reserve/toReserve" target="_self"><i class="iconfont icon-yuyueguanli">&nbsp;</i><span
                                     class="layui-left-nav">预约管理</span></a>
                     </li>
 
@@ -112,7 +112,7 @@
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="druid/index.html" target="_self"><span class="iconfont icon-xitongjiankong">&nbsp;</span><span
+                           data-tab="druid/index.html" target="_self"><i class="iconfont icon-xitongjiankong">&nbsp;</i><span
                                     class="layui-left-nav">系统监控</span></a>
                     </li>
 

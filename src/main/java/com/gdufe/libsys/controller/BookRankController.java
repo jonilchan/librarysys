@@ -2,7 +2,6 @@ package com.gdufe.libsys.controller;
 
 
 import com.gdufe.libsys.base.BaseController;
-import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.query.RankQuery;
 import com.gdufe.libsys.service.BookRankService;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author jonil
@@ -30,14 +29,14 @@ public class BookRankController extends BaseController {
 
     //返回图书排行榜
     @GetMapping("/toRankPage")
-    public String toRankPage(){
-        return  "book/book_rank";
+    public String toRankPage() {
+        return "book/book_rank";
     }
 
     //排行榜查询
     @RequestMapping("/rankList")
     @ResponseBody
-    public Map<String,Object> queryRankListByParams(RankQuery rankQuery){
+    public Map<String, Object> queryRankListByParams(RankQuery rankQuery) {
         return bookRankService.queryRankListByParams(rankQuery);
     }
 }

@@ -9,38 +9,38 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author jonil
  * @since 2021-12-03
  */
 @Data
-  @EqualsAndHashCode(callSuper = false)
-  @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class BookRank implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-      /**
+    /**
      * 书Id
      */
-        private Integer bookId;
+    private Integer bookId;
 
-      /**
+    /**
      * 读者Id
      */
-      private String readerId;
+    private String readerId;
 
-      /**
+    /**
      * isbn
      */
-      private String isbn;
+    private String isbn;
 
-      /**
+    /**
      * 借书时间
      */
-      private LocalDateTime borrowTime;
+    private LocalDateTime borrowTime;
 
 
 }

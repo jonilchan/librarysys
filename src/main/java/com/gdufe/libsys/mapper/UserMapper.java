@@ -1,17 +1,15 @@
 package com.gdufe.libsys.mapper;
 
-import com.gdufe.libsys.base.BaseQuery;
-import com.gdufe.libsys.entity.BookInfo;
-import com.gdufe.libsys.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.gdufe.libsys.base.BaseQuery;
+import com.gdufe.libsys.entity.User;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author jonil

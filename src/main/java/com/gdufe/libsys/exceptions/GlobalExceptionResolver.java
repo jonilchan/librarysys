@@ -8,7 +8,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -25,37 +24,37 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
 
         //默认返回
         mv.setViewName("error");
-        mv.addObject("code",500);
-        mv.addObject("msg","系统出现异常，请稍后重试");
+        mv.addObject("code", 500);
+        mv.addObject("msg", "系统出现异常，请稍后重试");
 
         //如果用户未登录，抛出未登录异常，则无需进行后续判断
-        if(e instanceof UnLoginException){
+        if (e instanceof UnLoginException) {
             mv.setViewName("un_login");
-            mv.addObject("msg","用户未登录！");
-            mv.addObject("ctx",httpServletRequest.getContextPath());
+            mv.addObject("msg", "用户未登录！");
+            mv.addObject("ctx", httpServletRequest.getContextPath());
             return mv;
         }
         //判断是否符合请求格式
-        if (handler instanceof HandlerMethod){
+        if (handler instanceof HandlerMethod) {
             HandlerMethod hm = (HandlerMethod) handler;
             ResponseBody responseBody = hm.getMethod().getDeclaredAnnotation(ResponseBody.class);
 
-            if(responseBody == null){
+            if (responseBody == null) {
                 //如果为视图
                 //判断是否为参数异常
-                if(e instanceof ParamsException){
+                if (e instanceof ParamsException) {
                     ParamsException PE = (ParamsException) e;
-                    mv.addObject("msg",PE.getMsg());
-                    mv.addObject("code",PE.getCode());
+                    mv.addObject("msg", PE.getMsg());
+                    mv.addObject("code", PE.getCode());
                 }
                 //是否为认证异常
-                else  if(e instanceof AuthException){
+                else if (e instanceof AuthException) {
                     AuthException ae = (AuthException) e;
-                    mv.addObject("msg",ae.getMsg());
-                    mv.addObject("code",ae.getCode());
+                    mv.addObject("msg", ae.getMsg());
+                    mv.addObject("code", ae.getCode());
                 }
                 return mv;
-            } else{
+            } else {
                 //如果为json格式
                 ResultInfo resultInfo = new ResultInfo();
 
@@ -64,13 +63,13 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
                 resultInfo.setMsg("系统出现错误,稍后重试");
 
                 //参数错误
-                if(e instanceof ParamsException){
+                if (e instanceof ParamsException) {
                     ParamsException PE = (ParamsException) e;
                     resultInfo.setCode(PE.getCode());
                     resultInfo.setMsg(PE.getMsg());
                 }
                 //如果是认证错误
-                else  if(e instanceof AuthException){
+                else if (e instanceof AuthException) {
                     AuthException ae = (AuthException) e;
                     resultInfo.setCode(ae.getCode());
                     resultInfo.setMsg(ae.getMsg());
@@ -81,13 +80,13 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
                 //使用流操作返回
                 PrintWriter pw = null;
                 try {
-                    pw=httpServletResponse.getWriter();
+                    pw = httpServletResponse.getWriter();
                     pw.write(JSON.toJSONString(resultInfo));
                     pw.flush();
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                }finally {
-                    if(null != pw){
+                } finally {
+                    if (null != pw) {
                         pw.close();
                     }
                 }

@@ -14,7 +14,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //根据session中有没有userId判断有没有登录
-        if (request.getSession().getAttribute("userId") == null){
+        if (request.getSession().getAttribute("userId") == null) {
             response.sendRedirect("/index");
 //            throw new UnLoginException();
             return false;

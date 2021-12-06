@@ -1,11 +1,11 @@
 package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.entity.BookStock;
 import com.gdufe.libsys.mapper.BookStockMapper;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.service.BookStockService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdufe.libsys.utils.AssertUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jonil
@@ -45,7 +45,7 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
 
     @Override
     public void addStock(String isbn, int bookAmount, int bookLocation) {
-        for(int i = 0;i < bookAmount;i++){
+        for (int i = 0; i < bookAmount; i++) {
             BookStock bookStock = new BookStock();
             bookStock.setIsbn(isbn);
             bookStock.setBookLocation(bookLocation);
@@ -57,17 +57,16 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
     @Override
     public void reduceStock(String isbn, int bookAmount, int bookLocation) {
         QueryWrapper<BookStock> objectQueryWrapper = new QueryWrapper<>();
-        objectQueryWrapper.eq("isbn",isbn).eq("book_location",bookLocation).eq("status",0);
+        objectQueryWrapper.eq("isbn", isbn).eq("book_location", bookLocation).eq("status", 0);
         List<BookStock> bookStocks = bookStockMapper.selectList(objectQueryWrapper);
-        AssertUtil.isTrue(bookAmount>bookStocks.size(), "填入的出库数量大于现有库存");
+        AssertUtil.isTrue(bookAmount > bookStocks.size(), "填入的出库数量大于现有库存");
         int i = 0;
         for (BookStock bookStock : bookStocks) {
             bookStock.setStatus(2);
             bookStockMapper.updateById(bookStock);
             i++;
-            if(i == bookAmount) break;
+            if (i == bookAmount) break;
         }
-
 
 
     }

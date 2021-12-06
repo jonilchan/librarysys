@@ -86,7 +86,7 @@
                 <div class="layui-card-header">图书馆借阅次数
                     <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
                 <div class="layui-card-body  ">
-                    <p><cite>1254&nbsp;次</cite></p>
+                    <p><cite>${(libBorrowTimes)!"获取错误"}&nbsp;次</cite></p>
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@
                 <div class="layui-card-header">图书馆预约次数
                     <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
                 <div class="layui-card-body ">
-                    <p><cite>687&nbsp;次</cite></p>
+                    <p><cite>${(libReverseTimes)!"获取错误"}&nbsp;次</cite></p>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
                     <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
                 <div class="layui-card-body ">
                     <p>
-                        <cite>xxx&nbsp;次</cite>
+                        <cite>${(libLoginTimes)!"获取错误"}&nbsp;次</cite>
                     </p>
                 </div>
             </div>
