@@ -80,7 +80,6 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
                 }
             }
             bookInfo.setPresentStock(i);
-            bookInfoMapper.updateById(bookInfo);
             if(j == 0){
                 bookInfo.setBookLocation(0);
             }else if(j == bookStocks.size()){
@@ -88,6 +87,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
             }else {
                 bookInfo.setBookLocation(2);
             }
+            bookInfoMapper.updateById(bookInfo);
         }
         return bookInfos;
     }

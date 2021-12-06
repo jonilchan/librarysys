@@ -149,6 +149,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     public void renewBorrow(Integer borrowId) {
         Borrow borrow = borrowMapper.selectById(borrowId);
         AssertUtil.isTrue(borrow.getStatus()==1, "该书已经归还！");
+        AssertUtil.isTrue(borrow.getRenew()==1, "该书已经续借！！");
         AssertUtil.isTrue(borrow == null, "不存在该订单！");
         borrow.setRenew(1);
         borrowMapper.updateById(borrow);

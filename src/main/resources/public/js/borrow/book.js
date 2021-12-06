@@ -129,7 +129,7 @@ layui.use(['table', 'layer', "form"], function () {
                         layer.msg("预约成功");
                         layer.close(index);
                     }else{
-                        layer.msg("预约书籍失败");
+                        layer.msg(data.msg);
                     }
                 })
             })
