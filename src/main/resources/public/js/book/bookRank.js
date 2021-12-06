@@ -14,7 +14,6 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            // {type: "checkbox", fixed: "left", width: 50},
             {field:'selfIncreasing', width:50, title: '排名',fixed: 'left',type: 'numbers'},
             {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
             {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
@@ -61,7 +60,7 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                author: $("input[name='basis']").val(),// 作者
+                author: $("input[name='author']").val(),// 作者
                 order: $("select[name='order']").val(),// 排序依据
             }
         })

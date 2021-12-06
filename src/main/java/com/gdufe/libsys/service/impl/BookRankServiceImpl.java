@@ -41,7 +41,6 @@ public class BookRankServiceImpl extends ServiceImpl<BookRankMapper, BookRank> i
     @Override
     public Map<String, Object> queryRankListByParams(RankQuery rankQuery) {
         Map<String, Object> map = new HashMap<>();
-
         List<BookRank> bookRankList = bookRankMapper.selectList(null);
         ArrayList<BookRankVo> bookRankVoArrayList = new ArrayList<>();
         HashSet<String> isbnList = new HashSet<>();
@@ -68,10 +67,7 @@ public class BookRankServiceImpl extends ServiceImpl<BookRankMapper, BookRank> i
         }
         //选择作者
         if (rankQuery.getAuthor() != null){
-            bookRankVoArrayList.removeIf(a -> !a.equals(rankQuery.getAuthor()));
-        }
-        if (bookRankVoArrayList.size() > 10){
-            bookRankVoArrayList = (ArrayList<BookRankVo>) bookRankVoArrayList.subList(0,9);
+            bookRankVoArrayList.removeIf(bookRankVo -> !bookRankVo.getAuthor().equals(rankQuery.getAuthor()));
         }
         PageHelper.startPage(rankQuery.getPage(),rankQuery.getLimit());
         PageInfo<BookRankVo> pageInfo = new PageInfo<>(bookRankVoArrayList);
