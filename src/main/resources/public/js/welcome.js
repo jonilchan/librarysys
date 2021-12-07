@@ -11,7 +11,7 @@ layui.use(['table', 'layer', "form"], function () {
         height: "full-125",
         limits: [10, 15, 20, 25],
         limit: 10,
-        toolbar: "#toolbarDemo",
+        // toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
             {field: "createTime", title: '时间', width:350, fixed: "true", align: "center"},

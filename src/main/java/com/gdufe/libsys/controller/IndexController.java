@@ -57,7 +57,7 @@ public class IndexController extends BaseController {
         List<Reserve> reserveList = reserveMapper.selectList(new QueryWrapper<Reserve>().ge("reserve_time", LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth())).le("reserve_time", LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth())).eq("reader_id", userId));
         request.setAttribute("borrowtimes", borrowList.size());
         request.setAttribute("reservetimes", reserveList.size());
-        request.setAttribute("dayOfMonth", Calendar.DAY_OF_MONTH + 1);
+        request.setAttribute("dayOfMonth", LocalDateTime.now().toString().substring(8, 10));
 
         //图书馆信息
         request.setAttribute("libBorrowTimes", Statistic.getLibBorrowTimes());
