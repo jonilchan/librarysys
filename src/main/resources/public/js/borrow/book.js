@@ -135,7 +135,6 @@ layui.use(['table', 'layer', "form"], function () {
                 })
             })
         }else if(layEvent === "viewStock"){
-            alert("wwww")
             openAddOrUpdateBookStock(obj.data.isbn);
         }
     });

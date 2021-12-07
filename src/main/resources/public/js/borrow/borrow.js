@@ -29,7 +29,6 @@ layui.use(['table', 'layer', "form"], function () {
             },
             {field: 'author', title: '作者', minWidth: 100, align: 'center'},
             {field: 'publisher', title: '出版社', minWidth: 100, align: 'center'},
-            {field: 'totalStock', title: '总库存', align: 'center'},
             {field: 'bookLocation', title: '馆藏地址', align: 'center', templet : function(data) {// 替换数据
                     if(data.bookLocation==0){
                         return "三水";
@@ -39,6 +38,8 @@ layui.use(['table', 'layer', "form"], function () {
                         return "三水、广州";
                     }
                 }},
+            {field: 'enterTime', title: '入库时间', align: 'center', width: 120},
+            {field: 'totalStock', title: '总库存', align: 'center'},
             {field: 'presentStock', title: '当前库存', align: 'center'},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
@@ -47,7 +48,7 @@ layui.use(['table', 'layer', "form"], function () {
                         return "暂停借阅";
                     }
                 }},
-            {field: 'enterTime', title: '入库时间', align: 'center', width: 120},
+
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
