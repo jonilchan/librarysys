@@ -101,8 +101,9 @@ layui.use(['table', 'layer', "form"], function () {
             },
             where: {
                 isbn: $("input[name='isbn']").val(),// isbn
-                bookName: $("input[name='bookName']").val(),//书名
-                author: $("input[name='author']").val() , //作者
+                bookName: $("input[name='bookName']").val(),// 书名
+                author: $("input[name='author']").val() ,   //作者
+                publisher: $("input[name='publisher']").val()    //出版社
             }
         })
     });

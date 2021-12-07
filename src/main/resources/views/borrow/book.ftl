@@ -18,6 +18,9 @@
                 <div class="layui-input-inline">
                     <input type="text" name="author" class="layui-input searchVal" placeholder="作者"/>
                 </div>
+                <div class="layui-input-inline">
+                    <input type="text" name="publisher" class="layui-input searchVal" placeholder="出版社"/>
+                </div>
                 <a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i> 搜索</a>
             </div>
         </form>

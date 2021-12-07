@@ -63,6 +63,9 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         if (bookInfoQuery.getAuthor() != null && bookInfoQuery.getAuthor() != ""){
             queryWrapper.like("author", bookInfoQuery.getAuthor());
         }
+        if (bookInfoQuery.getPublisher() != null && bookInfoQuery.getPublisher() != ""){
+            queryWrapper.like("publisher", bookInfoQuery.getPublisher());
+        }
         List<BookInfo> bookInfos = bookInfoMapper.selectList(queryWrapper);
         for (BookInfo bookInfo : bookInfos) {
             QueryWrapper<BookStock> wrapper = new QueryWrapper<>();
@@ -120,7 +123,11 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     @Override
     public void stopBookBorrw(String isbn) {
         BookInfo bookInfo = bookInfoMapper.selectById(isbn);
-        bookInfo.setStatus(1);
+        if (bookInfo.getStatus() == 0){
+            bookInfo.setStatus(1);
+        }else if(bookInfo.getStatus() == 1){
+            bookInfo.setStatus(0);
+        }
         bookInfoMapper.updateById(bookInfo);
     }
 }

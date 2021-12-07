@@ -67,7 +67,7 @@
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
                            data-tab="borrow/toMyBorrowPage" target="_self"><i class="iconfont icon-quanwenjieyue">&nbsp;</i><span
-                                    class="layui-left-nav">我的借阅</span></a>
+                                    class="layui-left-nav">借阅记录</span></a>
                     </li>
 
                     <li class="layui-nav-item">

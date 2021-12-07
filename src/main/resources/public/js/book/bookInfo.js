@@ -100,9 +100,10 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                isbn: $("input[name='isbn']").val(),// 用户名
-                bookName: $("input[name='bookName']").val(),// 邮箱
-                author: $("input[name='author']").val()    //手机号
+                isbn: $("input[name='isbn']").val(),// isbn
+                bookName: $("input[name='bookName']").val(),// 书名
+                author: $("input[name='author']").val() ,   //作者
+                publisher: $("input[name='publisher']").val()    //出版社
             }
         })
     });
