@@ -93,6 +93,20 @@ layui.use(['table', 'layer', "form"], function () {
         ]]
     });
 
+    // 多条件搜索
+    $(".search_btn").on("click", function () {
+        table.reload("userListTable", {
+            page: {
+                curr: 1
+            },
+            where: {
+                isbn: $("input[name='isbn']").val(),// 用户名
+                bookName: $("input[name='bookName']").val(),// 邮箱
+                author: $("input[name='author']").val()    //手机号
+            }
+        })
+    });
+
     // 编辑 删除选项
     table.on('tool(users)', function (obj) {
         openBookStockInfo(obj.data);
@@ -101,6 +115,9 @@ layui.use(['table', 'layer', "form"], function () {
     //弹出框--库存信息
     function openBookStockInfo(data) {
         var readerId = prompt("请输入读者ID：");
+        if (readerId == "undefined" || readerId == null || readerId == ''){
+            readerId = prompt("请输入正确的读者ID：");
+        }
         var title = "图书库存记录";
         layui.layer.open({
             title: title,

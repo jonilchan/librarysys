@@ -89,7 +89,7 @@ layui.use(['table', 'layer', "form"], function () {
                 $.post(ctx+"/reserve/remind",{reserveId:obj.data.reserveId},function (data) {
                     if(data.code==200){
                         layer.msg("确认成功");
-                        parent.location.reload();
+                        // parent.location.reload();
                         layer.close(index);
                     }else{
                         layer.msg("该预约记录已处理！");

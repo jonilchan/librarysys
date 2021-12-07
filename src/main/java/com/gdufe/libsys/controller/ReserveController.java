@@ -56,8 +56,6 @@ public class ReserveController extends BaseController {
     @GetMapping("/toStock")
     public String toStock(String isbn, String readerId, Integer reserveId, HttpServletRequest request) {
         request.setAttribute("isbn", isbn);
-//        request.setAttribute("readerId",readerId);
-//        request.setAttribute("reserveId",reserveId);
         this.isbn = isbn;
         this.readerId = readerId;
         this.reserveId = reserveId;

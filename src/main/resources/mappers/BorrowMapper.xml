@@ -60,7 +60,7 @@
     <include refid="Base_Column_List"/>
     from borrow
     where borrow_time>DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
-    <!--    <where>-->
+<!--        <where>-->
 <!--      <if test="null != bookId and bookId != ''">-->
 <!--        and book_id like concat('%',#{bookId},'%')-->
 <!--      </if>-->

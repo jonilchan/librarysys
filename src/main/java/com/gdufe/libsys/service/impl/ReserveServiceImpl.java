@@ -181,12 +181,12 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
 
     @Override
     public void remindBook(Integer reserveId) {
-        Borrow borrow = borrowMapper.selectById(reserveId);
-        BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
-        BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
+        QueryWrapper<Reserve> queryWrapper = new QueryWrapper<Reserve>().eq("reserve_id", reserveId);
+        Reserve reserve = reserveMapper.selectOne(queryWrapper);
+        BookInfo bookInfo = bookInfoMapper.selectById(reserve.getIsbn());
         UserMsg userMsg = new UserMsg();
         userMsg.setMsg("您预约的书籍《" + bookInfo.getBookName() + "》现在可以到图书馆领取！");
-        userMsg.setUserId(borrow.getReaderId());
+        userMsg.setUserId(reserve.getReaderId());
         userMsg.setCreateTime(LocalDateTime.now());
         userMsgMapper.insert(userMsg);
     }

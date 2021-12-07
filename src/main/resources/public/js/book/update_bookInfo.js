@@ -15,7 +15,7 @@ layui.use(['form', 'layer', 'formSelects'], function () {
                 top.layer.msg("操作成功");
                 top.layer.close(index);
                 layer.closeAll("iframe");
-                // 刷新父页面
+                layer.close(index);
                 parent.location.reload();
             }else{
                 layer.msg(res.msg);

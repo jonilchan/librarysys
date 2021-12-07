@@ -14,7 +14,6 @@ import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.AssertUtil;
 import com.gdufe.libsys.utils.Md5Util;
-import com.gdufe.libsys.utils.PhoneUtil;
 import com.gdufe.libsys.utils.ResultInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -135,9 +134,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setUserId(userId);
         user.setUserName(userName);
         user.setUserPassword(Md5Util.encode(userPassword));
-        if (phone != null) {
-            AssertUtil.isTrue(PhoneUtil.isMobile(phone), "您的手机格式不正确，请检查！");
-        }
         user.setPhone(phone);
         user.setIdentity(identity);
         user.setCreateTime(LocalDateTime.now());
@@ -149,10 +145,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status) {
         User user = userMapper.selectById(userId);
         user.setUserName(userName);
-        if (phone != null) {
-            AssertUtil.isTrue(PhoneUtil.isMobile(phone), "您的手机格式不正确，请检查！");
-            user.setPhone(phone);
-        }
         user.setIdentity(identity);
         user.setStatus(status);
         user.setUpdateTime(LocalDateTime.now());
