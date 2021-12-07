@@ -18,12 +18,52 @@ layui.use(['table', 'layer', "form"], function () {
             {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
             {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
             {field: 'categoryId', title: '类别', minWidth: 50, align: "center", templet : function(data) {// 替换数据
-                    if(data.categoryId==0){
-                        return "科幻";
-                    }else if(data.categoryId==1){
-                        return "小说";
+                    if(data.categoryId==1){
+                        return "马克思主义";
                     }else if(data.categoryId==2){
-                        return "散文";
+                        return "哲学、宗教";
+                    }else if(data.categoryId==3){
+                        return "社会科学理论";
+                    }else if(data.categoryId==4){
+                        return "政治、法律";
+                    }else if(data.categoryId==5){
+                        return "政治、法律";
+                    }else if(data.categoryId==5){
+                        return "军事";
+                    }else if(data.categoryId==6){
+                        return "经济";
+                    }else if(data.categoryId==7){
+                        return "文化、科学、教育、体育";
+                    }else if(data.categoryId==8){
+                        return "语言、文字";
+                    }else if(data.categoryId==9){
+                        return "文学";
+                    }else if(data.categoryId==10){
+                        return "艺术";
+                    }else if(data.categoryId==11){
+                        return "历史、地理";
+                    }else if(data.categoryId==12){
+                        return "自然科学总论";
+                    }else if(data.categoryId==13){
+                        return "数理科学与化学";
+                    }else if(data.categoryId==14){
+                        return "天文学、地球科学";
+                    }else if(data.categoryId==15){
+                        return "生物科学";
+                    }else if(data.categoryId==16){
+                        return "医药、卫生";
+                    }else if(data.categoryId==17){
+                        return "农业科学";
+                    }else if(data.categoryId==18){
+                        return "工业技术";
+                    }else if(data.categoryId==19){
+                        return "交通运输";
+                    }else if(data.categoryId==20){
+                        return "航空、航天";
+                    }else if(data.categoryId==21){
+                        return "环境科学、安全科学";
+                    }else if(data.categoryId==22){
+                        return "综合性图书";
                     }
                 }
             },
