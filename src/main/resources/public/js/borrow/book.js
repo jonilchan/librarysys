@@ -119,6 +119,7 @@ layui.use(['table', 'layer', "form"], function () {
         })
     }
 
+
     // 编辑 删除选项
     table.on('tool(users)', function (obj) {
         var layEvent = obj.event;
@@ -133,6 +134,23 @@ layui.use(['table', 'layer', "form"], function () {
                     }
                 })
             })
+        }else if(layEvent === "viewStock"){
+            alert("wwww")
+            openAddOrUpdateBookStock(obj.data.isbn);
         }
     });
+
+    //弹出框
+    function openAddOrUpdateBookStock(isbn) {
+        var title = "图书库存管理";
+        // alert(data[0].isbn)
+        layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["950px", "640px"],
+            maxmin: true,
+            content: ctx + "/bookStock/borrowInfo?isbn=" + isbn
+        })
+    }
+
 });

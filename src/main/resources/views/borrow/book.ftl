@@ -30,6 +30,7 @@
     </script>
     <!--操作-->
     <script id="userListBar" type="text/html">
+        <a class="layui-btn layui-btn-xs" id="edit" lay-event="viewStock">查看馆藏</a>
         <a class="layui-btn layui-btn-xs" id="edit" lay-event="book">预约</a>
     </script>
 </form>
