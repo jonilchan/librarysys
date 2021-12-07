@@ -16,7 +16,7 @@ public interface ReserveService extends IService<Reserve> {
 
     void book(String readerId, String book_id);
 
-    void remindBook(String borrowId);
+    void remindBook(Integer reserveId);
 
     void cancelReserve(Integer reserveId);
 }

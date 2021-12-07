@@ -81,7 +81,7 @@ public class ReserveController extends BaseController {
     }
 
     //预约书籍
-    @RequestMapping("book")
+    @RequestMapping("/book")
     @ResponseBody
     public ResultInfo reserveBook(HttpServletRequest request, String isbn) {
         reserveService.book(request.getSession().getAttribute("userId").toString(), isbn);
@@ -92,7 +92,7 @@ public class ReserveController extends BaseController {
     @RequestMapping("/remind")
     @ResponseBody
     public ResultInfo remindBook(Integer reserveId) {
-        reserveService.remindBook(readerId);
+        reserveService.remindBook(reserveId);
         return new ResultInfo(200);
     }
 

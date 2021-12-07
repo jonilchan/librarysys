@@ -2,6 +2,7 @@ package com.gdufe.libsys.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -27,6 +28,7 @@ public class BookInfo implements Serializable {
       /**
      * isbn
      */
+        @TableId(value = "isbn")
         private String isbn;
 
       /**
@@ -72,7 +74,7 @@ public class BookInfo implements Serializable {
       /**
      * 图书简介
      */
-      private String description;
+      private String bookDescription;
 
       /**
      * 类别号

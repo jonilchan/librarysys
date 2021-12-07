@@ -46,6 +46,9 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Resource
     private BookInfoMapper bookInfoMapper;
 
+    @Resource
+    private UserMsgMapper userMsgMapper;
+
 
     //拉取查询列表
     @Override
@@ -177,14 +180,15 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     }
 
     @Override
-    public void remindBook(String borrowId) {
-        Borrow borrow = borrowMapper.selectById(borrowId);
+    public void remindBook(Integer reserveId) {
+        Borrow borrow = borrowMapper.selectById(reserveId);
         BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
         BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
         UserMsg userMsg = new UserMsg();
         userMsg.setMsg("您预约的书籍《" + bookInfo.getBookName() + "》现在可以到图书馆领取！");
         userMsg.setUserId(borrow.getReaderId());
         userMsg.setCreateTime(LocalDateTime.now());
+        userMsgMapper.insert(userMsg);
     }
 
     @Override

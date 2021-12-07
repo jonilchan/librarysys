@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface BookInfoMapper extends BaseMapper<BookInfo> {
     //多条件查询
-    List<BookInfo> selectByParams(BaseQuery baseQuery) throws DataAccessException;
+//    List<BookInfo> selectByParams(BaseQuery baseQuery) throws DataAccessException;
 }

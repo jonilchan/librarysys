@@ -34,10 +34,10 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
 
     @Autowired
     BookInfoMapper bookInfoMapper;
+
     @Autowired
     BookStockMapper bookStockMapper;
-    @Resource
-    private BorrowMapper borrowMapper;
+
 
     //查询图书列表
     public Map<String, Object> queryBookInfosByParams(BookInfoQuery bookInfoQuery) {
@@ -53,7 +53,17 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
 
     //把图书信息封装成一个方法
     public List<BookInfo> getBookInfos(BookInfoQuery bookInfoQuery) {
-        List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
+        QueryWrapper<BookInfo> queryWrapper = new QueryWrapper<>();
+        if (bookInfoQuery.getBookName() != null && bookInfoQuery.getBookName() != ""){
+            queryWrapper.like("book_name", bookInfoQuery.getBookName());
+        }
+        if (bookInfoQuery.getIsbn() != null && bookInfoQuery.getIsbn() != ""){
+            queryWrapper.like("isbn", bookInfoQuery.getIsbn());
+        }
+        if (bookInfoQuery.getAuthor() != null && bookInfoQuery.getAuthor() != ""){
+            queryWrapper.like("author", bookInfoQuery.getAuthor());
+        }
+        List<BookInfo> bookInfos = bookInfoMapper.selectList(queryWrapper);
         for (BookInfo bookInfo : bookInfos) {
             QueryWrapper<BookStock> wrapper = new QueryWrapper<>();
             wrapper.eq("isbn", bookInfo.getIsbn());
@@ -82,50 +92,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         }
         return bookInfos;
     }
-//    @Override
-//    public Map<String, Object> queryBookRankListByParams(BookInfoQuery bookInfoQuery) {
-//        Map<String, Object> map = new HashMap<>();
-//        //拿到前三个月的借阅记录
-//        List<Borrow> borrows = borrowMapperRe.selectByThreeMonths();
-//        List<BookInfo> bookInfos = bookInfoMapper.selectByParams(bookInfoQuery);
-//        QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper();
-//        List<BookStock> bookStocks = bookStockMapper.selectList(bookStockWrapper);
-//        ArrayList<BookRankVo> bookRankVos = new ArrayList<>();
-//        for (Borrow borrow : borrows) {
-//            for (BookStock bookStock : bookStocks) {
-//                if(borrow.getBookId() == bookStock.getBookId()){
-//                    for (BookInfo bookInfo : bookInfos) {
-//                        if(bookStock.getIsbn().equals(bookInfo.getIsbn())){
-//                            BookRankVo bookRankVo = new BookRankVo();
-//                            BeanUtils.copyProperties(bookRankVo);
-//                        }
-//                    }
-//                }
-//            }
-//        }
 
-    /**
-     * 根据新表的isbn找到bookinfo对应的isbn数据
-     * BookRankVo bookRankVo = new BookRankVo();
-     * BeanUtils.copyProperties(bookRankVo);
-     * bookRankVo要set->三个月的借阅次数 borrowStockRatio
-     * 再set borrowStockRatio = borrowStockRatio/total_stock
-     */
-//        PageInfo<BookInfo> pageInfo = new PageInfo<>(bookInfos);
-//        map.put("code", 0);
-//        map.put("msg", "");
-//        map.put("count", pageInfo.getTotal());
-//        map.put("data", pageInfo.getList());
-//        return map;
-//    }
-
-    //根据isBn查找图书
-//    @Override
-//    public BookInfo selectByIsbn(String isbn) {
-//
-//        BookInfo bookInfo = bookInfoMapper.selectByPrimaryKey(isbn);
-//        return bookInfo;
-//    }
     @Override
     public void addBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId) {
         BookInfo bookInfo = new BookInfo();
