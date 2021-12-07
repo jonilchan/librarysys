@@ -116,6 +116,7 @@
                                     class="layui-left-nav">系统监控</span></a>
                     </li>
 
+
                     <span class="layui-nav-bar" style="top: 201px; height: 0px; opacity: 0;"></span>
                 </ul>
         </div>
@@ -145,6 +146,6 @@
 
 </div>
 
-<script type="text/javascript" src="${ctx}/js/main.js"></script>
+<script type="text/javascript" src="${ctx}/js/mainadmin.js"></script>
 </body>
 </html>
