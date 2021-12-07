@@ -57,15 +57,15 @@ public class BookRankServiceImpl extends ServiceImpl<BookRankMapper, BookRank> i
 
             bookRankVoArrayList.add(bookRankVo);
         }
+        //选择作者
+        if (rankQuery.getAuthor() != null && rankQuery.getAuthor() != "") {
+            bookRankVoArrayList.removeIf(bookRankVo -> !bookRankVo.getAuthor().equals(rankQuery.getAuthor()));
+        }
         //升序，降序
         if (rankQuery.getOrder() != null && rankQuery.getOrder() == 2) {
             bookRankVoArrayList.sort(Comparator.comparing(BookRankVo::getBorrowTimesInThreeMonths));
         } else {
             bookRankVoArrayList.sort(Comparator.comparing(BookRankVo::getBorrowTimesInThreeMonths).reversed());
-        }
-        //选择作者
-        if (rankQuery.getAuthor() != null) {
-            bookRankVoArrayList.removeIf(bookRankVo -> !bookRankVo.getAuthor().equals(rankQuery.getAuthor()));
         }
         PageHelper.startPage(rankQuery.getPage(), rankQuery.getLimit());
         PageInfo<BookRankVo> pageInfo = new PageInfo<>(bookRankVoArrayList);
