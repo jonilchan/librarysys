@@ -19,7 +19,6 @@ public class BorrowVo implements Serializable {
     /**
      * 借阅号
      */
-    @TableId(value = "borrow_id", type = IdType.AUTO)
     private Integer borrowId;
 
     /**
