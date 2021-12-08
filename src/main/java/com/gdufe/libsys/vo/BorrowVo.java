@@ -45,6 +45,11 @@ public class BorrowVo implements Serializable {
     private LocalDateTime returnTime;
 
     /**
+     * 还书时间
+     */
+    private LocalDateTime shouldReturnTime;
+
+    /**
      * 操作员
      */
     private String operator;

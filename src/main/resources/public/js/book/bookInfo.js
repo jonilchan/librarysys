@@ -27,8 +27,6 @@ layui.use(['table', 'layer', "form"], function () {
                     }else if(data.categoryId==4){
                         return "政治、法律";
                     }else if(data.categoryId==5){
-                        return "政治、法律";
-                    }else if(data.categoryId==5){
                         return "军事";
                     }else if(data.categoryId==6){
                         return "经济";
@@ -185,6 +183,8 @@ layui.use(['table', 'layer', "form"], function () {
                     }
                 })
             })
+        }else if(layEvent == "viewDetail"){
+            openBookDetail(obj.data.isbn);
         }
     });
 
@@ -221,6 +221,20 @@ layui.use(['table', 'layer', "form"], function () {
             area: ["950px", "640px"],
             maxmin: true,
             content: ctx + "/bookStock/info?isbn=" + isbn
+        })
+    }
+
+    //弹出框
+    function openBookDetail(isbn) {
+        console.log(isbn)
+        var title = "图书详情";
+        // alert(data[0].isbn)
+        layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["1000px", "600px"],
+            maxmin: true,
+            content: ctx + "/book/toDetailPage?isbn=" + isbn
         })
     }
 

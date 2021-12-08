@@ -54,6 +54,13 @@ public class BookInfoController extends BaseController {
         return "book/add_book";
     }
 
+    //图书详情页
+    @GetMapping("toDetailPage")
+    public String toDe(String isbn, HttpServletRequest request) {
+        request.getSession().setAttribute("isbn", isbn);
+        return "book/book_detail";
+    }
+
     @RequestMapping("/addBook")
     @ResponseBody
     ResultInfo addBook(String isbn, String bookName, String author, String publisher, Integer category) {

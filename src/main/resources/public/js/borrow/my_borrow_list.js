@@ -43,8 +43,9 @@ layui.use(['table', 'layer', "form"], function () {
                     }
                 }},
             {field: 'operator', title: '操作员', align: 'center'},
-            {field: 'borrowTime', title: '借阅时间', minWidth: 100, align: 'center'},
-            {field: 'returnTime', title: '归还时间', minWidth: 100, align: 'center'},
+            {field: 'borrowTime', title: '借阅时间', minWidth: 120, align: 'center'},
+            {field: 'shouldReturnTime', title: '应还时间', minWidth: 120, align: 'center'},
+            {field: 'returnTime', title: '归还时间', minWidth: 120, align: 'center'},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });

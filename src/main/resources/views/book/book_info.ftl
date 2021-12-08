@@ -44,8 +44,10 @@
     <!--操作-->
     <script id="userListBar" type="text/html">
         <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-xs" lay-event="stockManage">库存管理</a>
+        <a class="layui-btn layui-btn-xs" lay-event="stockManage">库存</a>
         <a class="layui-btn layui-btn-xs" id="stop" lay-event="stop">暂停借阅</a>
+        <a class="layui-btn layui-btn-xs" id="stop" lay-event="viewDetail">详情</a>
+
     </script>
 </form>
 <script type="text/javascript" src="${ctx}/js/book/bookInfo.js"></script>

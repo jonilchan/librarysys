@@ -178,8 +178,10 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
             int borrowDay = 0;
             if (borrow.getRenew() == 1) {
                 borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis) - 60;
+                borrowVo.setShouldReturnTime(borrowTime.plusDays(60));
             } else {
                 borrowDay = (int) TimeUnit.MILLISECONDS.toDays(millis) - 30;
+                borrowVo.setShouldReturnTime(borrowTime.plusDays(30));
             }
 
             if (borrowDay > 0) {

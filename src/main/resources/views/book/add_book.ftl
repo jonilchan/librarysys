@@ -30,9 +30,28 @@
             <div class="layui-input-block">
                 <select name="category"  id="level">
                     <option value="" >请选择</option>
-                    <option value="1">文学</option>
-                    <option value="2">计算机与科学</option>
-                    <option value="3">数学</option>
+                    <option value="1">马克思主义</option>
+                    <option value="2">哲学、宗教</option>
+                    <option value="3">社会科学理论</option>
+                    <option value="4">政治、法律</option>
+                    <option value="5">军事</option>
+                    <option value="6">经济</option>
+                    <option value="7">文化、科学、教育、体育</option>
+                    <option value="8">语言、文字</option>
+                    <option value="9">文学</option>
+                    <option value="10">艺术</option>
+                    <option value="11">历史、地理</option>
+                    <option value="12">自然科学总论</option>
+                    <option value="13">数理科学与化学</option>
+                    <option value="14">天文学、地球科学</option>
+                    <option value="15">生物科学</option>
+                    <option value="16">医药、卫生</option>
+                    <option value="17">农业科学</option>
+                    <option value="18">工业技术</option>
+                    <option value="19">交通运输</option>
+                    <option value="20">航空、航天</option>
+                    <option value="21">环境科学、安全科学</option>
+                    <option value="22">综合性图书</option>
                 </select>
             </div>
         </div>

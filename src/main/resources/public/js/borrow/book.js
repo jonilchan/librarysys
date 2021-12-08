@@ -27,8 +27,6 @@ layui.use(['table', 'layer', "form"], function () {
                     }else if(data.categoryId==4){
                         return "政治、法律";
                     }else if(data.categoryId==5){
-                        return "政治、法律";
-                    }else if(data.categoryId==5){
                         return "军事";
                     }else if(data.categoryId==6){
                         return "经济";
