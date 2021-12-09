@@ -26,7 +26,7 @@ public interface BookInfoService extends IService<BookInfo> {
     //根据isbn查询
 //    BookInfo selectByIsbn(String isbn);
 
-    void addBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId);
+    void addBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId,String bookPic);
 
     void updateBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId);
 

@@ -99,7 +99,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     }
 
     @Override
-    public void addBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId) {
+    public void addBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId,String bookPic) {
         BookInfo bookInfo = new BookInfo();
         bookInfo.setIsbn(isbn);
         bookInfo.setBookName(bookName);
@@ -108,6 +108,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         bookInfo.setStatus(0);
         bookInfo.setCategoryId(categoryId);
         bookInfo.setEnterTime(LocalDateTime.now());
+        bookInfo.setBookPic(bookPic);
         AssertUtil.isTrue(bookInfoMapper.insert(bookInfo) < 1, 201, "添加用户失败");
     }
 
