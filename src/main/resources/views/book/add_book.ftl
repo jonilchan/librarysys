@@ -65,13 +65,6 @@
     </div>
 
     <div class="layui-form-item layui-row">
-<#--        <div class="layui-col-xs6">-->
-<#--            <label class="layui-form-label">三水馆藏量</label>-->
-<#--            <div class="layui-input-block">-->
-<#--                <input type="text" class="layui-input"-->
-<#--                       name="numberOfOutputs"  placeholder="没有则为空">-->
-<#--            </div>-->
-<#--        </div>-->
         <div class="layui-col-xs6">
             <label class="layui-form-label">出版社</label>
             <div class="layui-input-block">
@@ -79,7 +72,6 @@
                        name="publisher" placeholder="请输入出版社">
             </div>
         </div>
-
     </div>
 
 <#--    <div class="layui-form-item layui-row">-->

@@ -24,7 +24,16 @@ layui.use(['form', 'layer', 'formSelects'], function () {
         return false;
     });
 
-
+    //拖拽上传
+    upload.render({
+        elem: '#test10'
+        ,url: 'https://httpbin.org/post' //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+        ,done: function(res){
+            layer.msg('上传成功');
+            layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
+            console.log(res)
+        }
+    });
 
 
 });

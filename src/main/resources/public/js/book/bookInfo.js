@@ -232,7 +232,7 @@ layui.use(['table', 'layer', "form"], function () {
         layui.layer.open({
             title: title,
             type: 2,
-            area: ["1000px", "600px"],
+            area: ["1200px", "850px"],
             maxmin: true,
             content: ctx + "/book/toDetailPage?isbn=" + isbn
         })
