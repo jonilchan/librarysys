@@ -59,12 +59,22 @@ public class BookInfoVo implements Serializable {
     /**
      * 类别号
      */
-    private Integer categoryId;
+    private String categoryName;
 
     /**
      * 入库时间
      */
     private LocalDateTime enterTime;
+
+    /**
+     * 图书图片
+     */
+    private String bookPic;
+
+    /**
+     * 图书简介
+     */
+    private String bookDescription;
 
     /**
      * 更新时间
