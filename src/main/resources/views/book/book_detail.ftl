@@ -855,7 +855,7 @@
             <div class="col-12 col-sm-6">
               <h3 class="d-inline-block d-sm-none">书名：</h3>
               <div class="col-12">
-                <img src= ${(bookInfoVo.bookPic)} class="product-image" alt="Product Image">
+                <img src= ${(bookInfoVo.bookPic)!"获取错误"} class="product-image" alt="Product Image">
               </div>
 <#--              <div class="col-12 product-image-thumbs">-->
 <#--                <div class="product-image-thumb active"><img src="/dist/img/prod-1.jpg" alt="Product Image"></div>-->
@@ -866,22 +866,22 @@
 <#--              </div>-->
             </div>
             <div class="col-12 col-sm-6">
-              <h3 class="my-3">书名:${(bookInfoVo.bookName)}</h3>
-              <h3 class="my-3">ISBN:${(bookInfoVo.isbn)}</h3>
-              <h3 class="my-3">类别：${(bookInfoVo.categoryName)}</h3>
-              <h4>作者：${(bookInfoVo.author)}</h4>
-              <h4>出版社：${(bookInfoVo.publisher)}</h4>
+              <h3 class="my-3">书名:${(bookInfoVo.bookName)!"获取错误"}</h3>
+              <h3 class="my-3">ISBN:${(bookInfoVo.isbn)!"获取错误"}</h3>
+              <h3 class="my-3">类别：${(bookInfoVo.categoryName)!""}</h3>
+              <h4>作者：${(bookInfoVo.author)!""}</h4>
+              <h4>出版社：${(bookInfoVo.publisher)!""}</h4>
 <#--              <h4>馆藏地址：${(bookInfoVo.bookName)}</h4>-->
 <#--              <h4>图书状态：${(bookInfoVo.bookName)}</h4>-->
 
               <hr>
-              <h4>简介：${(bookInfoVo.bookDescription)}</h4>
+              <h4>简介：${(bookInfoVo.bookDescription)!""}</h4>
               <div class="bg-gray py-2 px-3 mt-4">
                 <h2 class="mb-0">
-                  当前库存：${(bookInfoVo.presentStock)}
+                  当前库存：${(bookInfoVo.presentStock)!"获取错误"}
                 </h2>
                 <h4 class="mt-0">
-                  <small>总库存：${(bookInfoVo.totalStock)}</small>
+                  <small>总库存：${(bookInfoVo.totalStock)!"获取错误"}</small>
                 </h4>
               </div>
 
