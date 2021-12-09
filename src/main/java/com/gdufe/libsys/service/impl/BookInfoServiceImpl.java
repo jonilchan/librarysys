@@ -10,8 +10,10 @@ import com.gdufe.libsys.mapper.BorrowMapper;
 import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.service.BookInfoService;
 import com.gdufe.libsys.utils.AssertUtil;
+import com.gdufe.libsys.vo.BookInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -129,5 +131,63 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
             bookInfo.setStatus(0);
         }
         bookInfoMapper.updateById(bookInfo);
+    }
+
+    @Override
+    public BookInfoVo findDetail(String isbn) {
+        BookInfoVo bookInfoVo = new BookInfoVo();
+        BookInfo bookInfo = bookInfoMapper.selectById(isbn);
+        BeanUtils.copyProperties(bookInfo,bookInfoVo);
+        bookInfoVo.setCategoryName(getCategoryName(bookInfo.getCategoryId()));
+        return bookInfoVo;
+    }
+
+    public String getCategoryName(Integer categoryId){
+        if(categoryId==1){
+            return "马克思主义";
+        }else if(categoryId==2){
+            return "哲学、宗教";
+        }else if(categoryId==3){
+            return "社会科学理论";
+        }else if(categoryId==4){
+            return "政治、法律";
+        }else if(categoryId==5){
+            return "军事";
+        }else if(categoryId==6){
+            return "经济";
+        }else if(categoryId==7){
+            return "文化、科学、教育、体育";
+        }else if(categoryId==8){
+            return "语言、文字";
+        }else if(categoryId==9){
+            return "文学";
+        }else if(categoryId==10){
+            return "艺术";
+        }else if(categoryId==11){
+            return "历史、地理";
+        }else if(categoryId==12){
+            return "自然科学总论";
+        }else if(categoryId==13){
+            return "数理科学与化学";
+        }else if(categoryId==14){
+            return "天文学、地球科学";
+        }else if(categoryId==15){
+            return "生物科学";
+        }else if(categoryId==16){
+            return "医药、卫生";
+        }else if(categoryId==17){
+            return "农业科学";
+        }else if(categoryId==18){
+            return "工业技术";
+        }else if(categoryId==19){
+            return "交通运输";
+        }else if(categoryId==20){
+            return "航空、航天";
+        }else if(categoryId==21){
+            return "环境科学、安全科学";
+        }else if(categoryId==22){
+            return "综合性图书";
+        }
+        return null;
     }
 }

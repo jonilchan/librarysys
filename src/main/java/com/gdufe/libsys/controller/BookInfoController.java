@@ -7,6 +7,7 @@ import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.service.BookInfoService;
 import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.utils.ResultInfo;
+import com.gdufe.libsys.vo.BookInfoVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +59,8 @@ public class BookInfoController extends BaseController {
     @GetMapping("toDetailPage")
     public String toDe(String isbn, HttpServletRequest request) {
         request.getSession().setAttribute("isbn", isbn);
+        BookInfoVo bookInfoVo = bookInfoService.findDetail(isbn);
+        request.getSession().setAttribute("bookInfoVo", bookInfoVo);
         return "book/book_detail";
     }
 

@@ -3,6 +3,7 @@ package com.gdufe.libsys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gdufe.libsys.entity.BookInfo;
 import com.gdufe.libsys.query.BookInfoQuery;
+import com.gdufe.libsys.vo.BookInfoVo;
 
 import java.util.Map;
 
@@ -30,6 +31,8 @@ public interface BookInfoService extends IService<BookInfo> {
     void updateBookInfo(String isbn, String bookName, String author, String publisher, Integer categoryId);
 
     void stopBookBorrw(String isbn);
+
+    BookInfoVo findDetail(String isbn);
 
 
 }
