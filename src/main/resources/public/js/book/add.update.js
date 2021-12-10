@@ -4,16 +4,6 @@ layui.use(['form', 'layer', 'formSelects'], function () {
         $ = layui.jquery;
     var formSelects = layui.formSelects;
 
-    // //拖拽上传
-    // upload.render({
-    //     elem: '#test10'
-    //     ,url: 'https://httpbin.org/post' //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
-    //     ,done: function(res){
-    //         layer.msg('上传成功');
-    //         layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
-    //         console.log(res)
-    //     }
-    // });
 
     //以下都为图片转base64格式
     $(document).on("change","#file",function(){
@@ -26,7 +16,7 @@ layui.use(['form', 'layer', 'formSelects'], function () {
         /*input_file：文件按钮对象*/
         /*get_data: 转换成功后执行的方法*/
         if (typeof (FileReader) === 'undefined') {
-            alert("抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用现代浏览器操作！");
+            alert("抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用Chrome浏览器操作！");
         } else {
             try {
                 /*图片转Base64 核心代码*/
@@ -64,32 +54,5 @@ layui.use(['form', 'layer', 'formSelects'], function () {
         });
         return false;
     });
-
-    // //监听提交
-    // form.on('submit(formDemo)', function(data){
-    //     var index = parent.layer.getFrameIndex(window.name);
-    //     $.ajax({
-    //         url:"${pageContext.request.contextPath}/up_newsInsert",
-    //         data:$("#insertForm").serialize(),
-    //         type:"post",
-    //         success:function(msg){
-    //             if(msg.code==100){
-    //                 layer.msg("新增成功");
-    //                 parent.layer.close(index);
-    //             }else{
-    //                 layer.msg("请检查信息有无错误！");
-    //             }
-    //         },
-    //         error:function(){
-    //             layer.msg("请检查信息有无错误！");
-    //         }
-    //     });
-    //     return false;
-    // });
-
-
-
-
-
 
 });

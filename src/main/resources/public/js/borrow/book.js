@@ -67,8 +67,8 @@ layui.use(['table', 'layer', "form"], function () {
             },
             {field: 'author', title: '作者', minWidth: 100, align: 'center'},
             {field: 'publisher', title: '出版社', minWidth: 100, align: 'center'},
-            {field: 'totalStock', title: '总库存', align: 'center'},
-            {field: 'bookLocation', title: '馆藏地址', align: 'center', templet : function(data) {// 替换数据
+            {field: 'totalStock', title: '总库存', align: 'center', width: 100},
+            {field: 'bookLocation', title: '馆藏地址', align: 'center',width: 100, templet : function(data) {// 替换数据
                     if(data.bookLocation==0){
                         return "三水";
                     }else if(data.bookLocation==1){
@@ -77,8 +77,8 @@ layui.use(['table', 'layer', "form"], function () {
                         return "三水、广州";
                     }
                 }},
-            {field: 'presentStock', title: '当前库存', align: 'center'},
-            {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
+            {field: 'presentStock', title: '当前库存', align: 'center',width: 100},
+            {field: 'status', title: '状态', align: 'center',width: 100, templet : function(data) {// 替换数据
                     if(data.status==0){
                         return "正常";
                     }else if(data.status==1){
@@ -175,6 +175,8 @@ layui.use(['table', 'layer', "form"], function () {
             })
         }else if(layEvent === "viewStock"){
             openAddOrUpdateBookStock(obj.data.isbn);
+        }else if(layEvent == "viewDetail"){
+            openBookDetail(obj.data.isbn);
         }
     });
 
@@ -188,6 +190,20 @@ layui.use(['table', 'layer', "form"], function () {
             area: ["950px", "640px"],
             maxmin: true,
             content: ctx + "/bookStock/borrowInfo?isbn=" + isbn
+        })
+    }
+
+    //弹出框
+    function openBookDetail(isbn) {
+        console.log(isbn)
+        var title = "图书详情";
+        // alert(data[0].isbn)
+        layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["1200px", "850px"],
+            maxmin: true,
+            content: ctx + "/book/toDetailPage?isbn=" + isbn
         })
     }
 
