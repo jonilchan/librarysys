@@ -74,12 +74,22 @@
         </div>
     </div>
 
+
+
     <div class="layui-form-item">
         <label class="layui-form-label label_font" style="margin-top: 35px">缩略图</label>
         <div class="layui-input-block">
             <input style="margin-top: 7px;" type="file" id="file">
             <img id="showImg" style="max-height: 300px; height: 8em; min-width:8em;"/>
             <textarea name="bookPic" id="base64" style="display: none; width: 100%;height: 30em;"></textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">请填写描述</label>
+        <div class="layui-input-block">
+            <textarea  name="bookDescription" placeholder="请输入内容" class="layui-textarea"></textarea>
         </div>
     </div>
 

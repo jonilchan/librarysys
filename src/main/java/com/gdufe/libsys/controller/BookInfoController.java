@@ -66,9 +66,9 @@ public class BookInfoController extends BaseController {
 
     @RequestMapping("/addBook")
     @ResponseBody
-    ResultInfo addBook(String isbn, String bookName, String author, String publisher, Integer category,String bookPic) {
+    ResultInfo addBook(String isbn, String bookName, String author, String publisher, Integer category,String bookPic,String bookDescription) {
         String a = bookPic;
-        bookInfoService.addBookInfo(isbn, bookName, author, publisher, category,bookPic);
+        bookInfoService.addBookInfo(isbn, bookName, author, publisher, category,bookPic,bookDescription);
         return new ResultInfo(200);
     }
 
