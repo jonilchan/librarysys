@@ -59,6 +59,14 @@
                 </select>
             </div>
         </div>
+
+        <div class="layui-col-xs6">
+            <label class="layui-form-label">用户密码</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input"
+                       name="userPassword" value="" placeholder="请输入用户密码">
+            </div>
+        </div>
     </div>
     <br/>
     <div class="layui-form-item layui-row layui-col-xs12">

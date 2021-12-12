@@ -127,7 +127,6 @@ layui.use(['table', 'layer', "form"], function () {
             UpdateUserDialog(obj.data.userId);
         } else if (layEvent === "status") {
             UpdateUserStatusDialog(obj.data.userId)
-
         }
     });
 
