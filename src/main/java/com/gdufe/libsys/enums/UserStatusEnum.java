@@ -1,4 +1,4 @@
-package com.gdufe.libsys.base;
+package com.gdufe.libsys.enums;
 
 import lombok.Getter;
 

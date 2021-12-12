@@ -33,9 +33,22 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
 
     @Override
     public Map<String, Object> selectAll(BookStockQuery bookStockQuery) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
+        QueryWrapper<BookStock> queryWrapper = new QueryWrapper<>();
+        if (bookStockQuery.getBookId() != null) {
+            queryWrapper.eq("book_id", bookStockQuery.getBookId());
+        }
+        if (bookStockQuery.getIsbn() != null && bookStockQuery.getIsbn() != "") {
+            queryWrapper.eq("isbn", bookStockQuery.getIsbn());
+        }
+        if (bookStockQuery.getStatus() != null) {
+            queryWrapper.eq("status", bookStockQuery.getStatus());
+        }
+        if (bookStockQuery.getBookLocation() != null) {
+            queryWrapper.eq("book_location", bookStockQuery.getBookLocation());
+        }
         PageHelper.startPage(bookStockQuery.getPage(), bookStockQuery.getLimit());
-        PageInfo<BookStock> pageInfo = new PageInfo<BookStock>(bookStockMapper.selectAll(bookStockQuery));
+        PageInfo<BookStock> pageInfo = new PageInfo<>(bookStockMapper.selectList(queryWrapper));
         map.put("code", 0);
         map.put("msg", "");
         map.put("count", pageInfo.getTotal());
@@ -98,6 +111,4 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
         }
         updateBatchById(bookStockList);
     }
-
-
 }

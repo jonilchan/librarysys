@@ -1,6 +1,8 @@
 package com.gdufe.libsys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,64 +15,36 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Reserve implements Serializable {
+
+    /**
+     * 自增ID
+     */
     @TableId(value = "reserve_id", type = IdType.AUTO)
     private Integer reserveId;
 
+    /**
+     * 图书isbn
+     */
     private String isbn;
 
+    /**
+     * 读者ID
+     */
     private String readerId;
 
+    /**
+     * 读者身份
+     */
     private Integer readerIdentity;
 
+    /**
+     * 预约时间
+     */
+    @TableField(fill = FieldFill.INSERT)
     private Date reserveTime;
 
+    /**
+     * 预约状态
+     */
     private Integer status;
-
-    public Integer getReserveId() {
-        return reserveId;
-    }
-
-    public void setReserveId(Integer reserveId) {
-        this.reserveId = reserveId;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getReaderId() {
-        return readerId;
-    }
-
-    public void setReaderId(String readerId) {
-        this.readerId = readerId;
-    }
-
-    public Integer getReaderIdentity() {
-        return readerIdentity;
-    }
-
-    public void setReaderIdentity(Integer readerIdentity) {
-        this.readerIdentity = readerIdentity;
-    }
-
-    public Date getReserveTime() {
-        return reserveTime;
-    }
-
-    public void setReserveTime(Date reserveTime) {
-        this.reserveTime = reserveTime;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 }

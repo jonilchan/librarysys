@@ -1,7 +1,6 @@
 package com.gdufe.libsys.controller;
 
 
-import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.utils.ResultInfo;
@@ -32,20 +31,17 @@ public class BookStockController extends BaseController {
     @Resource
     private BookStockService bookStockService;
 
-
+    //跳转到书籍检索页
     @GetMapping("/info")
     public String bookStockInfo(String isbn, HttpServletRequest request) {
         request.getSession().setAttribute("isbn", isbn);
-//        request.setAttribute("isbn",isbn);
-//        this.isbn = isbn;
         return "bookStock/book_stock";
     }
 
+    //跳转到书籍详情页
     @GetMapping("/borrowInfo")
     public String borrowStockInfo(String isbn, HttpServletRequest request) {
         request.getSession().setAttribute("isbn", isbn);
-//        request.setAttribute("isbn",isbn);
-//        this.isbn = isbn;
         return "bookStock/borrow_stock";
     }
 
@@ -57,14 +53,13 @@ public class BookStockController extends BaseController {
         return bookStockService.selectAll(bookStockQuery);
     }
 
-    //增加库存
+    //跳转到增加库存页
     @GetMapping("toAddStock")
     public String toAddStock(String isbn, Model model) {
-//        model.addAttribute("bookinfo",bookInfoService.selectByIsbn(isbn));
-        //System.out.println(customerService.getById(id));
         return "bookStock/add_stock";
     }
 
+    //增加库存
     @RequestMapping("addStock")
     @ResponseBody
     public ResultInfo addStock(HttpServletRequest request, Integer bookLocation, Integer amount) {
@@ -73,14 +68,13 @@ public class BookStockController extends BaseController {
         return new ResultInfo(200);
     }
 
-    //减少库存
+    //跳转到减少库存页
     @GetMapping("toReduceStock")
-    public String toReduceStock(String isbn, Model model) {
-//        model.addAttribute("bookinfo",bookInfoService.selectByIsbn(isbn));
-        //System.out.println(customerService.getById(id));
+    public String toReduceStock() {
         return "bookStock/reduce_stock";
     }
 
+    //减少库存
     @RequestMapping("reduceStock")
     @ResponseBody
     public ResultInfo reduceStock(HttpServletRequest request, Integer bookLocation, Integer amount) {
@@ -89,6 +83,7 @@ public class BookStockController extends BaseController {
         return new ResultInfo(200);
     }
 
+    //删除库存
     @RequestMapping("deleteStock")
     @ResponseBody
     public ResultInfo deleteStock(Integer bookId) {
@@ -111,7 +106,5 @@ public class BookStockController extends BaseController {
         bookStockService.transferToGZ(ids);
         return success("转移图书到广州成功");
     }
-
-
 }
 

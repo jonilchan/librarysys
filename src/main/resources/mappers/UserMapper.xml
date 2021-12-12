@@ -1,37 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdufe.libsys.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.gdufe.libsys.entity.User">
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="identity" jdbcType="INTEGER" property="identity" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
-    <result column="pw_errortimes" jdbcType="INTEGER" property="pwErrortimes" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    user_id, user_name, user_password, phone, identity, status, create_time, update_time,
-    login_time, pw_errortimes
-  </sql>
-  <!-- 通过传入参数查询用户列表 -->
-  <select id="selectByParams" parameterType="com.gdufe.libsys.entity.User" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from user
-    <where>
-      <if test="null !=userId and userId !=''">
-        and user_id like concat('%',#{userId},'%')
-      </if>
-      <if test="null !=userName and userName !=''">
-        and user_name like concat('%',#{userName},'%')
-      </if>
-      <if test="null !=status and status !=''">
-        and status = #{status}
-      </if>
-    </where>
-  </select>
+
 </mapper>

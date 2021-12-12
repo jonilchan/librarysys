@@ -43,9 +43,15 @@ public class CodeGenerator {
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
         List<TableFill> list = new ArrayList<>();
         TableFill tableFill1 = new TableFill("create_time", FieldFill.INSERT);
-        TableFill tableFill2 = new TableFill("update_time", FieldFill.INSERT_UPDATE);
+        TableFill tableFill2 = new TableFill("enter_time", FieldFill.INSERT);
+        TableFill tableFill3 = new TableFill("update_time", FieldFill.INSERT_UPDATE);
+        TableFill tableFill4 = new TableFill("borrow_time", FieldFill.INSERT);
+        TableFill tableFill5 = new TableFill("reserve_time", FieldFill.INSERT);
         list.add(tableFill1);
         list.add(tableFill2);
+        list.add(tableFill3);
+        list.add(tableFill4);
+        list.add(tableFill5);
 
         strategyConfig.setTableFillList(list);
         autoGenerator.setStrategy(strategyConfig);

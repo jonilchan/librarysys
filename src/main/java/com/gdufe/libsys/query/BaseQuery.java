@@ -1,4 +1,4 @@
-package com.gdufe.libsys.base;
+package com.gdufe.libsys.query;
 
 
 public class BaseQuery {

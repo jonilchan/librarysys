@@ -1,6 +1,5 @@
 package com.gdufe.libsys.controller;
 
-import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
@@ -54,6 +53,7 @@ public class UserController extends BaseController {
         return resultInfo;
     }
 
+    //更新用户信息
     @RequestMapping("/updateInfo")
     @ResponseBody
     public ResultInfo updateInfo(HttpServletRequest request, String username, String phone) {
@@ -75,6 +75,7 @@ public class UserController extends BaseController {
         return userService.queryUsersByParams(userQuery);
     }
 
+    //增加用户
     @RequestMapping("/addUser")
     @ResponseBody
     ResultInfo addUser(String userId, String userName, String userPassword, String phone, Integer identity) {
@@ -82,6 +83,7 @@ public class UserController extends BaseController {
         return new ResultInfo(200);
     }
 
+    //更新用户信息
     @RequestMapping("/updateUser")
     @ResponseBody
     ResultInfo updateUser(String userId, String userName, String userPassword, String phone, Integer identity, Integer status) {
@@ -89,7 +91,7 @@ public class UserController extends BaseController {
         return new ResultInfo(200);
     }
 
-    //更新用户信息
+    //跳转到更新用户信息
     @RequestMapping("/toInfoPage")
     public String toInfoPage(HttpServletRequest request) {
         User user = userService.getById(request.getSession().getAttribute("userId").toString());
@@ -97,16 +99,19 @@ public class UserController extends BaseController {
         return "user/Info";
     }
 
+    //跳转到用户管理页
     @RequestMapping("/toManagePage")
     public String toManagePage() {
         return "user/manage";
     }
 
+    //跳转到增加用户页
     @RequestMapping("/toAddUserPage")
     public String toAddUserPage() {
         return "user/add_user";
     }
 
+    //跳转到更新用户信息页
     @RequestMapping("/toUpdateUserPage")
     public String toUpdateUserPage(HttpServletRequest request, String userId) {
         User user = userService.getById(userId);
@@ -114,11 +119,13 @@ public class UserController extends BaseController {
         return "user/update_user";
     }
 
+    //跳转到挂失页面
     @RequestMapping("/toLossPage")
     public String toLossPage() {
         return "user/loss_page";
     }
 
+    //挂失接口
     @RequestMapping("/lossApply")
     @ResponseBody
     public ResultInfo lossApply(HttpServletRequest request, String password) {

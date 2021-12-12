@@ -2,11 +2,11 @@ package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gdufe.libsys.base.Statistic;
-import com.gdufe.libsys.base.UserStatusEnum;
+import com.gdufe.libsys.component.Statistic;
 import com.gdufe.libsys.entity.Borrow;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.entity.UserMsg;
+import com.gdufe.libsys.enums.UserStatusEnum;
 import com.gdufe.libsys.mapper.BorrowMapper;
 import com.gdufe.libsys.mapper.UserMapper;
 import com.gdufe.libsys.mapper.UserMsgMapper;
@@ -166,8 +166,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Map<String, Object> queryUsersByParams(UserQuery userQuery) {
         Map<String, Object> map = new HashMap<>();
+        QueryWrapper<User> queryWrapper = new QueryWrapper();
+        if (userQuery.getUserId() != null && userQuery.getUserId() != "") {
+            queryWrapper.eq("user_id", userQuery.getUserId());
+        }
+        if (userQuery.getUserName() != null && userQuery.getUserName() != "") {
+            queryWrapper.like("user_name", userQuery.getUserName());
+        }
+        if (userQuery.getStatus() != null && userQuery.getStatus() != "") {
+            queryWrapper.eq("status", userQuery.getStatus());
+        }
         PageHelper.startPage(userQuery.getPage(), userQuery.getLimit());
-        PageInfo<User> pageInfo = new PageInfo<>(userMapper.selectByParams(userQuery));
+        PageInfo<User> pageInfo = new PageInfo<>(userMapper.selectList(queryWrapper));
         map.put("code", 0);
         map.put("msg", "");
         map.put("count", pageInfo.getTotal());

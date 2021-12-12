@@ -1,5 +1,7 @@
 package com.gdufe.libsys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -40,6 +42,7 @@ public class BookRank implements Serializable {
     /**
      * 借书时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime borrowTime;
 
 

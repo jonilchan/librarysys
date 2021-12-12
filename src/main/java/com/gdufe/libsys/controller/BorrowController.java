@@ -1,7 +1,6 @@
 package com.gdufe.libsys.controller;
 
 
-import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BookStockService;
@@ -31,11 +30,10 @@ public class BorrowController extends BaseController {
     @Resource
     private BorrowService borrowService;
 
-
     @Resource
     private BookStockService bookStockService;
 
-    //预约
+    //预约接口
     @RequestMapping("/book")
     @ResponseBody
     public ResultInfo book(HttpServletRequest request, String isbn) {

@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
+//配置Druid连接池
 @Configuration
 public class DruidConfig {
 

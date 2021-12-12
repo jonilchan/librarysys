@@ -26,6 +26,7 @@ public class UserMsgController {
     @Resource
     private UserMsgService userMsgService;
 
+    //获取当前用户的所有信息
     @RequestMapping("/getMsg")
     @ResponseBody
     public Map<String, Object> getMsg(HttpServletRequest request) {

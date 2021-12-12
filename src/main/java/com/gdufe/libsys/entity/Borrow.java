@@ -1,6 +1,8 @@
 package com.gdufe.libsys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -43,6 +45,7 @@ public class Borrow implements Serializable {
     /**
      * 借书时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime borrowTime;
 
     /**

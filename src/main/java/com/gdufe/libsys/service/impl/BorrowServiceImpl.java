@@ -2,9 +2,9 @@ package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gdufe.libsys.base.BorrowStatusEnum;
-import com.gdufe.libsys.base.Statistic;
+import com.gdufe.libsys.component.Statistic;
 import com.gdufe.libsys.entity.*;
+import com.gdufe.libsys.enums.BorrowStatusEnum;
 import com.gdufe.libsys.mapper.*;
 import com.gdufe.libsys.query.BorrowQuery;
 import com.gdufe.libsys.service.BorrowService;
@@ -69,7 +69,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         bookRank.setBookId(bookId);
         bookRank.setIsbn(bookStock.getIsbn());
         bookRank.setReaderId(readerId);
-//        bookRank.setBorrowTime(LocalDateTime.now());
         bookRankMapper.insert(bookRank);
         //更新被借书的状态
         bookStock.setStatus(1);
@@ -78,7 +77,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
         bookInfo.setPresentStock(bookInfo.getPresentStock() - 1);
         bookInfoMapper.updateById(bookInfo);
-
         Statistic.borrow();
     }
 
@@ -165,7 +163,32 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     public Map<String, Object> queryBorrowsByParams(BorrowQuery borrowQuery) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(borrowQuery.getPage(), borrowQuery.getLimit());
-        List<Borrow> borrows = borrowMapper.selectByParams(borrowQuery);
+        QueryWrapper<Borrow> queryWrapper = new QueryWrapper<>();
+        if (borrowQuery.getBookId() != null) {
+            queryWrapper.like("book_id", borrowQuery.getBookId());
+        }
+        if (borrowQuery.getStatus() != null) {
+            queryWrapper.eq("status", borrowQuery.getStatus());
+        }
+        if (borrowQuery.getReaderId() != null && borrowQuery.getReaderId() != "") {
+            queryWrapper.like("reader_id", borrowQuery.getReaderId());
+        }
+        if (borrowQuery.getFine() != null && borrowQuery.getFine() == 0) {
+            queryWrapper.eq("fine", borrowQuery.getFine());
+        }
+        if (borrowQuery.getFine() != null && borrowQuery.getFine() != 0) {
+            queryWrapper.ne("fine", 0);
+        }
+        if (borrowQuery.getFineFin() != null && borrowQuery.getFineFin() == 0) {
+            queryWrapper.isNull("return_time");
+        }
+        if (borrowQuery.getFineFin() != null && borrowQuery.getFineFin() == 1) {
+            queryWrapper.isNotNull("return_time");
+        }
+        if (borrowQuery.getOperator() != null && borrowQuery.getOperator() != "") {
+            queryWrapper.like("operator", borrowQuery.getOperator());
+        }
+        List<Borrow> borrows = borrowMapper.selectList(queryWrapper);
         ArrayList<BorrowVo> borrowVos = new ArrayList<>();
         for (Borrow borrow : borrows) {
             BorrowVo borrowVo = new BorrowVo();
@@ -196,7 +219,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
             borrowVos.add(borrowVo);
         }
         //先更新 再查询
-//        PageInfo<Borrow> pageInfo = new PageInfo<>(borrowMapper.selectByParams(borrowQuery));
         PageInfo<BorrowVo> pageInfo = new PageInfo<>(borrowVos);
         PageInfo<Borrow> pageInfo1 = new PageInfo<>(borrows);
         map.put("code", 0);
@@ -205,6 +227,4 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         map.put("data", pageInfo.getList());
         return map;
     }
-
-
 }

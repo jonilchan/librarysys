@@ -1,7 +1,6 @@
 package com.gdufe.libsys.controller;
 
 
-import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.query.RankQuery;
 import com.gdufe.libsys.service.BookRankService;
 import org.springframework.stereotype.Controller;

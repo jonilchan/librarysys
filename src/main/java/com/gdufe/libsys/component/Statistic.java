@@ -1,7 +1,8 @@
-package com.gdufe.libsys.base;
+package com.gdufe.libsys.component;
 
 import org.springframework.stereotype.Component;
 
+//系统的统计模块
 @Component
 public class Statistic {
     //图书馆借阅次数

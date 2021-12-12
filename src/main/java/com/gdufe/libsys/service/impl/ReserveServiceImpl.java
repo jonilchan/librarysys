@@ -2,9 +2,9 @@ package com.gdufe.libsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gdufe.libsys.base.BorrowStatusEnum;
-import com.gdufe.libsys.base.ReserveStatusEnum;
 import com.gdufe.libsys.entity.*;
+import com.gdufe.libsys.enums.BorrowStatusEnum;
+import com.gdufe.libsys.enums.ReserveStatusEnum;
 import com.gdufe.libsys.mapper.*;
 import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.query.ReserveQuery;
@@ -54,10 +54,8 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Override
     public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery) {
         Map<String, Object> map = new HashMap<>();
-        PageHelper.startPage(reserveQuery.getPage(), reserveQuery.getLimit());
-        List<Reserve> reserves = reserveMapper.selectByParams(reserveQuery);
-
         List<BookInfo> bookInfos = bookInfoService.getBookInfos(new BookInfoQuery());
+        List<Reserve> reserves = queryReserve(reserveQuery);
         ArrayList<ReserveVo> reserveVos = new ArrayList<>();
         for (Reserve reserve : reserves) {
             for (BookInfo bookInfo : bookInfos) {
@@ -82,9 +80,8 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Override
     public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery, String readerId) {
         Map<String, Object> map = new HashMap<>();
-        PageHelper.startPage(reserveQuery.getPage(), reserveQuery.getLimit());
         reserveQuery.setReaderId(readerId);
-        List<Reserve> reserves = reserveMapper.selectByParams(reserveQuery);
+        List<Reserve> reserves = queryReserve(reserveQuery);
         List<BookInfo> bookInfos = bookInfoService.getBookInfos(new BookInfoQuery());
         ArrayList<ReserveVo> reserveVos = new ArrayList<>();
         for (Reserve reserve : reserves) {
@@ -197,5 +194,30 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         AssertUtil.isTrue(reserve.getStatus() == 2, "请勿重复取消！");
         reserve.setStatus(2);
         reserveMapper.updateById(reserve);
+    }
+
+    public List<Reserve> queryReserve(ReserveQuery reserveQuery) {
+        QueryWrapper<Reserve> queryWrapper = new QueryWrapper<>();
+        if (reserveQuery.getReserveId() != null) {
+            queryWrapper.eq("reserve_id", reserveQuery.getReserveId());
+        }
+        if (reserveQuery.getStatus() != null) {
+            queryWrapper.eq("status", reserveQuery.getStatus());
+        }
+        if (reserveQuery.getBookId() != null) {
+            queryWrapper.eq("book_id", reserveQuery.getBookId());
+        }
+        if (reserveQuery.getReaderIdentity() != null) {
+            queryWrapper.eq("reader_identity", reserveQuery.getReaderIdentity());
+        }
+        if (reserveQuery.getIsbn() != null && reserveQuery.getIsbn() != "") {
+            queryWrapper.like("isbn", reserveQuery.getIsbn());
+        }
+        if (reserveQuery.getReaderId() != null && reserveQuery.getReaderId() != "") {
+            queryWrapper.eq("reader_id", reserveQuery.getReaderId());
+        }
+        PageHelper.startPage(reserveQuery.getPage(), reserveQuery.getLimit());
+        List<Reserve> reserves = reserveMapper.selectList(queryWrapper);
+        return reserves;
     }
 }

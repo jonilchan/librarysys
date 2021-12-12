@@ -1,15 +1,12 @@
 package com.gdufe.libsys.controller;
 
 
-import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.entity.BookInfo;
 import com.gdufe.libsys.query.BookInfoQuery;
 import com.gdufe.libsys.service.BookInfoService;
-import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.utils.ResultInfo;
 import com.gdufe.libsys.vo.BookInfoVo;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,9 +30,6 @@ public class BookInfoController extends BaseController {
     @Resource
     private BookInfoService bookInfoService;
 
-    @Resource
-    private BookStockService bookStockService;
-
     //查询图书列表
     @GetMapping("/list")
     @ResponseBody
@@ -43,19 +37,19 @@ public class BookInfoController extends BaseController {
         return bookInfoService.queryBookInfosByParams(bookInfoQuery);
     }
 
-    //图书页
+    //跳转到图书页
     @GetMapping("/index")
     public String index() {
         return "book/book_info";
     }
 
-    //增加图书
+    //跳转到增加图书
     @GetMapping("toAddBook")
     public String toAddBookPage() {
         return "book/add_book";
     }
 
-    //图书详情页
+    //跳转到图书详情页
     @GetMapping("toDetailPage")
     public String toDe(String isbn, HttpServletRequest request) {
         request.getSession().setAttribute("isbn", isbn);
@@ -64,14 +58,16 @@ public class BookInfoController extends BaseController {
         return "book/book_detail";
     }
 
+    //增加图书页接口
     @RequestMapping("/addBook")
     @ResponseBody
-    ResultInfo addBook(String isbn, String bookName, String author, String publisher, Integer category,String bookPic,String bookDescription) {
+    ResultInfo addBook(String isbn, String bookName, String author, String publisher, Integer category, String bookPic, String bookDescription) {
         String a = bookPic;
-        bookInfoService.addBookInfo(isbn, bookName, author, publisher, category,bookPic,bookDescription);
+        bookInfoService.addBookInfo(isbn, bookName, author, publisher, category, bookPic, bookDescription);
         return new ResultInfo(200);
     }
 
+    //跳转到图书跟新信息页
     @RequestMapping("toUpdatePage")
     public String toUpdatePage(HttpServletRequest request, String isbn) {
         BookInfo bookInfo = bookInfoService.getById(isbn);
@@ -79,6 +75,7 @@ public class BookInfoController extends BaseController {
         return "book/update_book";
     }
 
+    //图书信息更新接口
     @RequestMapping("/updateBook")
     @ResponseBody
     ResultInfo updateBook(String isbn, String bookName, String author, String publisher, Integer category) {
@@ -87,6 +84,7 @@ public class BookInfoController extends BaseController {
         return new ResultInfo(200);
     }
 
+    //停止借阅书籍
     @RequestMapping("/stopBorrowBook")
     @ResponseBody
     ResultInfo updateBook(String isbn) {

@@ -16,5 +16,6 @@ import java.util.Map;
  * @since 2021-12-03
  */
 public interface UserMsgService extends IService<UserMsg> {
+    //查找信息
     Map<String, Object> getMsg(UserMsgQuery userMsgQuery);
 }

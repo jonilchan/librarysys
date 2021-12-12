@@ -1,54 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdufe.libsys.mapper.BookStockMapper">
-  <resultMap id="BaseResultMap" type="com.gdufe.libsys.entity.BookStock">
-    <id column="book_id" jdbcType="INTEGER" property="bookId" />
-    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="book_location" jdbcType="INTEGER" property="bookLocation" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    book_id, isbn, status, book_location
-  </sql>
 
-  <select id="selectAll" parameterType="com.gdufe.libsys.entity.BookStock" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from book_stock
-    <where>
-
-      <if test="null !=isbn and isbn !=''">
-        and isbn like concat('%',#{isbn},'%')
-      </if>
-
-      <if test="null !=bookId and bookId !=''">
-        and book_id  = #{bookId}
-      </if>
-
-      <if test="0==status">
-        and status  = 0
-      </if>
-
-      <if test="1==status">
-        and status  = 1
-      </if>
-
-      <if test="0==bookLocation">
-        and book_location  = 0
-      </if>
-
-      <if test="1==bookLocation">
-        and book_location  = 1
-      </if>
-
-      <if test="null !=bookLocation and bookLocation !=''">
-        and book_Location  = #{bookLocation}
-      </if>
-
-      <if test="10 == status">
-        and status = 0
-      </if>
-
-    </where>
-  </select>
 </mapper>

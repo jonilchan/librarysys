@@ -1,7 +1,6 @@
 package com.gdufe.libsys.controller;
 
 
-import com.gdufe.libsys.base.BaseController;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.query.ReserveQuery;
 import com.gdufe.libsys.service.BookStockService;
@@ -62,7 +61,7 @@ public class ReserveController extends BaseController {
         return "reserve/reserve_process";
     }
 
-    //查询该isbn下的图书库存(处理预约按钮对应的
+    //查询该isbn下的图书库存(处理预约按钮对应的）
     @GetMapping("/list")
     @ResponseBody
     public Map<String, Object> queryBookStocksByParams(BookStockQuery bookStockQuery) {
@@ -94,15 +93,14 @@ public class ReserveController extends BaseController {
         return new ResultInfo(200);
     }
 
-
-    //跳转到预约表(读书者下的
+    //跳转到预约表(读书者下的）
     @RequestMapping("/toReaderReserve")
     public String toReaderReserve() {
         return "/reserve/reserve_readerList";
     }
 
 
-    //加载预约列表(读者下的
+    //加载预约列表(读者下的）
     @GetMapping("/reserveReaderList")
     @ResponseBody
     public Map<String, Object> queryReserveReaderListByParams(ReserveQuery reserveQuery, HttpServletRequest request) {
@@ -118,7 +116,5 @@ public class ReserveController extends BaseController {
         reserveService.cancelReserve(reserveId);
         return new ResultInfo(200);
     }
-
-
 }
 

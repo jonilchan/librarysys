@@ -6,9 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
-    登录状态拦截器
- */
+//登录状态拦截器
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
@@ -16,7 +14,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         //根据session中有没有userId判断有没有登录
         if (request.getSession().getAttribute("userId") == null) {
             response.sendRedirect("/index");
-//            throw new UnLoginException();
             return false;
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);
