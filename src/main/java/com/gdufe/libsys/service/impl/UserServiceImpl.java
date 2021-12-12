@@ -137,7 +137,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setUserPassword(Md5Util.encode(userPassword));
         user.setPhone(phone);
         user.setIdentity(identity);
-        user.setCreateTime(LocalDateTime.now());
         AssertUtil.isTrue(userMapper.insert(user) < 1, 201, "添加用户失败");
     }
 
@@ -151,7 +150,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user.setUserPassword(Md5Util.encode(userPassword));
         }
         user.setStatus(status);
-        user.setUpdateTime(LocalDateTime.now());
         userMapper.updateById(user);
     }
 
