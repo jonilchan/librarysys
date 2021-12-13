@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -147,8 +148,9 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         return new ResultInfo(200);
     }
 
-
+    //预约图书
     @Override
+    @Transactional
     public void book(String readerId, String isbn) {
         User user = userMapper.selectById(readerId);
         QueryWrapper<Borrow> queryWrapper1 = new QueryWrapper();

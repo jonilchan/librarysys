@@ -18,7 +18,7 @@ import java.util.Map;
 public interface UserService extends IService<User> {
 
     //登录
-    ResultInfo login(String username, String userPassword);
+    void login(String username, String userPassword);
 
     //更新密码
     void updateUserPassword(String userId, String userOldPassword, String newPassword, String confirmPassword);

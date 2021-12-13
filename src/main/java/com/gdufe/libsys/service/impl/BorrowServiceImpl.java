@@ -55,7 +55,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Override
     @Transactional
     public void borrow(String readerId, Integer bookId, String userId) {
-
         //填充Borrow数据
         Borrow borrow = new Borrow();
         borrow.setReaderId(readerId);
@@ -110,7 +109,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         //更新被借书的状态
         bookStock.setStatus(1);
         bookStockMapper.updateById(bookStock);
-
         Statistic.reverse();
     }
 
@@ -124,10 +122,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         borrow.setStatus(1);
         BookStock bookStock = bookStockMapper.selectById(borrow.getBookId());
         bookStock.setStatus(0);
-
         bookStockMapper.updateById(bookStock);
         borrowMapper.updateById(borrow);
-
         //book_info增加库存
         BookInfo bookInfo = bookInfoMapper.selectById(bookStock.getIsbn());
         bookInfo.setPresentStock(bookInfo.getPresentStock() + 1);

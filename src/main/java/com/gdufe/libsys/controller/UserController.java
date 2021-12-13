@@ -33,33 +33,30 @@ public class UserController extends BaseController {
     @PostMapping("/login")
     @ResponseBody
     public ResultInfo login(HttpServletRequest request, String userId, String userPassword) {
-        //获取结果
-        ResultInfo loginResult = userService.login(userId, userPassword);
+        //登录
+        userService.login(userId, userPassword);
         //设置session
         request.getSession().setAttribute("userId", userId);
         //返回操作结果
-        return loginResult;
+        return new ResultInfo(200);
     }
 
     //用户更新密码
     @PostMapping("/updatePassword")
     @ResponseBody
     public ResultInfo updateUserInfo(HttpServletRequest request, String oldPassword, String newPassword, String confirmPassword) {
-        //用于放置结果信息
-        ResultInfo resultInfo = new ResultInfo(200);
         //更新密码操作
         userService.updateUserPassword(request.getSession().getAttribute("userId").toString(), oldPassword, newPassword, confirmPassword);
         //返回操作结果
-        return resultInfo;
+        return new ResultInfo(200);
     }
 
     //更新用户信息
     @RequestMapping("/updateInfo")
     @ResponseBody
     public ResultInfo updateInfo(HttpServletRequest request, String username, String phone) {
-        ResultInfo resultInfo = new ResultInfo(200);
         userService.updateInfo(request.getSession().getAttribute("userId").toString(), username, phone);
-        return resultInfo;
+        return new ResultInfo(200);
     }
 
     //更新密码页

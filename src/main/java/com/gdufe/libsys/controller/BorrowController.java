@@ -80,7 +80,6 @@ public class BorrowController extends BaseController {
     @ResponseBody
     public ResultInfo borrowBook(HttpServletRequest request, Integer bookId) {
         borrowService.borrow(request.getSession().getAttribute("readerId").toString(), bookId, request.getSession().getAttribute("userId").toString());
-        System.out.println("1111");
         return new ResultInfo(200);
     }
 

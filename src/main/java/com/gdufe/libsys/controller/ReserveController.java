@@ -70,7 +70,7 @@ public class ReserveController extends BaseController {
         return bookStockService.selectAll(bookStockQuery);
     }
 
-    //归还图书
+    //选择图书
     @PostMapping("/selectBook")
     @ResponseBody
     public ResultInfo selectBookById(HttpServletRequest request, Integer bookId) {
