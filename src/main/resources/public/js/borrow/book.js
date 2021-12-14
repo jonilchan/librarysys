@@ -14,7 +14,6 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            // {type: "checkbox", fixed: "left", width: 50},
             {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
             {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
             {field: 'categoryId', title: '类别', minWidth: 50, align: "center", templet : function(data) {// 替换数据
@@ -182,8 +181,7 @@ layui.use(['table', 'layer', "form"], function () {
 
     //弹出框
     function openAddOrUpdateBookStock(isbn) {
-        var title = "图书库存管理";
-        // alert(data[0].isbn)
+        var title = "图书库存";
         layui.layer.open({
             title: title,
             type: 2,
@@ -197,7 +195,6 @@ layui.use(['table', 'layer', "form"], function () {
     function openBookDetail(isbn) {
         console.log(isbn)
         var title = "图书详情";
-        // alert(data[0].isbn)
         layui.layer.open({
             title: title,
             type: 2,

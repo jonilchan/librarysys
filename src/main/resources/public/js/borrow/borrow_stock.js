@@ -5,7 +5,7 @@ layui.use(['table', 'layer', "form"], function () {
 
     var tableIns = table.render({
         elem: '#userList',
-        url: ctx + '/borrow/borrowList',
+        url: ctx + '/borrow/book_stock',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -14,7 +14,6 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            // {type: "checkbox", fixed: "left", width: 50},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
@@ -45,9 +44,8 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                isbn: $("input[name='isbn']").val(),// isbn
-                bookName: $("input[name='bookName']").val(),//书名
-                author: $("input[name='author']").val()    //作者
+                bookId: $("input[name='bookId']").val(),
+                bookLocation: $("select[name='bookLocation']").val()
             }
         })
     });
@@ -67,18 +65,6 @@ layui.use(['table', 'layer', "form"], function () {
                 break;
         }
     });
-    // 确认读者ID
-    // form.on('submit(saveBtn)', function (data) {
-    //     data = data.field;
-    //     $.post(ctx + "/borrow/getUserId", {readerId:data.readerId}, function (data) {
-    //         if (data.code == 200) {
-    //             layer.msg("确认读者ID成功");
-    //             tableIns.reload() ;
-    //         } else {
-    //             layer.msg(data.msg);
-    //         }
-    //     })
-    // });
 
     table.on('tool(users)',function (obj) {
         var layEvent =obj.event;

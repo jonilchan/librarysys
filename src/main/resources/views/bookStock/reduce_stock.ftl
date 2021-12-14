@@ -30,16 +30,6 @@
     </div>
 
 
-<#--    <div class="layui-form-item layui-row">-->
-<#--        <div class="layui-col-xs6">-->
-<#--            <label class="layui-form-label">广州馆藏量</label>-->
-<#--            <div class="layui-input-block">-->
-<#--                <input type="text" class="layui-input"-->
-<#--                       name="numberOfInputs"  placeholder="没有则为空">-->
-<#--            </div>-->
-<#--        </div>-->
-<#--    </div>-->
-
 
 
 

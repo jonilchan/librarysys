@@ -15,7 +15,6 @@ layui.use(['table', 'layer', "form"], function () {
         id: "userListTable",
         cols: [[
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
-            // {field: "isbn", title: 'isbn', fixed: "true", width: 150},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
                         return "可借";
@@ -47,9 +46,9 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                bookId: $("input[name='bookId']").val(),// 用户名
-                status: $("input[name='status']").val(),// 邮箱
-                bookLocation: $("input[name='bookLocation']").val()    //手机号
+                bookId: $("input[name='bookId']").val(),
+                status: $("select[name='status']").val(),
+                bookLocation: $("select[name='bookLocation']").val()
             }
         })
     });

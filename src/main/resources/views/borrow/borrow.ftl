@@ -31,14 +31,6 @@
 
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
-<#--            <a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">-->
-<#--                <i class="layui-icon">&#xe608;</i>-->
-<#--                添加用户-->
-<#--            </a>-->
-<#--            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">-->
-<#--                <i class="layui-icon">&#xe608;</i>-->
-<#--                删除用户-->
-<#--            </a>-->
         </div>
     </script>
     <!--操作-->

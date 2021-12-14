@@ -38,7 +38,7 @@ public class BookStockController extends BaseController {
         return "bookStock/book_stock";
     }
 
-    //跳转到书籍详情页
+    //跳转到书籍库存页
     @GetMapping("/borrowInfo")
     public String borrowStockInfo(String isbn, HttpServletRequest request) {
         request.getSession().setAttribute("isbn", isbn);
@@ -46,7 +46,7 @@ public class BookStockController extends BaseController {
     }
 
     //查询该isbn下的图书库存
-    @GetMapping("list")
+    @RequestMapping("list")
     @ResponseBody
     public Map<String, Object> queryBookStocksByParams(BookStockQuery bookStockQuery, HttpServletRequest request) {
         bookStockQuery.setIsbn((String) request.getSession().getAttribute("isbn"));

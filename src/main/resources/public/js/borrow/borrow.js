@@ -100,9 +100,9 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                isbn: $("input[name='isbn']").val(),// 用户名
-                bookName: $("input[name='bookName']").val(),// 邮箱
-                author: $("input[name='author']").val()    //手机号
+                isbn: $("input[name='isbn']").val(),
+                bookName: $("input[name='bookName']").val(),
+                author: $("input[name='author']").val()
             }
         })
     });
@@ -115,7 +115,7 @@ layui.use(['table', 'layer', "form"], function () {
     //弹出框--库存信息
     function openBookStockInfo(data) {
         var readerId = prompt("请输入读者ID：");
-        if (readerId == "undefined" || readerId == null || readerId == ''){
+        if (readerId === "undefined" || readerId == null || readerId === ''){
             readerId = prompt("请输入正确的读者ID：");
         }
         var title = "图书库存记录";

@@ -140,7 +140,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.selectById(userId);
         user.setUserName(userName);
         user.setIdentity(identity);
-        if (userPassword != null && userPassword != ""){
+        if (userPassword != null && userPassword != "") {
             user.setUserPassword(Md5Util.encode(userPassword));
         }
         user.setStatus(status);

@@ -47,9 +47,9 @@ layui.use(['table', 'layer', "form"], function () {
                 curr: 1
             },
             where: {
-                bookId: $("input[name='bookId']").val(),// 用户名
-                status: $("input[name='status']").val(),// 邮箱
-                bookLocation: $("input[name='bookLocation']").val()    //手机号
+                bookId: $("input[name='bookId']").val(),
+                status: $("select[name='status']").val(),
+                bookLocation: $("select[name='bookLocation']").val()
             }
         })
     });

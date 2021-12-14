@@ -62,16 +62,14 @@ public class BorrowController extends BaseController {
     @ResponseBody
     public Map<String, Object> queryBookStocksByParams(HttpServletRequest request, BookStockQuery bookStockQuery) {
         bookStockQuery.setIsbn(request.getSession().getAttribute("isbn").toString());
-        bookStockQuery.setStatus(10);
         return bookStockService.selectAll(bookStockQuery);
     }
 
     //查询该isbn下的图书库存(处理预约按钮对应的
-    @GetMapping("/borrowList")
+    @RequestMapping("/borrowList")
     @ResponseBody
     public Map<String, Object> queryBorrowStocksByParams(HttpServletRequest request, BookStockQuery bookStockQuery) {
         bookStockQuery.setIsbn(request.getSession().getAttribute("isbn").toString());
-        bookStockQuery.setStatus(10);
         return bookStockService.selectAll(bookStockQuery);
     }
 

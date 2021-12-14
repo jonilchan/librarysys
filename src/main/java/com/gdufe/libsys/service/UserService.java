@@ -3,7 +3,6 @@ package com.gdufe.libsys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.query.UserQuery;
-import com.gdufe.libsys.utils.ResultInfo;
 
 import java.util.Map;
 

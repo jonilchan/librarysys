@@ -10,16 +10,12 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-<#--                    <input type="text" name="isbn"-->
-<#--                           class="layui-input-->
-<#--					searchVal" placeholder="isbn"/>-->
                     <p>ISBN：${(isbn)!"获取错误"}&nbsp;</p>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="bookId" class="layui-input
-					searchVal" placeholder="bookId"/>
+                    <input type="text" name="bookId" class="layui-input searchVal" placeholder="图书ID"/>
                 </div>
-                <div class="layui-input-inline ">
+                <div class="layui-input-inline">
                     <select name="status" class="layui-input searchVal">
                         <option value="">图书状态</option>
                         <option value="0">可借</option>

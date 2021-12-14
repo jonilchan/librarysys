@@ -14,12 +14,14 @@
                     <p>读者ID：${(readerId)!"获取错误"}&nbsp;</p>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="author" class="layui-input
-					searchVal" placeholder="图书ID"/>
+                    <input type="text" name="bookId" class="layui-input searchVal" placeholder="图书ID"/>
                 </div>
-                <div class="layui-input-inline">
-                    <input type="text" name="author" class="layui-input
-					searchVal" placeholder="馆藏地址"/>
+                <div class="layui-input-inline ">
+                    <select name="bookLocation" class="layui-input searchVal">
+                        <option value="">馆藏位置</option>
+                        <option value="0">三水</option>
+                        <option value="1">广州</option>
+                    </select>
                 </div>
                 <a class="layui-btn search_btn" data-type="reload"><i
                             class="layui-icon">&#xe615;</i> 搜索</a>
