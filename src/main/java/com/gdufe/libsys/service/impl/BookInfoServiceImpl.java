@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -54,16 +55,16 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     //把图书信息封装成一个方法
     public List<BookInfo> getBookInfos(BookInfoQuery bookInfoQuery) {
         QueryWrapper<BookInfo> queryWrapper = new QueryWrapper<>();
-        if (bookInfoQuery.getBookName() != null && bookInfoQuery.getBookName() != "") {
+        if (bookInfoQuery.getBookName() != null && !Objects.equals(bookInfoQuery.getBookName(), "")) {
             queryWrapper.like("book_name", bookInfoQuery.getBookName());
         }
-        if (bookInfoQuery.getIsbn() != null && bookInfoQuery.getIsbn() != "") {
+        if (bookInfoQuery.getIsbn() != null && !Objects.equals(bookInfoQuery.getIsbn(), "")) {
             queryWrapper.like("isbn", bookInfoQuery.getIsbn());
         }
-        if (bookInfoQuery.getAuthor() != null && bookInfoQuery.getAuthor() != "") {
+        if (bookInfoQuery.getAuthor() != null && !Objects.equals(bookInfoQuery.getAuthor(), "")) {
             queryWrapper.like("author", bookInfoQuery.getAuthor());
         }
-        if (bookInfoQuery.getPublisher() != null && bookInfoQuery.getPublisher() != "") {
+        if (bookInfoQuery.getPublisher() != null && !Objects.equals(bookInfoQuery.getPublisher(), "")) {
             queryWrapper.like("publisher", bookInfoQuery.getPublisher());
         }
         List<BookInfo> bookInfos = bookInfoMapper.selectList(queryWrapper);

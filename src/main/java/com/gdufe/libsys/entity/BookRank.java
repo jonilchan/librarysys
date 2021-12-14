@@ -25,7 +25,7 @@ public class BookRank implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 书Id
+     * 图书Id
      */
     private Integer bookId;
 

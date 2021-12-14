@@ -23,10 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,7 +49,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //用户登录
     @Override
     public void login(String userId, String userPassword) {
-        ResultInfo resultInfo = new ResultInfo();
         //数据库查询用户信息
         User user = userMapper.selectById(userId);
         AssertUtil.isTrue(null == user, "不存在该用户！");
@@ -63,7 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             long c = currentT.getTime();
             long b = borrowT.getTime();
             long millis = c - b;
-            int lastLoginDay = 0;
+            int lastLoginDay;
             lastLoginDay = (int) TimeUnit.MILLISECONDS.toDays(millis) - 1;
             if (lastLoginDay > 0) {
                 user.setPwErrortimes(0);
@@ -88,9 +84,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateUserPassword(String userId, String userOldPassword, String newPassword, String confirmPassword) {
 
         //判断更新的数据是否为空值
-        AssertUtil.isTrue((userOldPassword.equals("") || userOldPassword == null), "旧密码不能为空！");
-        AssertUtil.isTrue((newPassword.equals("") || newPassword == null), "新密码不能为空！");
-        AssertUtil.isTrue((confirmPassword.equals("") || confirmPassword == null), "确认密码不能为空！");
+        AssertUtil.isTrue(userOldPassword.equals(""), "旧密码不能为空！");
+        AssertUtil.isTrue(newPassword.equals(""), "新密码不能为空！");
+        AssertUtil.isTrue(confirmPassword.equals(""), "确认密码不能为空！");
         //判断确认密码是否一致
         AssertUtil.isTrue(!(newPassword.equals(confirmPassword)), "确认密码与新密码不一致！");
         //如果新旧密码一致
@@ -140,7 +136,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.selectById(userId);
         user.setUserName(userName);
         user.setIdentity(identity);
-        if (userPassword != null && userPassword != "") {
+        if (userPassword != null && !userPassword.equals("")) {
             user.setUserPassword(Md5Util.encode(userPassword));
         }
         user.setStatus(status);
@@ -161,14 +157,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Map<String, Object> queryUsersByParams(UserQuery userQuery) {
         Map<String, Object> map = new HashMap<>();
-        QueryWrapper<User> queryWrapper = new QueryWrapper();
-        if (userQuery.getUserId() != null && userQuery.getUserId() != "") {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        if (userQuery.getUserId() != null && !Objects.equals(userQuery.getUserId(), "")) {
             queryWrapper.eq("user_id", userQuery.getUserId());
         }
-        if (userQuery.getUserName() != null && userQuery.getUserName() != "") {
+        if (userQuery.getUserName() != null && !Objects.equals(userQuery.getUserName(), "")) {
             queryWrapper.like("user_name", userQuery.getUserName());
         }
-        if (userQuery.getStatus() != null && userQuery.getStatus() != "") {
+        if (userQuery.getStatus() != null && !Objects.equals(userQuery.getStatus(), "")) {
             queryWrapper.eq("status", userQuery.getStatus());
         }
         PageHelper.startPage(userQuery.getPage(), userQuery.getLimit());

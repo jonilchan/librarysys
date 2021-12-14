@@ -58,7 +58,7 @@ public class BookRankServiceImpl extends ServiceImpl<BookRankMapper, BookRank> i
             bookRankVoArrayList.add(bookRankVo);
         }
         //选择作者
-        if (rankQuery.getAuthor() != null && rankQuery.getAuthor() != "") {
+        if (rankQuery.getAuthor() != null && !Objects.equals(rankQuery.getAuthor(), "")) {
             bookRankVoArrayList.removeIf(bookRankVo -> !bookRankVo.getAuthor().contains(rankQuery.getAuthor()));
         }
         //升序，降序

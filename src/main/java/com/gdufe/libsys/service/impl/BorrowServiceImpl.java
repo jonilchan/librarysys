@@ -84,7 +84,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     @Transactional
     public void book(String userId, String isbn) {
         //查询符合条件的借书书籍
-        QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper();
+        QueryWrapper<BookStock> bookStockWrapper = new QueryWrapper<>();
         bookStockWrapper.eq("isbn", isbn);
         BookInfo bookInfo = bookInfoMapper.selectById("isbn");
         List<BookStock> bookStocks = bookStockMapper.selectList(bookStockWrapper);
@@ -94,7 +94,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         borrowQueryWrapper.eq("reader_id", userId);
         List<Borrow> borrowList = borrowMapper.selectList(borrowQueryWrapper);
         User user = userMapper.selectById(userId);
-        Integer size = borrowList.size();
+        int size = borrowList.size();
         Integer identity = user.getIdentity();
         AssertUtil.isTrue(bookInfo.getStatus() == 1, "该书暂停借阅！");
         AssertUtil.isTrue(size == 5 && identity == 0, "借阅数量达到上限");
@@ -136,7 +136,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     public void urgereturn(Integer borrowId) {
         UserMsg userMsg = new UserMsg();
         Borrow borrow = borrowMapper.selectById(borrowId);
-        AssertUtil.isTrue(borrow.getStatus() == BorrowStatusEnum.已还.getCode(), "本书籍已归还！");
+        AssertUtil.isTrue(Objects.equals(borrow.getStatus(), BorrowStatusEnum.已还.getCode()), "本书籍已归还！");
         BookInfo bookInfo = bookInfoMapper.selectById(bookStockMapper.selectById(borrow.getBookId()).getIsbn());
         userMsg.setUserId(borrow.getReaderId());
         userMsg.setCreateTime(LocalDateTime.now());
@@ -149,7 +149,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         Borrow borrow = borrowMapper.selectById(borrowId);
         AssertUtil.isTrue(borrow.getStatus() == 1, "该书已经归还！");
         AssertUtil.isTrue(borrow.getRenew() == 1, "该书已经续借！！");
-        AssertUtil.isTrue(borrow == null, "不存在该订单！");
         borrow.setRenew(1);
         borrowMapper.updateById(borrow);
     }
@@ -166,7 +165,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         if (borrowQuery.getStatus() != null) {
             queryWrapper.eq("status", borrowQuery.getStatus());
         }
-        if (borrowQuery.getReaderId() != null && borrowQuery.getReaderId() != "") {
+        if (borrowQuery.getReaderId() != null && !Objects.equals(borrowQuery.getReaderId(), "")) {
             queryWrapper.like("reader_id", borrowQuery.getReaderId());
         }
         if (borrowQuery.getFine() != null && borrowQuery.getFine() == 0) {
@@ -181,7 +180,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         if (borrowQuery.getFineFin() != null && borrowQuery.getFineFin() == 1) {
             queryWrapper.isNotNull("return_time");
         }
-        if (borrowQuery.getOperator() != null && borrowQuery.getOperator() != "") {
+        if (borrowQuery.getOperator() != null && !Objects.equals(borrowQuery.getOperator(), "")) {
             queryWrapper.like("operator", borrowQuery.getOperator());
         }
         List<Borrow> borrows = borrowMapper.selectList(queryWrapper);

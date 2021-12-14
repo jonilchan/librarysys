@@ -118,7 +118,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         borrowQueryWrapper.eq("reader_id", readerId).eq("status", 0);
         List<Borrow> borrowList = borrowMapper.selectList(borrowQueryWrapper);
         User user = userMapper.selectById(readerId);
-        Integer size = borrowList.size();
+        int size = borrowList.size();
         Integer identity = user.getIdentity();
         AssertUtil.isTrue(size == 5 && (identity == 0 || identity == 2), "借阅数量达到上限");
         AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上限");
@@ -153,7 +153,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
     @Transactional
     public void book(String readerId, String isbn) {
         User user = userMapper.selectById(readerId);
-        QueryWrapper<Borrow> queryWrapper1 = new QueryWrapper();
+        QueryWrapper<Borrow> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.eq("reader_id", readerId).eq("status", 0);
         List<Borrow> borrows = borrowMapper.selectList(queryWrapper1);
         for (Borrow borrow : borrows) {
@@ -212,14 +212,13 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         if (reserveQuery.getReaderIdentity() != null) {
             queryWrapper.eq("reader_identity", reserveQuery.getReaderIdentity());
         }
-        if (reserveQuery.getIsbn() != null && reserveQuery.getIsbn() != "") {
+        if (reserveQuery.getIsbn() != null && !Objects.equals(reserveQuery.getIsbn(), "")) {
             queryWrapper.like("isbn", reserveQuery.getIsbn());
         }
-        if (reserveQuery.getReaderId() != null && reserveQuery.getReaderId() != "") {
-            queryWrapper.eq("reader_id", reserveQuery.getReaderId());
+        if (reserveQuery.getReaderId() != null && !Objects.equals(reserveQuery.getReaderId(), "")) {
+            queryWrapper.like("reader_id", reserveQuery.getReaderId());
         }
         PageHelper.startPage(reserveQuery.getPage(), reserveQuery.getLimit());
-        List<Reserve> reserves = reserveMapper.selectList(queryWrapper);
-        return reserves;
+        return reserveMapper.selectList(queryWrapper);
     }
 }
