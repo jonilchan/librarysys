@@ -115,6 +115,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
 
     //归还
     @Override
+    @Transactional
     public void giveback(Integer borrowId) {
         Borrow borrow = borrowMapper.selectById(borrowId);
         borrow.setReturnTime(LocalDateTime.now());
@@ -133,6 +134,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
 
     //催还
     @Override
+    @Transactional
     public void urgereturn(Integer borrowId) {
         UserMsg userMsg = new UserMsg();
         Borrow borrow = borrowMapper.selectById(borrowId);
@@ -140,11 +142,13 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         BookInfo bookInfo = bookInfoMapper.selectById(bookStockMapper.selectById(borrow.getBookId()).getIsbn());
         userMsg.setUserId(borrow.getReaderId());
         userMsg.setCreateTime(LocalDateTime.now());
-        userMsg.setMsg("您的书籍《" + bookInfo.getBookName() + "》已超时未还！请尽快到图书馆归还！");
+        userMsg.setMsg("您借阅的书籍《" + bookInfo.getBookName() + "》已超时未还！请尽快到图书馆归还！");
         userMsgMapper.insert(userMsg);
     }
 
+    //续借
     @Override
+    @Transactional
     public void renewBorrow(Integer borrowId) {
         Borrow borrow = borrowMapper.selectById(borrowId);
         AssertUtil.isTrue(borrow.getStatus() == 1, "该书已经归还！");

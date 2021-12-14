@@ -109,7 +109,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         bookInfo.setEnterTime(LocalDateTime.now());
         bookInfo.setBookPic(bookPic);
         bookInfo.setBookDescription(bookDescription);
-        AssertUtil.isTrue(bookInfoMapper.insert(bookInfo) < 1, 201, "添加用户失败");
+        AssertUtil.isTrue(bookInfoMapper.insert(bookInfo) < 1, 201, "添加书籍失败");
     }
 
     @Override
@@ -120,7 +120,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         bookInfo.setPublisher(publisher);
         bookInfo.setCategoryId(categoryId);
         bookInfo.setUpdateTime(LocalDateTime.now());
-        AssertUtil.isTrue(bookInfoMapper.updateById(bookInfo) < 1, 201, "编辑失败");
+        AssertUtil.isTrue(bookInfoMapper.updateById(bookInfo) < 1, 201, "编辑图书信息失败");
     }
 
     @Override

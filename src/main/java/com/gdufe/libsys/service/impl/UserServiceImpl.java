@@ -144,7 +144,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
 
-    //申请挂失
+    //挂失
     @Override
     public void lossApply(String userId, String password) {
         User user = userMapper.selectById(userId);

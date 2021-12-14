@@ -108,8 +108,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
 
     //选择预约书籍
     @Override
-    public ResultInfo selectBookById(Integer bookId, String readerId, Integer reserveId, String operator) {
-
+    public void selectBookById(Integer bookId, String readerId, Integer reserveId, String operator) {
         Reserve reserve = reserveMapper.selectById(reserveId);
         AssertUtil.isTrue(reserve.getStatus() == 1, "该预约已经处理");
         AssertUtil.isTrue(reserve.getStatus() == 2, "该预约已经失效");
@@ -122,7 +121,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         Integer identity = user.getIdentity();
         AssertUtil.isTrue(size == 5 && (identity == 0 || identity == 2), "借阅数量达到上限");
         AssertUtil.isTrue(size == 20 && identity == 1, "借阅数量达到上限");
-
         //填充Rank表
         BookRank bookRank = new BookRank();
         bookRank.setBookId(bookId);
@@ -135,7 +133,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         borrow.setReaderId(readerId);
         //操作员
         borrow.setOperator(operator);
-
         borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
         borrowMapper.insert(borrow);
         QueryWrapper<BookStock> bookStockQueryWrapper = new QueryWrapper<>();
@@ -145,7 +142,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         bookStockMapper.updateById(bookStock);
         reserve.setStatus(ReserveStatusEnum.已取书.getCode());
         reserveMapper.updateById(reserve);
-        return new ResultInfo(200);
     }
 
     //预约图书
@@ -178,6 +174,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         reserveMapper.insert(reserve);
     }
 
+    //提醒取书
     @Override
     public void remindBook(Integer reserveId) {
         QueryWrapper<Reserve> queryWrapper = new QueryWrapper<Reserve>().eq("reserve_id", reserveId);
@@ -190,6 +187,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         userMsgMapper.insert(userMsg);
     }
 
+    //取消预约
     @Override
     public void cancelReserve(Integer reserveId) {
         Reserve reserve = reserveMapper.selectById(reserveId);
@@ -198,6 +196,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         reserveMapper.updateById(reserve);
     }
 
+    //查询预约
     public List<Reserve> queryReserve(ReserveQuery reserveQuery) {
         QueryWrapper<Reserve> queryWrapper = new QueryWrapper<>();
         if (reserveQuery.getReserveId() != null) {

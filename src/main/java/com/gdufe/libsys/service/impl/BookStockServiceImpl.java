@@ -54,6 +54,7 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
         return map;
     }
 
+    //添加库存
     @Override
     public void addStock(String isbn, int bookAmount, int bookLocation) {
         for (int i = 0; i < bookAmount; i++) {
@@ -65,6 +66,7 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
         }
     }
 
+    //减少库存
     @Override
     public void reduceStock(String isbn, int bookAmount, int bookLocation) {
         QueryWrapper<BookStock> objectQueryWrapper = new QueryWrapper<>();
@@ -78,8 +80,6 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
             i++;
             if (i == bookAmount) break;
         }
-
-
     }
 
     @Override
@@ -105,6 +105,8 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
     public void transferToGZ(Integer[] bookIds) {
         List<BookStock> bookStockList = bookStockMapper.selectBatchIds(Arrays.asList(bookIds));
         for (BookStock bookStock : bookStockList) {
+            AssertUtil.isTrue(bookStock.getStatus() == 1, "该书处于借出状态！无法转移");
+            AssertUtil.isTrue(bookStock.getStatus() == 2, "该书处于出库状态！无法转移");
             bookStock.setBookLocation(1);
         }
         updateBatchById(bookStockList);

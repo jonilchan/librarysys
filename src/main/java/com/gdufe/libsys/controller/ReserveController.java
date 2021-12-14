@@ -74,7 +74,8 @@ public class ReserveController extends BaseController {
     @PostMapping("/selectBook")
     @ResponseBody
     public ResultInfo selectBookById(HttpServletRequest request, Integer bookId) {
-        return reserveService.selectBookById(bookId, readerId, reserveId, request.getSession().getAttribute("userId").toString());
+        reserveService.selectBookById(bookId, readerId, reserveId, request.getSession().getAttribute("userId").toString());
+        return new ResultInfo(200);
     }
 
     //预约书籍
