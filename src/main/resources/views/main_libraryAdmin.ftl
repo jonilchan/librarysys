@@ -76,11 +76,11 @@
                                     class="layui-left-nav">图书排行</span></a>
                     </li>
 
-                    <li class="layui-nav-item">
-                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="user/toManagePage" target="_self"><i class="iconfont icon-yonghuguanli">&nbsp;</i><span
-                                    class="layui-left-nav">用户管理</span></a>
-                    </li>
+<#--                    <li class="layui-nav-item">-->
+<#--                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"-->
+<#--                           data-tab="user/toManagePage" target="_self"><i class="iconfont icon-yonghuguanli">&nbsp;</i><span-->
+<#--                                    class="layui-left-nav">用户管理</span></a>-->
+<#--                    </li>-->
 
                     <li class="layui-nav-item">
                         <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
@@ -110,11 +110,11 @@
 
 
 
-                    <li class="layui-nav-item">
-                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"
-                           data-tab="druid/index.html" target="_self"><i class="iconfont icon-xitongjiankong">&nbsp;</i><span
-                                    class="layui-left-nav">系统监控</span></a>
-                    </li>
+<#--                    <li class="layui-nav-item">-->
+<#--                        <a href="javascript:" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11"-->
+<#--                           data-tab="druid/index.html" target="_self"><i class="iconfont icon-xitongjiankong">&nbsp;</i><span-->
+<#--                                    class="layui-left-nav">系统监控</span></a>-->
+<#--                    </li>-->
 
 
                     <span class="layui-nav-bar" style="top: 201px; height: 0px; opacity: 0;"></span>

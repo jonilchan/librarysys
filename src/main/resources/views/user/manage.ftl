@@ -24,7 +24,6 @@
                         <option value="1">挂失</option>
                         <option value="2">注销</option>
                         <option value="3">暂停借阅</option>
-                        <option value="4">挂失申请中</option>
                     </select>
                 </div>
 

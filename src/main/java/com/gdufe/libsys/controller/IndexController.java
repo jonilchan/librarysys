@@ -105,11 +105,11 @@ public class IndexController extends BaseController {
         String userId = request.getSession().getAttribute("userId").toString();
         User user = userService.getById(userId);
         request.setAttribute("user", user);
-        if (user.getIdentity().equals(3)) {
+        if (user.getIdentity().equals(2)) {
             return "main_libraryAdmin";
         } else if (user.getIdentity().equals(0) || user.getIdentity().equals(1)) {
             return "main_reader";
-        } else if (user.getIdentity().equals(2)) {
+        } else if (user.getIdentity().equals(3)) {
             return "main_sysAdmin";
         }
         return "main_reader";
