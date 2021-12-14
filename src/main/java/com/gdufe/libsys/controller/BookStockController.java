@@ -96,7 +96,7 @@ public class BookStockController extends BaseController {
     @ResponseBody
     public ResultInfo transferToSS(Integer[] ids) {
         bookStockService.transferToSS(ids);
-        return success("转移馆藏到三水成功");
+        return new ResultInfo(200, "转移馆藏到三水成功");
     }
 
     //转移馆藏广州
@@ -104,7 +104,7 @@ public class BookStockController extends BaseController {
     @ResponseBody
     public ResultInfo transferToGZ(Integer[] ids) {
         bookStockService.transferToGZ(ids);
-        return success("转移图书到广州成功");
+        return new ResultInfo(200, "转移图书到广州成功");
     }
 }
 
