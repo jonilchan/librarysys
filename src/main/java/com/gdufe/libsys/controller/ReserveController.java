@@ -66,7 +66,6 @@ public class ReserveController extends BaseController {
     @ResponseBody
     public Map<String, Object> queryBookStocksByParams(BookStockQuery bookStockQuery) {
         bookStockQuery.setIsbn(isbn);
-        bookStockQuery.setStatus(10);
         return bookStockService.selectAll(bookStockQuery);
     }
 

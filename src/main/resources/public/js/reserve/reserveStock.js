@@ -14,7 +14,6 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            {type: "checkbox", fixed: "left", width: 50},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             {field: 'status', title: '状态', align: 'center', templet : function(data) {// 替换数据
                     if(data.status==0){
