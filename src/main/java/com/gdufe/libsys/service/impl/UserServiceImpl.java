@@ -14,7 +14,6 @@ import com.gdufe.libsys.query.UserQuery;
 import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.AssertUtil;
 import com.gdufe.libsys.utils.Md5Util;
-import com.gdufe.libsys.utils.ResultInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,16 +99,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         AssertUtil.isTrue(!(user.getUserPassword().equals(Md5Util.encode(userOldPassword))), "旧密码错误！");
         //进行更新密码操作
         user.setUserPassword(Md5Util.encode(newPassword));
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userId);
-        userMapper.update(user, wrapper);
+        userMapper.updateById(user);
     }
 
     //修改信息
     @Override
     public void updateInfo(String userId, String username, String phone) {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userId);
         User user = userMapper.selectById(userId);
         user.setUserName(username);
         user.setPhone(phone);
@@ -179,7 +174,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public double fineOfUser(String userId) {
         QueryWrapper<Borrow> wrapper = new QueryWrapper<>();
-        wrapper.eq("reader_id", userId).eq("return_time", null);
+        wrapper.eq("reader_id", userId).isNull("return_time");
         List<Borrow> borrows = borrowMapper.selectList(wrapper);
         //查询借阅日期大于30的
         double fine = 0;

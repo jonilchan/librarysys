@@ -119,7 +119,6 @@ layui.use(['table', 'layer', "form"], function () {
             case "del":
                 delUser(table.checkStatus(obj.config.id).data);
                 break;
-
         }
     });
 
@@ -232,7 +231,7 @@ layui.use(['table', 'layer', "form"], function () {
         layui.layer.open({
             title: title,
             type: 2,
-            area: ["1200px", "850px"],
+            area: ["1200px", "900px"],
             maxmin: true,
             content: ctx + "/book/toDetailPage?isbn=" + isbn
         })
@@ -249,7 +248,7 @@ layui.use(['table', 'layer', "form"], function () {
         layui.layer.open({
             title: title,
             type: 2,
-            area: ["700px", "500px"],
+            area: ["1200px", "700px"],
             maxmin: true,
             content: url
         })
