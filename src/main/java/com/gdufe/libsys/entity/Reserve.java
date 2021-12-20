@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -41,7 +42,7 @@ public class Reserve implements Serializable {
      * 预约时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date reserveTime;
+    private LocalDateTime reserveTime;
 
     /**
      * 预约状态

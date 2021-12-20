@@ -145,7 +145,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
 
     //预约图书
     @Override
-    @Transactional
     public void book(String readerId, String isbn) {
         User user = userMapper.selectById(readerId);
         QueryWrapper<Borrow> queryWrapper1 = new QueryWrapper<>();
@@ -168,7 +167,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         reserve.setReaderId(readerId);
         reserve.setIsbn(isbn);
         reserve.setStatus(0);
-        reserve.setReserveTime(new Date());
         reserve.setReaderIdentity(user.getStatus());
         reserveMapper.insert(reserve);
     }
