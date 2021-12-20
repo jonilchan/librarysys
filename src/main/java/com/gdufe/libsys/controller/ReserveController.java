@@ -1,10 +1,12 @@
 package com.gdufe.libsys.controller;
 
 
+import com.gdufe.libsys.entity.User;
 import com.gdufe.libsys.query.BookStockQuery;
 import com.gdufe.libsys.query.ReserveQuery;
 import com.gdufe.libsys.service.BookStockService;
 import com.gdufe.libsys.service.ReserveService;
+import com.gdufe.libsys.service.UserService;
 import com.gdufe.libsys.utils.ResultInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,8 @@ public class ReserveController extends BaseController {
     private ReserveService reserveService;
     @Resource
     private BookStockService bookStockService;
+    @Resource
+    private UserService userService;
 
     //跳转到预约表
     @RequestMapping("/toReserve")
@@ -95,7 +99,7 @@ public class ReserveController extends BaseController {
 
     //跳转到预约表(读书者下的）
     @RequestMapping("/toReaderReserve")
-    public String toReaderReserve() {
+    public String toReaderReserve(HttpServletRequest request) {
         return "/reserve/reserve_readerList";
     }
 
@@ -104,9 +108,11 @@ public class ReserveController extends BaseController {
     @GetMapping("/reserveReaderList")
     @ResponseBody
     public Map<String, Object> queryReserveReaderListByParams(ReserveQuery reserveQuery, HttpServletRequest request) {
-        String userId = (String) request.getSession().getAttribute("userId");
-        Map<String, Object> stringObjectMap = reserveService.queryReserveListByParams(reserveQuery, userId);
-        return stringObjectMap;
+        User user = userService.getById(request.getSession().getAttribute("userId").toString());
+        if ((user.getIdentity() != 2 || user.getIdentity() != 3)){
+            reserveQuery.setReaderId(user.getUserId());
+        }
+        return reserveService.queryReserveListByParams(reserveQuery);
     }
 
     //读者取消预约

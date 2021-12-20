@@ -40,7 +40,6 @@
                     <option value="1" <#if user.status==1>selected="selected"</#if>>挂失</option>
                     <option value="2" <#if user.status==2>selected="selected"</#if>>注销</option>
                     <option value="3" <#if user.status==3>selected="selected"</#if>>暂停借阅</option>
-                    <option value="4" <#if user.status==3>selected="selected"</#if>>挂失申请中</option>
                 </select>
             </div>
         </div>

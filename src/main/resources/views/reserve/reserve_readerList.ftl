@@ -13,9 +13,6 @@
                     <input type="text" name="isbn" class="layui-input searchVal" placeholder="isbn"/>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="readerId" class="layui-input searchVal" placeholder="读者ID"/>
-                </div>
-                <div class="layui-input-inline">
                     <input type="text" name="reserveId" class="layui-input searchVal" placeholder="预约号"/>
                 </div>
                 <div class="layui-input-inline">
@@ -35,14 +32,6 @@
 
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
-<#--            <a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">-->
-<#--                <i class="layui-icon">&#xe608;</i>-->
-<#--                添加用户-->
-<#--            </a>-->
-<#--            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">-->
-<#--                <i class="layui-icon">&#xe608;</i>-->
-<#--                删除用户-->
-<#--            </a>-->
         </div>
     </script>
     <!--操作-->

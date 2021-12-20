@@ -9,8 +9,6 @@ import java.util.Map;
 public interface ReserveService extends IService<Reserve> {
     Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery);
 
-    Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery, String readerId);
-
     void selectBookById(Integer bookId, String userId, Integer reserveId, String operator);
 
     void book(String readerId, String book_id);

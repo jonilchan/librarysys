@@ -169,8 +169,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         if (borrowQuery.getStatus() != null) {
             queryWrapper.eq("status", borrowQuery.getStatus());
         }
-        if (borrowQuery.getReaderId() != null && !Objects.equals(borrowQuery.getReaderId(), "")) {
-            queryWrapper.like("reader_id", borrowQuery.getReaderId());
+        if (borrowQuery.getReaderId() != null && !borrowQuery.getReaderId().equals("")) {
+            queryWrapper.eq("reader_id", borrowQuery.getReaderId());
         }
         if (borrowQuery.getFine() != null && borrowQuery.getFine() == 0) {
             queryWrapper.eq("fine", borrowQuery.getFine());
@@ -184,7 +184,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         if (borrowQuery.getFineFin() != null && borrowQuery.getFineFin() == 1) {
             queryWrapper.isNotNull("return_time");
         }
-        if (borrowQuery.getOperator() != null && !Objects.equals(borrowQuery.getOperator(), "")) {
+        if (borrowQuery.getOperator() != null && !borrowQuery.getOperator().equals("")) {
             queryWrapper.like("operator", borrowQuery.getOperator());
         }
         List<Borrow> borrows = borrowMapper.selectList(queryWrapper);

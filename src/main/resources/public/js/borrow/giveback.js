@@ -76,7 +76,9 @@ layui.use(['table', 'layer', "form"], function () {
                     }else if(data.bookLocation==1){
                         return "广州";
                     }else if(data.bookLocation==2){
-                        return "山水、广州";
+                        return "三水、广州";
+                    }else if(data.bookLocation==3){
+                        return "无库存";
                     }
                 }},
             {field: 'presentStock', title: '当前库存', align: 'center'},

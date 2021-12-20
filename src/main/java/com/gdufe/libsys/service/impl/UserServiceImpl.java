@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void login(String userId, String userPassword) {
         //数据库查询用户信息
         User user = userMapper.selectById(userId);
-        AssertUtil.isTrue(null == user, "不存在该用户！");
+        AssertUtil.isTrue(null == user, "用户或密码错误！");
         LocalDateTime loginTime = user.getLoginTime();
         if (loginTime != null) {
             Date borrowT = Date.from(loginTime.atZone(ZoneId.systemDefault()).toInstant());

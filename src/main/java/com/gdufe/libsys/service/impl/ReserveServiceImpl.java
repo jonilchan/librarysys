@@ -77,34 +77,6 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         return map;
     }
 
-    @Override
-    public Map<String, Object> queryReserveListByParams(ReserveQuery reserveQuery, String readerId) {
-        Map<String, Object> map = new HashMap<>();
-        reserveQuery.setReaderId(readerId);
-        List<Reserve> reserves = queryReserve(reserveQuery);
-        List<BookInfo> bookInfos = bookInfoService.getBookInfos(new BookInfoQuery());
-        ArrayList<ReserveVo> reserveVos = new ArrayList<>();
-        for (Reserve reserve : reserves) {
-            for (BookInfo bookInfo : bookInfos) {
-                if (reserve.getIsbn().equals(bookInfo.getIsbn())) {
-                    ReserveVo reserveVo = new ReserveVo();
-                    BeanUtils.copyProperties(bookInfo, reserveVo);
-                    BeanUtils.copyProperties(reserve, reserveVo);
-                    reserveVos.add(reserveVo);
-                    break;
-                }
-            }
-        }
-        PageInfo<ReserveVo> pageInfo = new PageInfo<>(reserveVos);
-        PageInfo<Reserve> pageInfo1 = new PageInfo<>(reserves);
-        map.put("code", 0);
-        map.put("msg", "");
-        map.put("count", pageInfo1.getTotal());
-        map.put("data", pageInfo.getList());
-        return map;
-    }
-
-
     //选择预约书籍
     @Override
     public void selectBookById(Integer bookId, String readerId, Integer reserveId, String operator) {
@@ -212,7 +184,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
             queryWrapper.like("isbn", reserveQuery.getIsbn());
         }
         if (reserveQuery.getReaderId() != null && !Objects.equals(reserveQuery.getReaderId(), "")) {
-            queryWrapper.like("reader_id", reserveQuery.getReaderId());
+            queryWrapper.eq("reader_id", reserveQuery.getReaderId());
         }
         PageHelper.startPage(reserveQuery.getPage(), reserveQuery.getLimit());
         return reserveMapper.selectList(queryWrapper);
