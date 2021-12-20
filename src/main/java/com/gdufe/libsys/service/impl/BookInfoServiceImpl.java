@@ -85,12 +85,16 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
                 }
             }
             bookInfo.setPresentStock(i);
-            if (j == 0) {
-                bookInfo.setBookLocation(0);
-            } else if (j == bookStocks.size()) {
-                bookInfo.setBookLocation(1);
-            } else {
-                bookInfo.setBookLocation(2);
+            if(i == 0){
+                bookInfo.setBookLocation(3);
+            }else {
+                if (j == 0) {
+                    bookInfo.setBookLocation(0);
+                } else if (j == bookStocks.size()) {
+                    bookInfo.setBookLocation(1);
+                } else {
+                    bookInfo.setBookLocation(2);
+                }
             }
             bookInfoMapper.updateById(bookInfo);
         }
@@ -104,8 +108,8 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         bookInfo.setBookName(bookName);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
-        bookInfo.setStatus(0);
         bookInfo.setCategoryId(categoryId);
+        bookInfo.setBookLocation(3);
         bookInfo.setEnterTime(LocalDateTime.now());
         bookInfo.setBookPic(bookPic);
         bookInfo.setBookDescription(bookDescription);

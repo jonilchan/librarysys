@@ -62,7 +62,7 @@ public class BookInfo implements Serializable {
     private Integer status;
 
     /**
-     * 0三水，1广州，2三水广州
+     * 0三水，1广州，2三水广州,3未设定
      */
     private Integer bookLocation;
 
