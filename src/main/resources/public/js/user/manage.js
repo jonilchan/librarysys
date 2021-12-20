@@ -38,8 +38,6 @@ layui.use(['table', 'layer', "form"], function () {
                         return "注销";
                     }else if(data.status==3){
                         return "暂停借阅";
-                    }else if(data.status==4){
-                        return "挂失申请中";
                     }
                 }},
             {field: 'createTime', title: '创建时间', align: 'center'},
