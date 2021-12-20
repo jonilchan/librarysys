@@ -14,7 +14,6 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            // {type: "checkbox", fixed: "left", width: 50},
             {field: "borrowId", title: '借阅ID', fixed: "true", width: 150},
             {field: 'bookId', title: '图书ID', minWidth: 50, align: "center"},
             {field: 'readerId', title: '读者ID', minWidth: 50, align: "center"},
@@ -88,7 +87,6 @@ layui.use(['table', 'layer', "form"], function () {
             btn: ['确定', '取消']
         }, function (index) {
             layer.close(index);
-            // ids=10&ids=20&ids=30
             var ids = "ids=";
             for (var i = 0; i < datas.length; i++) {
                 if (i < datas.length - 1) {
