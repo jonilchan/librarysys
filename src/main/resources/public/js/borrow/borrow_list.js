@@ -122,7 +122,7 @@ layui.use(['table', 'layer', "form"], function () {
             layer.confirm("确认归还当前书籍?", {icon: 3, title: "书籍归还"}, function (index) {
                 $.get(ctx + "/borrow/giveback", {borrowId: obj.data.borrowId}, function (data) {
                     if (data.code == 200) {
-                        layer.msg("书籍归还申请成功");
+                        layer.msg("书籍归还成功");
                         tableIns.reload() ;
                     } else {
                         layer.msg(data.msg);
@@ -133,7 +133,7 @@ layui.use(['table', 'layer', "form"], function () {
             layer.confirm("确认催还当前书籍?", {icon: 3, title: "书籍催还"}, function (index) {
                 $.get(ctx + "/borrow/urgereturn", {borrowId: obj.data.borrowId}, function (data) {
                     if (data.code == 200) {
-                        layer.msg("书籍催还申请成功");
+                        layer.msg("书籍催还成功");
                         tableIns.reload() ;
                     } else {
                         layer.msg(data.msg);

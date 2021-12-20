@@ -132,7 +132,6 @@ layui.use(['table', 'layer', "form"], function () {
             btn:['确定','取消']
         },function (index) {
             layer.close(index);
-            // var ids = datas
             var ids="ids=";
             for(var i=0;i<datas.length;i++){
                 if(i<datas.length-1){

@@ -172,7 +172,7 @@ layui.use(['table', 'layer', "form"], function () {
         }else if(layEvent == "stockManage"){
             openAddBookStock(obj.data.isbn);
         }else if (layEvent === "stop") {
-            layer.confirm("确认删确认暂停该书借阅?", {icon: 3, title: "图书管理"}, function (index) {
+            layer.confirm("确认切换该书状态?", {icon: 3, title: "图书管理"}, function (index) {
                 $.post(ctx + "/book/stopBorrowBook", {isbn: obj.data.isbn}, function (data) {
                     if (data.code == 200) {
                         layer.msg("确认成功");
@@ -213,7 +213,6 @@ layui.use(['table', 'layer', "form"], function () {
     function openAddBookStock(isbn) {
         console.log(isbn)
         var title = "图书库存管理";
-        // alert(data[0].isbn)
         layui.layer.open({
             title: title,
             type: 2,
@@ -227,7 +226,6 @@ layui.use(['table', 'layer', "form"], function () {
     function openBookDetail(isbn) {
         console.log(isbn)
         var title = "图书详情";
-        // alert(data[0].isbn)
         layui.layer.open({
             title: title,
             type: 2,

@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -46,6 +43,7 @@ public class UserMsgServiceImpl extends ServiceImpl<UserMsgMapper, UserMsg> impl
             userMsgVO.setCreateTime(DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH时mm分ss秒").format(userMsg.getCreateTime()));
             userMsgVoArrayList.add(userMsgVO);
         }
+        Collections.reverse(userMsgVoArrayList);
         PageInfo<UserMsgVo> pageInfo = new PageInfo<>(userMsgVoArrayList);
         map.put("code", 0);
         map.put("msg", "");
