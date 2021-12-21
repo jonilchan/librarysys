@@ -62,6 +62,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
         borrow.setBookId(bookId);
         borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
         AssertUtil.isTrue(borrowMapper.insert(borrow) != 1, "借阅书籍失败");
+        AssertUtil.isTrue(userMapper.selectById(readerId).getStatus() != 0, "借阅书籍失败");
         //填充Rank表
         BookStock bookStock = bookStockMapper.selectById(bookId);
         BookRank bookRank = new BookRank();

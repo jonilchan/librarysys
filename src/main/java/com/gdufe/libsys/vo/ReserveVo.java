@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -18,8 +19,8 @@ public class ReserveVo implements Serializable {
 
     private Integer readerIdentity;
 
-    private Date reserveTime;
-    //预约状态
+    private LocalDateTime reserveTime;
+
     private Integer status;
 
     private String isbn;

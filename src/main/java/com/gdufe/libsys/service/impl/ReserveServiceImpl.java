@@ -103,7 +103,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         borrow.setBookId(bookId);
         borrow.setReaderId(readerId);
         //操作员
-        borrow.setOperator(operator);
+        borrow.setOperator(userMapper.selectById(operator).getUserName());
         borrow.setStatus(BorrowStatusEnum.已借未还.getCode());
         borrowMapper.insert(borrow);
         QueryWrapper<BookStock> bookStockQueryWrapper = new QueryWrapper<>();
@@ -139,7 +139,7 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         reserve.setReaderId(readerId);
         reserve.setIsbn(isbn);
         reserve.setStatus(0);
-        reserve.setReaderIdentity(user.getStatus());
+        reserve.setReaderIdentity(user.getIdentity());
         reserveMapper.insert(reserve);
     }
 
@@ -149,6 +149,8 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve> impl
         QueryWrapper<Reserve> queryWrapper = new QueryWrapper<Reserve>().eq("reserve_id", reserveId);
         Reserve reserve = reserveMapper.selectOne(queryWrapper);
         BookInfo bookInfo = bookInfoMapper.selectById(reserve.getIsbn());
+        AssertUtil.isTrue(reserve.getStatus() == 1, "该预约已经处理");
+        AssertUtil.isTrue(reserve.getStatus() == 2, "该预约已经失效");
         UserMsg userMsg = new UserMsg();
         userMsg.setMsg("您预约的书籍《" + bookInfo.getBookName() + "》现在可以到图书馆领取！");
         userMsg.setUserId(reserve.getReaderId());
