@@ -855,15 +855,8 @@
             <div class="col-12 col-sm-6">
               <h3 class="d-inline-block d-sm-none">书名：</h3>
               <div class="col-12">
-                <img src= ${(bookInfoVo.bookPic)!"获取错误"} class="product-image" alt="Product Image">
+                <img src= ${(bookInfoVo.bookPic)!"获取错误"} class="product-image" alt="Book Image" style="width:">
               </div>
-<#--              <div class="col-12 product-image-thumbs">-->
-<#--                <div class="product-image-thumb active"><img src="/dist/img/prod-1.jpg" alt="Product Image"></div>-->
-<#--                <div class="product-image-thumb" ><img src="/dist/img/prod-2.jpg" alt="Product Image"></div>-->
-<#--                <div class="product-image-thumb" ><img src="/dist/img/prod-3.jpg" alt="Product Image"></div>-->
-<#--                <div class="product-image-thumb" ><img src="/dist/img/prod-4.jpg" alt="Product Image"></div>-->
-<#--                <div class="product-image-thumb" ><img src="/dist/img/prod-5.jpg" alt="Product Image"></div>-->
-<#--              </div>-->
             </div>
             <div class="col-12 col-sm-6">
               <h3 class="my-3">书名:${(bookInfoVo.bookName)!"获取错误"}</h3>
@@ -871,8 +864,6 @@
               <h3 class="my-3">类别：${(bookInfoVo.categoryName)!""}</h3>
               <h4>作者：${(bookInfoVo.author)!""}</h4>
               <h4>出版社：${(bookInfoVo.publisher)!""}</h4>
-<#--              <h4>馆藏地址：${(bookInfoVo.bookName)}</h4>-->
-<#--              <h4>图书状态：${(bookInfoVo.bookName)}</h4>-->
 
               <hr>
               <h4>简介：${(bookInfoVo.bookDescription)!""}</h4>

@@ -117,15 +117,6 @@ layui.use(['table', 'layer', "form"], function () {
     //弹出框--库存信息
     function openBookStockInfo(data) {
         var readerId = prompt("请输入读者ID：");
-        if (readerId === "undefined" || readerId == null || readerId === '' || readerId == 'aaa'){
-            readerId = prompt("请输入正确的读者ID：");
-        }
-        if (readerId === "undefined" || readerId == null || readerId === '' || readerId == 'aaa'){
-            readerId = prompt("请输入正确的读者ID：");
-        }
-        if (readerId === "undefined" || readerId == null || readerId === '' || readerId == 'aaa'){
-            readerId = prompt("请输入正确的读者ID：");
-        }
         var title = "图书库存记录";
         layui.layer.open({
             title: title,

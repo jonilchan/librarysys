@@ -14,7 +14,6 @@ layui.use(['table', 'layer', "form"], function () {
         toolbar: "#toolbarDemo",
         id: "userListTable",
         cols: [[
-            // {type: "checkbox", fixed: "left", width: 50},
             {field: "isbn", title: 'ISBN', fixed: "true", width: 150},
             {field: 'bookName', title: '图书名', minWidth: 50, align: "center"},
             {field: 'categoryId', title: '类别', minWidth: 50, align: "center", templet : function(data) {// 替换数据
@@ -230,13 +229,13 @@ layui.use(['table', 'layer', "form"], function () {
     function openBookDetail(isbn) {
         console.log(isbn)
         var title = "图书详情";
-        layui.layer.open({
+        var open_index = layui.layer.open({
             title: title,
             type: 2,
-            area: ["1200px", "900px"],
+            area: ["1000px", "800px"],
             maxmin: true,
             content: ctx + "/book/toDetailPage?isbn=" + isbn
-        })
+        });
     }
 
     //弹出框

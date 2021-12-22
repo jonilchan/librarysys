@@ -57,7 +57,7 @@ public class BookStock implements Serializable {
     /**
      * 出库时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime outTime;
 
 }
