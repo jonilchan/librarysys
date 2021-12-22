@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,7 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
             bookStock.setIsbn(isbn);
             bookStock.setBookLocation(bookLocation);
             bookStock.setStatus(0);
+            bookStock.setEnterTime(LocalDateTime.now());
             bookStockMapper.insert(bookStock);
         }
     }
@@ -76,6 +78,7 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
         int i = 0;
         for (BookStock bookStock : bookStocks) {
             bookStock.setStatus(2);
+            bookStock.setOutTime(LocalDateTime.now());
             bookStockMapper.updateById(bookStock);
             i++;
             if (i == bookAmount) break;
@@ -87,6 +90,7 @@ public class BookStockServiceImpl extends ServiceImpl<BookStockMapper, BookStock
         BookStock bookStock = bookStockMapper.selectById(bookId);
         AssertUtil.isTrue(bookStock.getStatus() == 1, "该书处于借出状态！无法出库");
         bookStock.setStatus(2);
+        bookStock.setOutTime(LocalDateTime.now());
         bookStockMapper.updateById(bookStock);
     }
 

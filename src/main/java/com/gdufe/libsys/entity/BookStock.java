@@ -1,12 +1,15 @@
 package com.gdufe.libsys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -45,5 +48,16 @@ public class BookStock implements Serializable {
      */
     private Integer bookLocation;
 
+    /**
+     * 入库时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime enterTime;
+
+    /**
+     * 出库时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime outTime;
 
 }

@@ -86,9 +86,11 @@ layui.use(['table', 'layer', "form"], function () {
                         return "正常";
                     }else if(data.status==1){
                         return "暂停借阅";
+                    }else if(data.status==2){
+                        return "出库";
                     }
                 }},
-            {title: '操作', minWidth: 250, templet: '#userListBar', fixed: "right", align: "center"}
+            {title: '操作', minWidth: 300, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
 
@@ -174,7 +176,7 @@ layui.use(['table', 'layer', "form"], function () {
         }else if(layEvent == "stockManage"){
             openAddBookStock(obj.data.isbn);
         }else if (layEvent === "stop") {
-            layer.confirm("确认切换该书状态?", {icon: 3, title: "图书管理"}, function (index) {
+            layer.confirm("确认切换该书暂停借阅状态?", {icon: 3, title: "图书管理"}, function (index) {
                 $.post(ctx + "/book/stopBorrowBook", {isbn: obj.data.isbn}, function (data) {
                     if (data.code == 200) {
                         layer.msg("确认成功");

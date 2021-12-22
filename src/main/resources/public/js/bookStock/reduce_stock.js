@@ -12,7 +12,7 @@ layui.use(['form', 'layer', 'formSelects'], function () {
         var url = ctx+"/bookStock/reduceStock";
         $.post(url,data.field,function (res) {
             if(res.code==200){
-                top.layer.msg("入库操作成功");
+                top.layer.msg("出库操作成功");
                 top.layer.close(index);
                 layer.closeAll("iframe");
                 // 刷新父页面

@@ -37,6 +37,8 @@ layui.use(['table', 'layer', "form"], function () {
                         return "无库存";
                     }
                 }},
+            {field: 'enterTime', title: '入库时间', align: 'center', width: 120},
+            {field: 'outTime', title: '出库时间', align: 'center', width: 120},
             {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });

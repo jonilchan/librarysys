@@ -57,7 +57,7 @@ public class BookInfo implements Serializable {
     private Integer presentStock;
 
     /**
-     * 0正常，1暂停借阅
+     * 0正常，1暂停借阅,2出库
      */
     private Integer status;
 

@@ -130,6 +130,7 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     @Override
     public void stopBookBorrw(String isbn) {
         BookInfo bookInfo = bookInfoMapper.selectById(isbn);
+
         if (bookInfo.getStatus() == 0) {
             bookInfo.setStatus(1);
         } else if (bookInfo.getStatus() == 1) {
