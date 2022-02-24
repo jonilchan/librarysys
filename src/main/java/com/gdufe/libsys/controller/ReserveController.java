@@ -30,9 +30,6 @@ import java.util.Map;
 @RequestMapping("/reserve")
 public class ReserveController extends BaseController {
 
-    String isbn;
-    String readerId;
-    Integer reserveId;
     @Resource
     private ReserveService reserveService;
     @Resource
@@ -59,17 +56,16 @@ public class ReserveController extends BaseController {
     @GetMapping("/toStock")
     public String toStock(String isbn, String readerId, Integer reserveId, HttpServletRequest request) {
         request.setAttribute("isbn", isbn);
-        this.isbn = isbn;
-        this.readerId = readerId;
-        this.reserveId = reserveId;
+        request.setAttribute("readerId", readerId);
+        request.setAttribute("reserveId", reserveId);
         return "reserve/reserve_process";
     }
 
     //查询该isbn下的图书库存(处理预约按钮对应的）
     @GetMapping("/list")
     @ResponseBody
-    public Map<String, Object> queryBookStocksByParams(BookStockQuery bookStockQuery) {
-        bookStockQuery.setIsbn(isbn);
+    public Map<String, Object> queryBookStocksByParams(HttpServletRequest request, BookStockQuery bookStockQuery) {
+        bookStockQuery.setIsbn( (String) request.getAttribute("isbn"));
         return bookStockService.selectAll(bookStockQuery);
     }
 
@@ -77,7 +73,8 @@ public class ReserveController extends BaseController {
     @PostMapping("/selectBook")
     @ResponseBody
     public ResultInfo selectBookById(HttpServletRequest request, Integer bookId) {
-        reserveService.selectBookById(bookId, readerId, reserveId, request.getSession().getAttribute("userId").toString());
+
+        reserveService.selectBookById(bookId, (String) request.getAttribute("isbn"), (Integer) request.getAttribute("reserveId"), request.getSession().getAttribute("userId").toString());
         return new ResultInfo(200);
     }
 
